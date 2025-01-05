@@ -181,11 +181,23 @@ dependencies = [
     { name = "python-dotenv" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "httpx" },
+    { name = "selectolax" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "openai", specifier = ">=1.59.3" },
     { name = "pandas", specifier = ">=2.2.3" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "selectolax", specifier = ">=0.3.27" },
 ]
 
 [[package]]
@@ -434,6 +446,54 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/3a/31/3c70bf7603cc2dca0f19bdc53b4537a797747a58875b552c8c413d963a3f/pytz-2024.2.tar.gz", hash = "sha256:2aa355083c50a0f93fa581709deac0c9ad65cca8a9e9beac660adcbd493c798a", size = 319692 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/11/c3/005fcca25ce078d2cc29fd559379817424e94885510568bc1bc53d7d5846/pytz-2024.2-py2.py3-none-any.whl", hash = "sha256:31c7c1817eb7fae7ca4b8c7ee50c72f93aa2dd863de768e1ef4245d426aa0725", size = 508002 },
+]
+
+[[package]]
+name = "selectolax"
+version = "0.3.27"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/dd/00/a5240ade1a6ca0f330fbbfb612135b8f363fd87fb450a2def11bc17f44c2/selectolax-0.3.27.tar.gz", hash = "sha256:0e058f869e55d40596a92bff59fffdb551f7135cbf938b0756e9a3bd8de1ffc5", size = 3611042 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5d/11/304e9c73c02ffc10416d376badf0e67db2c420829093894c972671984437/selectolax-0.3.27-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:000b11bbf1c730e61ddd59106cabc77b649e5ebfb3d043abfc1d6b618dab8f0a", size = 5841875 },
+    { url = "https://files.pythonhosted.org/packages/72/89/020e1f20f1e5c29959242d432e881177933205cf594bd12bed5b10c47454/selectolax-0.3.27-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a975fb54f7180d4b919e084ce54271083fd2960df734ae3045e9c3f557617136", size = 3158102 },
+    { url = "https://files.pythonhosted.org/packages/0f/f7/a7f35ec346aadc30e8351d4bb950b698da8bf0addfa87dcb7630ef1e91fb/selectolax-0.3.27-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d1388d69ddfd4d1b925f2fac9b8077d05b704bc4e93ce99c949a13bc98b6aec9", size = 7314940 },
+    { url = "https://files.pythonhosted.org/packages/1e/02/52709d8e3542912798290ea6b091218720c173309909d0bcdcac4872b0cb/selectolax-0.3.27-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:11d29154d3bf9391bacbf7df1ff869427ab82a95730a8ca41b79812e21b0f45e", size = 7350492 },
+    { url = "https://files.pythonhosted.org/packages/74/14/88e3621db5a165424e2f0781b9eea31776bac55413bae45a662b3d893192/selectolax-0.3.27-cp310-cp310-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:1459b78576081317ecebeff15eff5c8903fa1f76dd032068d1c9d23f1aa0c505", size = 6773059 },
+    { url = "https://files.pythonhosted.org/packages/1d/1c/f1e3095d14b2df050b00782701844d0027a2444672b8b950eee372bfe800/selectolax-0.3.27-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:2708c2a1546811138f3b71decb1ef1c4a89146b8245116ce60e78597c9e7f232", size = 7215119 },
+    { url = "https://files.pythonhosted.org/packages/6b/e5/e6b76d987bb9e7bcb1832e067d931a61c979aa3f139adf172c1c59ea7ffe/selectolax-0.3.27-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:292a43ca8d30f864f23467a67190f38175f33e2d46ece88e5c55a2ef4e2c38cb", size = 6770940 },
+    { url = "https://files.pythonhosted.org/packages/74/ed/4b64b219b4309ac616a1f0e76b8cc6fdb9a35a2a181c72aa2bb2f240badf/selectolax-0.3.27-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:108f8759cd01a3e4d6d5969481f7e4782d4c63fd90be85c35f6925370d43f199", size = 7299880 },
+    { url = "https://files.pythonhosted.org/packages/47/6f/f325bc81c05a60a01c2f51519dfb140d63ccce8ce556287f6a1ac43e0e4e/selectolax-0.3.27-cp310-cp310-win32.whl", hash = "sha256:ceb398b9a4e25ae72cf75b6001f599f9ca9caaf652b0928e1aa67149bc3f63f6", size = 2337401 },
+    { url = "https://files.pythonhosted.org/packages/73/f9/a88d43fa28a0d27e33e3f49db3bf402ae09f50e5dada3b66c4c085073145/selectolax-0.3.27-cp310-cp310-win_amd64.whl", hash = "sha256:613b27f9a97cbae9febdd2d0db18db445a0caedbd9dd227d5f0b061e17bfbed7", size = 2486205 },
+    { url = "https://files.pythonhosted.org/packages/48/ce/ed5d92150b23484626add45868061b50ae8e15e81c86e618500409c1058b/selectolax-0.3.27-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:003e1b51384ad7f76ed97259bfa58f7d3875f77b5621732c851b8b249d6cac2a", size = 5844836 },
+    { url = "https://files.pythonhosted.org/packages/70/52/5e59a53d86fe8b935b237156868a631f049088f5cb2e59e8ea8c12f93c5a/selectolax-0.3.27-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:d78cf0ad1853abcde986b0b6fba446bbdd9c604134eb35d1c59f7dacfa5431e6", size = 3160117 },
+    { url = "https://files.pythonhosted.org/packages/88/65/88eecd70d0d7171b82e98be2a0608b4e02a1e3ab5fffca9d72e7e6f43483/selectolax-0.3.27-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e8c9366bc38ec1e40ed5f3fa29038cc4c300d9bbf5f7c022ee32db39e271ef82", size = 7448786 },
+    { url = "https://files.pythonhosted.org/packages/f3/dd/952a75577d5a498200593d11ee808c66dc555baf919c43672c7b952f3297/selectolax-0.3.27-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f211b38ac9022263d57e713b3b23b1c6cd0aa11ac26dab9a9645cf046554cc7e", size = 7490171 },
+    { url = "https://files.pythonhosted.org/packages/1d/87/128b476f5e1b5471f586f9c7e63145019a12c6b4ef1199789429cff25858/selectolax-0.3.27-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:48d7df95bbc0c0b104df6ba9c89b2965306b1dc50ef077680c6c39eee0b0db45", size = 6893161 },
+    { url = "https://files.pythonhosted.org/packages/bb/b5/ffe0f33e65a6553d04d6a1eb5a2b281631d8bde488d0bfbf63e4b20da021/selectolax-0.3.27-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:980dfefb53b2c5ee1cb8d624b48d3153c873fb28a3d410908d6c047f76d9a533", size = 7353316 },
+    { url = "https://files.pythonhosted.org/packages/f9/c8/257a005a2148c5ae1a548b3f98a10fa33ff8f61038aa7b53a608783bbb5a/selectolax-0.3.27-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:f144a4bd5e4895fd445fa69f2304309f7191d6021378f01dccb438d6b3551685", size = 6911640 },
+    { url = "https://files.pythonhosted.org/packages/7c/1d/d83947b57f56459d38413730d2b5047e9399094f9ef8c59a45222811528a/selectolax-0.3.27-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:542183ba360b1852fd4086594393159a02331cf3f358be11e2914bda66ba63a8", size = 7428121 },
+    { url = "https://files.pythonhosted.org/packages/14/ef/adb01eb838b5971856bb5ae080937c6fad8bab34dba639bcaa6fd17de18f/selectolax-0.3.27-cp311-cp311-win32.whl", hash = "sha256:5cd8282445e079fbcbed4fd39ebe46cc78407f9ec59405c0fdede0653b61c966", size = 2336718 },
+    { url = "https://files.pythonhosted.org/packages/41/2d/c5456012366af9a222c6abc064c9800649566a032cc34aa2399d7c1d3acc/selectolax-0.3.27-cp311-cp311-win_amd64.whl", hash = "sha256:28b540f21c0395cd9a5960bc3174e9c03e9ad3f5d59ebe7e8abed2d890dd3cac", size = 2486383 },
+    { url = "https://files.pythonhosted.org/packages/44/bd/a4be1c89d0d63dc76620e41b6e6905d6a8c5c2a79eab20a58bd8824b4f56/selectolax-0.3.27-cp312-cp312-macosx_10_13_universal2.whl", hash = "sha256:23eefd8c959e211361c29d33c82665e5b0f5a50501b168d9a3bb9d241627c675", size = 5852045 },
+    { url = "https://files.pythonhosted.org/packages/ec/0b/ec42454549e3e6202a54d6a1740348a28c9126dd7d283549b0f6e3ecaf13/selectolax-0.3.27-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:fcb0e3fd823fc4a7992f15989a64bfebc91aab46873bdd567c5b2122d7ee77d5", size = 3162731 },
+    { url = "https://files.pythonhosted.org/packages/2e/74/2f2a62f9e1080746ba9c78a06f32ffd23d5dbf7403a3de2346a93522bd83/selectolax-0.3.27-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:6e5ee92a9a08db66ad36367fe4cb61f41d5aff7936577794c7ac52a782114df9", size = 7657067 },
+    { url = "https://files.pythonhosted.org/packages/01/d1/d37ac77c686db4785a55176499c0397716038dc365676df0c724d2f663b1/selectolax-0.3.27-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2ad6f3042c14746024198ef503c110a6457afe1edea5f335309226b048f7011c", size = 7699371 },
+    { url = "https://files.pythonhosted.org/packages/3f/ba/593563b54dbde3f2e00e55f522e6bb3a4e7e7a2b7c72ef39aebe04ff97c6/selectolax-0.3.27-cp312-cp312-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:afc5ebac5df69384f59a335ee09e74fb56a1bf6f2f5c617397e77265f08b2e69", size = 7084593 },
+    { url = "https://files.pythonhosted.org/packages/c6/45/e1d954aa7a3c59a0431e43a4b00e00698d9b51c687f36eec03042ecd785c/selectolax-0.3.27-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:804267ad6bd8d35ed55e8b57ab57721cd572e185adaf1027682b3a1356703324", size = 7494521 },
+    { url = "https://files.pythonhosted.org/packages/3b/66/86f046efa40ccc3ff7aaea2836f312ad862a05d3fb2b95a38c065b2b70d1/selectolax-0.3.27-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:afb76bdcb70f55f31c2e4c369324148238f9287cb03af3458cd190bc699d051e", size = 7086018 },
+    { url = "https://files.pythonhosted.org/packages/03/36/1e61ad1dab29c5b15361668fb3d25ef9a50cf412b1831a8500605d5459c3/selectolax-0.3.27-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:98f045ea4f2917e29f30fa6de6f8dcadf2d7f8e8284736428f0863f7e1b851b1", size = 7604450 },
+    { url = "https://files.pythonhosted.org/packages/6c/50/90e06dd185797351085a5f2e19be546a7d990a58305089f107bb3481d36f/selectolax-0.3.27-cp312-cp312-win32.whl", hash = "sha256:cfba7d167f8d844897f6aee9acaad4e275a04dae9702f52712f684fbe9e0a488", size = 2335258 },
+    { url = "https://files.pythonhosted.org/packages/12/b7/d1f55e69901f5f56102e54491fdeb3f54cc18fbee8578e83299122765b4f/selectolax-0.3.27-cp312-cp312-win_amd64.whl", hash = "sha256:1badda1b1c99d2ab03b5a171472a2362eb14db30490c9b472277f0ec9daf0d63", size = 2483969 },
+    { url = "https://files.pythonhosted.org/packages/12/da/07e1e75945ec4b96971bf73247e078ecd7e6449dbcb5ebd2798b6b64f9d6/selectolax-0.3.27-cp313-cp313-macosx_10_13_universal2.whl", hash = "sha256:f02a60042bd600e29025b81fe5def1615180674cab94829d9b34b4e6aa23ebe3", size = 5851477 },
+    { url = "https://files.pythonhosted.org/packages/e6/d1/aba0ca25379d7c04b040ab32cfa6b9e544dcdcc42727e766a139a8acc68b/selectolax-0.3.27-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:1d750b2c2e5ee0cbcb5e97ddd243ddd486452979b38d224ab49c44388f626a21", size = 3162361 },
+    { url = "https://files.pythonhosted.org/packages/b2/a7/708c0922a51f3436e6f7f06a1ac1e7de3db4c1d8b5fe5dbd79ccf50c8e90/selectolax-0.3.27-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8536fec1959262fc34f410083c7be990ed8f086e876ea2843a87866321a1d357", size = 7629255 },
+    { url = "https://files.pythonhosted.org/packages/4a/b1/88e7186d9b624546a662da5d8f38ec00dcf722e49718842e842cc708f82c/selectolax-0.3.27-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0f47cfd8fd053c7cfeaf3a46354b92fee7d0fdcdbe029b05096eefbeb516696c", size = 7671188 },
+    { url = "https://files.pythonhosted.org/packages/74/82/06276bc28ba75cf857ae8fcbc6f40d96e60029a6cd075a4e694773e2f6ab/selectolax-0.3.27-cp313-cp313-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:02fc623bee9166f8c0089d0a18b62e9b83d2b8e67b16b080e65df18349065403", size = 7057709 },
+    { url = "https://files.pythonhosted.org/packages/a4/bd/061cabd2d2e7329c58ccf5bc718edc511dc7b533dd5cd1d021d4432e43c4/selectolax-0.3.27-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:10f2d47626d03acd93b7e0c943f8e39e0bf93e756318a8b103a445e64ee03db3", size = 7440026 },
+    { url = "https://files.pythonhosted.org/packages/99/52/9c5c3f1bc3e8c39d984c95e1a9fd6231032502a9bc7fff056dab8f6a133a/selectolax-0.3.27-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:1d86bdca0a86f533cd9415f2090dd1a52cd251c1e9d968bf5d937b8b4d7f06ee", size = 7011383 },
+    { url = "https://files.pythonhosted.org/packages/9c/f8/5deabbb0a54a08f0bf524876dde904ce91f6103f49351c20e58b3589a086/selectolax-0.3.27-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:868687ae608594725e4d9e14a7c9a29ad12b8c622bfc46ce444f61c4292c9bde", size = 7543106 },
+    { url = "https://files.pythonhosted.org/packages/42/e0/e1c76cc2fe37fa478cf91eff9cb61781e52beee3d9bcac107278d6d24c2a/selectolax-0.3.27-cp313-cp313-win32.whl", hash = "sha256:bbdae997288652ea9accc590102219932d296d9464754ddf27df12448b4ec1ca", size = 2334753 },
+    { url = "https://files.pythonhosted.org/packages/12/e0/20a15eb4b76105d39be628a2a04e82fdb9fa2aa6cd962734cb0fb7f992da/selectolax-0.3.27-cp313-cp313-win_amd64.whl", hash = "sha256:5d5330f57edeeadedae5014c74849cd8a84a6d7fb497babe8a82a4f1999b0678", size = 2483673 },
 ]
 
 [[package]]
