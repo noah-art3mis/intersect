@@ -105,3 +105,23 @@ Assignment for the Right Word module at LIS.
             - [ ] [Ethical Tech Job Resources](https://docs.google.com/spreadsheets/d/1dFVoF6f9VU5pjaGhyyvQaBN0n6ae-iLCtlvsO1N2jhA/edit?gid=0#gid=0) 
             - [ ] https://techjobsforgood.com/
             - [ ] [80000h](https://jobs.80000hours.org/)
+
+
+
+https://www.cv-library.co.uk/job/222767113/AI-Engineer?hlkw=ai&sid=e07b67b9-2018-4cf6-9959-d52f659097a5
+https://www.cv-library.co.uk/job/222743898/Senior-Data-Scientist?hlkw=ai&sid=e07b67b9-2018-4cf6-9959-d52f659097a5
+https://www.cv-library.co.uk/job/222843844/Azure-Data-Engineer?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222802242/Scrum-Master-GSK0JP00104316?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222777460/E-commerce-Solutions-Architect?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222785821/Cyber-Security-Engineer?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222753572/Full-Stack-Developer?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222777451/Data-Scientist?hlkw=ai&sid=a0ef12f2-8c51-411c-9952-bc5e834664bc
+https://www.cv-library.co.uk/job/222851557/Domestic-Assistant-Housekeeper
+https://www.cv-library.co.uk/job/222851525/Food-Production-Operative-Sauce-packer
+https://www.cv-library.co.uk/job/222851732/Funeral-Service-Crew
+https://www.cv-library.co.uk/job/218719682/Property-Sales-Consultants-High-Income
+https://www.cv-library.co.uk/job/222850521/Aircraft-fitter-Sheet-metal-worker
+https://www.cv-library.co.uk/job/222756859/Orthopaedic-Nurse
+https://www.cv-library.co.uk/job/222851375/Senior-Flutter-Developer-Outside-IR35-Fully-Remote
+https://www.cv-library.co.uk/job/222851502/Business-Travel-Consultant
+https://www.cv-library.co.uk/job/222851550/Recruitment-Consultant
