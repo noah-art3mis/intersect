@@ -45,7 +45,4 @@ def intersect(db_filepath: str, input_text: str) -> pd.DataFrame:
     df = pd.read_feather(db_filepath)
     result = similarity_search(df, v)
 
-    # reorder and drop columns
-    result = result[["title", "position_change", "similarity", "text"]]
-    result.columns = ["Title", "Change", "Similarity", "Description"]  # rename columns
     return result

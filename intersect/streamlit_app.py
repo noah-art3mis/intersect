@@ -1,5 +1,8 @@
 import streamlit as st
 import intersect
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+import pandas as pd
 
 DB_FILEPATH = "intersect/data/jobs.feather"
 
@@ -26,8 +29,15 @@ with st.form("my_form", border=False):
 if submit:
     intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
 
+    # reorder and drop columns
+    intersected = intersected[
+        ["title", "position_change", "similarity", "text", "embedding"]
+    ]
+    # rename columns
+    intersected.columns = ["Title", "Change", "Similarity", "Description", "Vector"]
+
     st.write("---")
-    
+
     st.subheader("Best role")
     st.dataframe(intersected.head(1))
 
@@ -37,6 +47,14 @@ if submit:
     st.subheader("All results")
     st.dataframe(intersected)
 
+    st.subheader("Cluster Visualization")
+    n_components = 2
+    pca = PCA(n_components=n_components)
+    principal_components = pca.fit_transform(intersected["Vector"].tolist())
+    pca_df = pd.DataFrame(
+        principal_components, columns=[f"PC{i+1}" for i in range(n_components)]
+    )
+    st.scatter_chart(pca_df)
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")
