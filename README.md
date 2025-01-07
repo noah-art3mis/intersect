@@ -38,7 +38,7 @@ Assignment for the Right Word module at LIS.
 
 ## TODO
 
--   core
+-   core functionality
     -   [ ] add scraping for all pages
     -   [ ] add scraping for descriptions
     -   [ ] add real time scraping )editing url etc)
@@ -49,7 +49,10 @@ Assignment for the Right Word module at LIS.
         -   [ ] Intersect
         -   [ ] Pathway
         -   [ ] Waypoint
--   expand
+    -   [ ] The NLP-aided analysis of a corpus of documents will extract non-obvious insights from a corpus of documents using tools from coding and data science. The corpus of documents could consist of a literary archive, a body of social media posts, a scrape from an online knowledge database; ideally, these would have some relation to the capstone problem. The submission should offer a graphical representation of its discoveries and include a write up of c. 500 words the documents the process involved. A link to an executable code notebook should also be included as part of the submission.
+    -   [ ] Assessment Choice 2 should be submitted as a PDF file that contains a brief summary of the submission and which contains a link to a GitHUb repository where the code notebook and all relevant data can be found - max 500 words
+-   new features
+    -   [ ] prepend other cols before embedding. check difference
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] add pdf uploading and ocr
     -   [ ] add support for local and open source embedding models. see [MTEB](https://huggingface.co/spaces/mteb/leaderboard). use something like `ollama`

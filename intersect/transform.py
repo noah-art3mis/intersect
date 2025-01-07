@@ -1,12 +1,9 @@
-import os
 import pandas as pd
-import numpy as np
 from selectolax.lexbor import LexborHTMLParser
 from selectolax.lexbor import LexborNode
 from urllib.parse import urljoin
 
 OUTPUT_PATH = "intersect/data/jobs2.feather"
-
 
 def load(data: list, path: str) -> None:
     df = pd.DataFrame(data)
