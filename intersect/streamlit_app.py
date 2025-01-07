@@ -1,7 +1,6 @@
 import streamlit as st
 import intersect
 from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
 import pandas as pd
 
 DB_FILEPATH = "intersect/data/jobs.feather"
@@ -47,6 +46,7 @@ if submit:
     st.subheader("All results")
     st.dataframe(intersected)
 
+    # TODO this is wrong clearly
     st.subheader("Cluster Visualization")
     n_components = 2
     pca = PCA(n_components=n_components)
