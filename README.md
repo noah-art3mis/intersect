@@ -41,6 +41,7 @@ Assignment for the Right Word module at LIS.
 -   core
     -   [ ] add scraping for all pages
     -   [ ] add scraping for descriptions
+    -   [ ] add real time scraping )editing url etc)
     -   [ ] add evals (manual x embedding x llm x bm25)
     -   [ ] decide name
         -   [ ] Axis
@@ -49,7 +50,6 @@ Assignment for the Right Word module at LIS.
         -   [ ] Pathway
         -   [ ] Waypoint
 -   expand
-    -   [ ] fix extraction that gets ads with it
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] add pdf uploading and ocr
     -   [ ] add support for local and open source embedding models. see [MTEB](https://huggingface.co/spaces/mteb/leaderboard). use something like `ollama`
