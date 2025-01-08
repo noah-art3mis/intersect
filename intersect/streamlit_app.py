@@ -2,7 +2,7 @@ import streamlit as st
 
 import intersect
 from read_pdf import get_text_from_pdf
-from cluster_viz import pca_df, get_chart
+from cluster_viz import pca_df, get_chart, add_clusters
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
@@ -69,8 +69,9 @@ if submit:
     st.subheader("Words that show up in your CV")
     # TODO topic modelling
 
-    st.subheader("Cluster Visualization")
+    st.subheader("Cluster Visualization (KMeans + PCA)")
     df_with_pca = pca_df(intersected, "Vector")
+    clustered = add_clusters(df_with_pca, n_clusters=3)
     chart = get_chart(df_with_pca)
     st.altair_chart(chart, use_container_width=True)
 

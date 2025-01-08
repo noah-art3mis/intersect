@@ -48,7 +48,7 @@ Assignment for the Right Word module at LIS.
     -   biggest issue time-wise is the free proxies. just buy good ones. also less of a security risk.
     -   for a production-grade implementation of this we might want to take a look at https://github.com/AmenRa/retriv
     -   Elastic search setup is a bit more involved so out of scope
-    -
+    -   why pca and kmeans
 
 bm25 is is an industry standard algorithm for search. bm25 itself is a variation on tfidf. this uses the lucene method as it is the default of the bm25s package.
 
