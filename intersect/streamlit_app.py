@@ -3,11 +3,10 @@ import intersect
 from sklearn.decomposition import PCA
 import pandas as pd
 from io import StringIO
+from read_pdf import get_text_from_pdf
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
-with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
-    TEXT = f.read()
 
 st.title("Intersect")
 st.write("Find the job you actually want - using AI")
@@ -20,44 +19,56 @@ st.write(
     "Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm."
 )
 
+st.write("## Usage")
 
 with st.form("my_form", border=False):
     st.write("")
     st.write("Upload your CV as a pdf or paste it as text below")
 
-    uploaded_file = st.file_uploader("Choose your .pdf file")
+    uploaded_file = st.file_uploader("Choose your .pdf file", type="pdf")
 
     if uploaded_file is not None:
-        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        string_data = stringio.read()
-
-        input_text = st.text_area("Extracted CV", string_data, height=34 * 8)
+        input_text = get_text_from_pdf(uploaded_file)
     else:
-        input_text = st.text_area("Or paste it here", TEXT, height=34 * 8)
+        with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
+            TEXT = f.read()
+        input_text = st.text_area("Or paste it here", TEXT, height=34 * 4)
 
     submit = st.form_submit_button("Intersect!")
 
 
 if submit:
-    intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
+    st.write("---")
+    st.write("## Results")
+
+    with st.spinner("Loading..."):
+        intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
 
     # reorder and drop columns
     intersected = intersected[
-        ["title", "position_change", "similarity", "description", "embedding"]
+        # ["title", "position_change", "similarity", "description", "embedding"]
+        ["title", "position_change", "description"]
     ]
+
     # rename columns
-    intersected.columns = ["Title", "Change", "Similarity", "Description", "Vector"]
+    intersected.columns = ["Title", "Delta", "Description"]
+    # intersected.columns = ["Title", "Delta", "Similarity", "Description", "Vector"]
 
-    st.write("---")
+    st.subheader("Best roles")
+    st.write("Roles with the highest semantic similarity to your text")
+    st.dataframe(intersected.head(5))
 
-    st.subheader("Best role")
-    st.dataframe(intersected.head(1))
-
-    st.subheader("Highest change")
-    st.dataframe(intersected.sort_values("Change", ascending=False).head(1))
+    st.subheader("Highest delta")
+    st.write(
+        "Roles that their position changed the most in comparison with the website's original order"
+    )
+    st.dataframe(intersected.sort_values("Delta", ascending=False).head(5))
 
     st.subheader("All results")
     st.dataframe(intersected)
+
+    # bm25
+    # tf idf thing
 
     # TODO this is wrong clearly
     st.subheader("Cluster Visualization")
@@ -69,8 +80,6 @@ if submit:
     )
     st.scatter_chart(pca_df)
 
-    # do some kind of tf idf thing
-    # bm25
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")

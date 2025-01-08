@@ -37,6 +37,11 @@ Assignment for the Right Word module at LIS.
     -   https://www.elastic.co/blog/practical-bm25-part-2-the-bm25-algorithm-and-its-variables
     -   https://docs.llamaindex.ai/en/stable/examples/retrievers/bm25_retriever/
     -   bm25f can weight different parameters as relevant but at this point you are replicating the job board and that is out of scope.
+    -   the pdf/text input can be anything that you like. search for a job that is like a song or a poem or something. go nuts
+    -   note that the similarity values do not mean much of anything in absolute. see
+        -   https://datascience.stackexchange.com/questions/101862/cosine-similarity-between-sentence-embeddings-is-always-positive
+        -   https://vaibhavgarg1982.medium.com/why-are-cosine-similarities-of-text-embeddings-almost-always-positive-6bd31eaee4d5
+    -   much like llms, embeddings do averages. and so this is going to be generic. if you are trying to do something fancy, you might want to use this in a nonstandard way as well. such as using weird keywords in the search.
 
 ## TODO
 
