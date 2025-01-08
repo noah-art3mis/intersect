@@ -2,12 +2,23 @@ import pandas as pd
 from selectolax.lexbor import LexborHTMLParser
 from selectolax.lexbor import LexborNode
 from urllib.parse import urljoin
+import os
 
-OUTPUT_PATH = "intersect/data/jobs2.feather"
+INPUT_PATH = "intersect/data/jobs-144.txt"
+OUTPUT_PATH = "intersect/data/jobs-144.feather"
 
 def load(data: list, path: str) -> None:
-    df = pd.DataFrame(data)
-    df.to_feather(path)
+    new_df = pd.DataFrame(data)
+
+    if os.path.exists(path):
+        existing_df = pd.read_feather(path)
+        combined_df = pd.concat([existing_df, new_df], ignore_index=True)
+    else:
+        combined_df = new_df
+
+    combined_df.to_feather(path)
+    print(f"Saved to {path}")
+    print(f"n_rows: {combined_df.shape[0]}")
 
 
 def get_url(article: LexborNode) -> str | None:
@@ -56,7 +67,7 @@ def transform_item_cvlibrary(item: LexborNode) -> dict:
 
 
 def main():
-    with open("intersect/data/raw/jobs.txt", "r") as f:
+    with open(INPUT_PATH, "r") as f:
         html = f.read()
 
     data = transform_cvlibrary(html)

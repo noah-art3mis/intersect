@@ -1,8 +1,63 @@
+import uuid
 import os
+import time
 import httpx
 from dotenv import load_dotenv
 
-URL = "https://www.cv-library.co.uk/ai-jobs-in-london?perpage=25&us=1"
+# https://www.cv-library.co.uk/ai-jobs-in-london?page=1&perpage=100&us=1
+# https://www.cv-library.co.uk/ai-jobs-in-london?page=2&perpage=100&us=1
+
+KEYWORDS = "ai"
+LOCATION = "london"
+N_PAGES = 2
+PERPAGE = 100
+
+
+def setup_url(keywords: str, location: str, page: int, perpage: int):
+    """pls be nice to this function and use simple search terms. dont stress test this."""
+    # what happens to cities with spaces in the name?
+    # what happens to keywords with special characters
+    # what if last character is also a -?
+    # fix this using unidecode
+
+    return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
+
+
+def scrape_search(url: str) -> httpx.Response:
+    response = httpx.get(
+        url="https://proxy.scrapeops.io/v1/",
+        params={
+            "api_key": os.environ["SCRAPEOPS_API_KEY"],
+            "url": url,
+        },
+        timeout=100,
+        # follow_redirects=True,
+    )
+    return response
+
+
+def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: int):
+    for page in range(1, n_pages + 1):
+        url = setup_url(keywords, location, page, perpage=perpage)
+        response = scrape_search(url).raise_for_status()
+        print(f"{response.status_code}: Scraped {url}")
+        yield response
+
+
+def main():
+    load_dotenv()
+    for response in scrape_all_pages(KEYWORDS, LOCATION, N_PAGES, PERPAGE):
+        with open(f"jobs-{uuid.uuid4()}.txt", "w") as f:
+            f.write(response.text)
+            time.sleep(1)
+    print("done")
+
+
+if __name__ == "__main__":
+    main()
+
+
+# alternatives
 # url = 'https://books.toscrape.com/'
 # url = "https://www.cv-library.co.uk/ai-jobs-in-london?perpage=25&us=1"
 # url = "https://uk.indeed.com/jobs?q=ai&l=london&from=searchOnHP&vjk=ca59d58f6db9887c"
@@ -26,27 +81,3 @@ URL = "https://www.cv-library.co.uk/ai-jobs-in-london?perpage=25&us=1"
 #     )
 
 #     print(res)
-
-
-def scrape_search(url: str) -> str:
-    load_dotenv()
-    response = httpx.get(
-        url="https://proxy.scrapeops.io/v1/",
-        params={
-            "api_key": os.environ["SCRAPEOPS_API_KEY"],
-            "url": url,
-        },
-        timeout=100,
-    )
-    return response.text
-
-
-def main():
-    html = scrape_search(URL)
-
-    with open("jobs.txt", "w") as f:
-        f.write(html)
-
-
-if __name__ == "__main__":
-    main()

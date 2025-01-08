@@ -3,7 +3,7 @@ import intersect
 from sklearn.decomposition import PCA
 import pandas as pd
 
-DB_FILEPATH = "intersect/data/jobs.feather"
+DB_FILEPATH = "intersect/data/jobs-144.feather"
 
 with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
     TEXT = f.read()
@@ -30,7 +30,7 @@ if submit:
 
     # reorder and drop columns
     intersected = intersected[
-        ["title", "position_change", "similarity", "text", "embedding"]
+        ["title", "position_change", "similarity", "description", "embedding"]
     ]
     # rename columns
     intersected.columns = ["Title", "Change", "Similarity", "Description", "Vector"]

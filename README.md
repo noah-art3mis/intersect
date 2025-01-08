@@ -4,6 +4,8 @@ Find the job you actually want - using AI.
 
 Finds jobs based on vibes instead of specific parameters. Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm. This is not supposed to substitute manual search, but to make it easier by ordering the results by relevance. This can also be combined with more traditional NLP techniques such as TF-IDF.
 
+Possible alternative names: axis, compass, pathway, waypoint
+
 Assignment for the Right Word module at LIS.
 
 ## Tech stack:
@@ -39,23 +41,16 @@ Assignment for the Right Word module at LIS.
 ## TODO
 
 -   core functionality
-    -   [ ] add scraping for all pages
-    -   [ ] add scraping for descriptions
-    -   [ ] add real time scraping )editing url etc)
+    -   [ ] assemble etl
+        -   [ ] get description
+            -   [ ] add async to scraping
+        -   [ ] get embedding
     -   [ ] add evals (manual x embedding x llm x bm25)
-    -   [ ] decide name
-        -   [ ] Axis
-        -   [ ] Compass
-        -   [ ] Intersect
-        -   [ ] Pathway
-        -   [ ] Waypoint
-    -   [ ] The NLP-aided analysis of a corpus of documents will extract non-obvious insights from a corpus of documents using tools from coding and data science. The corpus of documents could consist of a literary archive, a body of social media posts, a scrape from an online knowledge database; ideally, these would have some relation to the capstone problem. The submission should offer a graphical representation of its discoveries and include a write up of c. 500 words the documents the process involved. A link to an executable code notebook should also be included as part of the submission.
-    -   [ ] Assessment Choice 2 should be submitted as a PDF file that contains a brief summary of the submission and which contains a link to a GitHUb repository where the code notebook and all relevant data can be found - max 500 words
 -   new features
     -   [ ] prepend other cols before embedding. check difference
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] add pdf uploading and ocr
-    -   [ ] add support for local and open source embedding models. see [MTEB](https://huggingface.co/spaces/mteb/leaderboard). use something like `ollama`
+    -   [ ] add support for local and open source embedding models. check MTEB. use something like `ollama`
     -   [ ] add alternatives for search such as BM25
     -   [ ] add caching
     -   [ ] add reranking
@@ -69,6 +64,9 @@ Assignment for the Right Word module at LIS.
     -   [ ] add NLP things (named entity recognition, topic modelling)
     -   [ ] add cost tracking
     -   [ ] add tracking the bluesky firehose for ai jobs
+-   bugs
+    -   [ ] what happens to cities with spaces in the name? (`setup_url`)
+    -   [ ] what happens to keywords with special characters
 
 ## Job boards
 
