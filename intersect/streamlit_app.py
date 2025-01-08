@@ -51,23 +51,6 @@ if submit:
 
     st.metric("Jobs found", len(intersected))
 
-    intersected["rank"] = intersected.index + 1
-
-    # reorder and drop columns
-    intersected = intersected[
-        ["rank", "title", "position_change", "similarity", "description", "embedding"]
-    ]
-
-    # rename columns
-    intersected.columns = [
-        "Rank",
-        "Title",
-        "Delta",
-        "Similarity",
-        "Description",
-        "Vector",
-    ]
-
     st.subheader("Best fit")
     st.write("Roles with the highest semantic similarity to your text")
     ranked = intersected[["Rank", "Title", "Description"]].head(5)
@@ -75,17 +58,17 @@ if submit:
 
     st.subheader("Most interesting")
     st.write(
-        "Roles that their position changed the most in comparison with the website's original order"
+        "Roles that their position changed the most in comparison with the website's original order ('most relevant')"
     )
     sorted = intersected.sort_values("Delta", ascending=False)
     sorted = sorted[["Rank", "Title", "Description"]].head(5)
     st.dataframe(sorted, hide_index=True)
 
-    st.subheader("All results")
-    st.dataframe(intersected, hide_index=True)
+    st.subheader("Prominent words in the jobs")
+    # TODO named entity recognition
 
-    # bm25
-    # tf idf thing
+    st.subheader("Words that show up in your CV")
+    # TODO topic modelling
 
     # TODO this is wrong clearly
     st.subheader("Cluster Visualization")
@@ -97,6 +80,14 @@ if submit:
     )
     st.scatter_chart(pca_df)
 
+    st.subheader("All results")
+    st.dataframe(intersected, hide_index=True)
+
+    st.subheader("Comparison with ")
+    st.write("### BM25")
+    st.write("### MTEB")
+    st.write("### reranker")
+    st.write("### LLM")
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")

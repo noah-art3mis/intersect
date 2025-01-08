@@ -28,4 +28,37 @@ def intersect(db_filepath: str, input_text: str) -> pd.DataFrame:
     load_dotenv()
     v = get_embedding(OpenAI(), input_text)
     df = pd.read_feather(db_filepath)
-    return similarity_search(df, v)
+    result = similarity_search(df, v)
+    formatted = format_columns(result)
+    return formatted
+
+
+def format_columns(df: pd.DataFrame) -> pd.DataFrame:
+
+    df["rank"] = df.index + 1
+
+    # reorder and drop columns
+    df = df[
+        [
+            "rank",
+            "title",
+            "position_change",
+            "similarity",
+            "description",
+            "url",
+            "embedding",
+        ]
+    ]
+
+    # rename columns
+    df.columns = [
+        "Rank",
+        "Title",
+        "Delta",
+        "Similarity",
+        "Description",
+        "Link",
+        "Vector",
+    ]
+
+    return df

@@ -4,7 +4,7 @@ Find the job you actually want - using AI.
 
 Finds jobs based on vibes instead of specific parameters. Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm. This is not supposed to substitute manual search, but to make it easier by ordering the results by relevance. This can also be combined with more traditional NLP techniques such as TF-IDF.
 
-Possible alternative names: axis, compass, pathway, waypoint
+Possible alternative product names: axis, compass, pathway, waypoint
 
 Assignment for the Right Word module at LIS.
 
@@ -15,11 +15,14 @@ Assignment for the Right Word module at LIS.
 -   `openai`: embedding model
 -   `pandas`: storing data
 -   `scrapeops`: scraping proxy
+-   `pypdf`: pdf parsing
+-   `scikit-learn`: PCA
 
 ## Explanations
 
 -   OpenAI and Streamlit are the fastest ways to make a prototype.
 -   There is no need to use the bigger embedding model for this use case.
+-   the cost shouldnt be an issue unless you are embedding millions of documents.
 -   For a small job like this there is no need for a vector database. There is no need to use SQL yet. Feather does the job.
 -   For similarity we can use a dot product because OpenAI embeddings are normalized.
 -   _CV-Library_ is cited by the [UK Government](https://nationalcareers.service.gov.uk/careers-advice/advertised-job-vacancies).
@@ -42,41 +45,45 @@ Assignment for the Right Word module at LIS.
         -   https://datascience.stackexchange.com/questions/101862/cosine-similarity-between-sentence-embeddings-is-always-positive
         -   https://vaibhavgarg1982.medium.com/why-are-cosine-similarities-of-text-embeddings-almost-always-positive-6bd31eaee4d5
     -   much like llms, embeddings do averages. and so this is going to be generic. if you are trying to do something fancy, you might want to use this in a nonstandard way as well. such as using weird keywords in the search.
+    -   biggest issue time-wise is the free proxies. just buy good ones. also less of a security risk.
+    -   for a production-grade implementation of this we might want to take a look at https://github.com/AmenRa/retriv
+    -   Elastic search setup is a bit more involved so out of scope
+    -
+
+bm25 is is an industry standard algorithm for search. bm25 itself is a variation on tfidf. this uses the lucene method as it is the default of the bm25s package.
+
+lexical search. sparse vectors
+semantic search. dense vectors.
 
 ## TODO
 
+-   for showcasing
+    -   [ ] add clustering viz
+    -   [ ] add NLP things (named entity recognition, topic modelling)
+    -   [ ] add evals (original x embedding x bm25 x rerank x mteb x llm)
+        -   [ ] bm25s
+        -   [ ] reranked
+        -   [ ] mteb local embedding
+        -   [ ] llm
 -   core functionality
     -   [ ] assemble etl
         -   [ ] get description
             -   [ ] add async to scraping
         -   [ ] get embedding
-    -   [ ] add evals (manual x embedding x llm x bm25)
 -   new features
-    - [ ] ui - drop indices and add col named rank
-    -   [ ] prepend other cols before embedding. check difference
     -   [ ] add 'x days ago' instead of datetime
-    -   [ ] add pdf uploading and ocr
-    -   [ ] add support for local and open source embedding models. check MTEB. use something like `ollama`
-    -   [ ] add alternatives for search such as BM25
-    -   [ ] add caching
-    -   [ ] add reranking
-    -   [ ] add clustering viz
-    -   [ ] add logging
+    -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
+    -   [ ] prepend other cols before embedding
     -   [ ] upgrade database to sqlite
-    -   [ ] add other features to make selection easier (sponsoring, etc)
     -   [ ] add reverse mode (employers ordering applicants by relevance)
         -   this would be bad for interdisciplinarians as they would not be ranked very highly.
-    -   [ ] try using LLMs for this and compare the result
-    -   [ ] add NLP things (named entity recognition, topic modelling)
-    -   [ ] add cost tracking
     -   [ ] add tracking the bluesky firehose for ai jobs
--   bugs
-    -   [ ] what happens to cities with spaces in the name? (`setup_url`)
-    -   [ ] what happens to keywords with special characters
 
 ## Job boards
 
 Some info on this [here](https://www.techradar.com/best/uk-job-sites) and [here](https://seemehired.com/blog/the-top-uk-job-boards-and-hiring-platforms-to-find-talent-in-2024/)
+
+Each one of these would need a bespoke scraping strategy.
 
 -   General
     -   [ ] CV-Library
