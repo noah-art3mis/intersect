@@ -59,11 +59,9 @@ semantic search. dense vectors.
 
 -   for showcasing
     -   [ ] add clustering viz
-        -   show your dot
+        -   show your dot / transform space around your dot
         -   add color to your dot
-        -   do it 3d
-        -   fix tooltips
-        -   add clusters
+        -   auto cluster n
     -   [ ] add NLP things (named entity recognition, topic modelling)
     -   [ ] add evals (original x embedding x bm25 x rerank x mteb x llm)
         -   [ ] bm25s

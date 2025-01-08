@@ -70,9 +70,11 @@ if submit:
     # TODO topic modelling
 
     st.subheader("Cluster Visualization (KMeans + PCA)")
-    df_with_pca = pca_df(intersected, "Vector")
-    clustered = add_clusters(df_with_pca, n_clusters=3)
-    chart = get_chart(df_with_pca)
+    n_components = 2  # not using 2 will break
+    n_clusters = 5
+    df_with_pca = pca_df(intersected, "Vector", n_components)
+    clustered = add_clusters(df_with_pca, n_clusters, n_components)
+    chart = get_chart(clustered)
     st.altair_chart(chart, use_container_width=True)
 
     st.subheader("All results")
