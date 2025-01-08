@@ -2,6 +2,7 @@ import streamlit as st
 import intersect
 from sklearn.decomposition import PCA
 import pandas as pd
+from io import StringIO
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
@@ -22,8 +23,20 @@ st.write(
 
 with st.form("my_form", border=False):
     st.write("")
-    input_text = st.text_area("Paste CV here", TEXT, height=34 * 8)
+    st.write("Upload your CV as a pdf or paste it as text below")
+
+    uploaded_file = st.file_uploader("Choose your .pdf file")
+
+    if uploaded_file is not None:
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        string_data = stringio.read()
+
+        input_text = st.text_area("Extracted CV", string_data, height=34 * 8)
+    else:
+        input_text = st.text_area("Or paste it here", TEXT, height=34 * 8)
+
     submit = st.form_submit_button("Intersect!")
+
 
 if submit:
     intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
@@ -55,6 +68,9 @@ if submit:
         principal_components, columns=[f"PC{i+1}" for i in range(n_components)]
     )
     st.scatter_chart(pca_df)
+
+    # do some kind of tf idf thing
+    # bm25
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")
