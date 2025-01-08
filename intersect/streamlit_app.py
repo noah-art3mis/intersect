@@ -29,6 +29,11 @@ with st.form("my_form", border=False):
 
     if uploaded_file is not None:
         input_text = get_text_from_pdf(uploaded_file)
+
+        if input_text == "":
+            st.error(
+                "No text found in pdf. You might have a scanned document, which is not supported."
+            )
     else:
         with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
             TEXT = f.read()
@@ -44,28 +49,40 @@ if submit:
     with st.spinner("Loading..."):
         intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
 
+    st.metric("Jobs found", len(intersected))
+
+    intersected["rank"] = intersected.index + 1
+
     # reorder and drop columns
     intersected = intersected[
-        # ["title", "position_change", "similarity", "description", "embedding"]
-        ["title", "position_change", "description"]
+        ["rank", "title", "position_change", "similarity", "description", "embedding"]
     ]
 
     # rename columns
-    intersected.columns = ["Title", "Delta", "Description"]
-    # intersected.columns = ["Title", "Delta", "Similarity", "Description", "Vector"]
+    intersected.columns = [
+        "Rank",
+        "Title",
+        "Delta",
+        "Similarity",
+        "Description",
+        "Vector",
+    ]
 
-    st.subheader("Best roles")
+    st.subheader("Best fit")
     st.write("Roles with the highest semantic similarity to your text")
-    st.dataframe(intersected.head(5))
+    ranked = intersected[["Rank", "Title", "Description"]].head(5)
+    st.dataframe(ranked, hide_index=True)
 
-    st.subheader("Highest delta")
+    st.subheader("Most interesting")
     st.write(
         "Roles that their position changed the most in comparison with the website's original order"
     )
-    st.dataframe(intersected.sort_values("Delta", ascending=False).head(5))
+    sorted = intersected.sort_values("Delta", ascending=False)
+    sorted = sorted[["Rank", "Title", "Description"]].head(5)
+    st.dataframe(sorted, hide_index=True)
 
     st.subheader("All results")
-    st.dataframe(intersected)
+    st.dataframe(intersected, hide_index=True)
 
     # bm25
     # tf idf thing

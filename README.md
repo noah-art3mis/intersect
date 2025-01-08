@@ -52,6 +52,7 @@ Assignment for the Right Word module at LIS.
         -   [ ] get embedding
     -   [ ] add evals (manual x embedding x llm x bm25)
 -   new features
+    - [ ] ui - drop indices and add col named rank
     -   [ ] prepend other cols before embedding. check difference
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] add pdf uploading and ocr
