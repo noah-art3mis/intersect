@@ -1,9 +1,8 @@
 import streamlit as st
+
 import intersect
-from sklearn.decomposition import PCA
-import pandas as pd
-from io import StringIO
 from read_pdf import get_text_from_pdf
+from cluster_viz import pca_df, get_chart
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
@@ -70,15 +69,10 @@ if submit:
     st.subheader("Words that show up in your CV")
     # TODO topic modelling
 
-    # TODO this is wrong clearly
     st.subheader("Cluster Visualization")
-    n_components = 2
-    pca = PCA(n_components=n_components)
-    principal_components = pca.fit_transform(intersected["Vector"].tolist())
-    pca_df = pd.DataFrame(
-        principal_components, columns=[f"PC{i+1}" for i in range(n_components)]
-    )
-    st.scatter_chart(pca_df)
+    df_with_pca = pca_df(intersected, "Vector")
+    chart = get_chart(df_with_pca)
+    st.altair_chart(chart, use_container_width=True)
 
     st.subheader("All results")
     st.dataframe(intersected, hide_index=True)

@@ -1,9 +1,14 @@
+import bm25s
+
+# rank_bm25 is a somewhat popular python implementation of bm25. bm25s is a more performant alternative.
+
 # https://github.com/dorianbrown/rank_bm25
 # https://github.com/xhluca/bm25s
 
-import tokenize
-from xml.dom.pulldom import CHARACTERS
-import bm25s
+# tokenize
+# remove special CHARACTERS
+# remove stop words
+# stemming
 
 # Create your corpus here
 corpus = [
@@ -24,8 +29,3 @@ results, scores = retriever.retrieve(bm25s.tokenize(query), k=2)
 # Let's see what we got!
 doc, score = results[0, 0], scores[0, 0]
 print(f"Rank {i+1} (score: {score:.2f}): {doc}")
-
-# tokenize
-# remove special CHARACTERS
-# remove stop words
-# stemming
