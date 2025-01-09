@@ -68,6 +68,8 @@ semantic search. dense vectors.
 
 ## TODO
 
+create new branch dev
+
 -   for showcasing
 
     -   [ ] add clustering viz
