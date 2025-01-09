@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from dotenv import load_dotenv
 
-import intersect
+from semantic_search import semantic_search_openai
 from read_pdf import get_text_from_pdf
 from cluster_viz import pca_df, get_chart, add_clusters
 from lexical_search import lexical_search
@@ -57,7 +57,7 @@ if submit:
     st.write("## Results")
     with st.spinner():
         df_intersect = df.copy(deep=True)
-        intersected = intersect.intersect(df_intersect, input_text)  # type: ignore
+        intersected = semantic_search_openai(df_intersect, input_text)  # type: ignore
 
     st.metric("Jobs found", len(intersected))
 
@@ -99,9 +99,7 @@ if submit:
     st.write("### Lexical Search (BM25)")
     with st.spinner():
         df_lexical = df.copy(deep=True)
-        bm25_results = lexical_search(
-            input_text, df_lexical["description"].tolist()
-        )
+        bm25_results = lexical_search(input_text, df_lexical["description"].tolist())
         st.dataframe(bm25_results.head(5), hide_index=True)
 
     st.write("### Rerank with Cross-encoding")

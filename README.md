@@ -2,6 +2,8 @@
 
 Find the job you actually want - using AI.
 
+Access here: https://intersect.streamlit.app
+
 Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
 
 Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
@@ -13,25 +15,53 @@ Assignment for the Right Word module at LIS.
 ## Tech stack:
 
 -   `uv`: environment and dependency management
--   `streamlit`: UI frontend
--   `openai`: embedding model
--   `pandas`: storing data
+-   `streamlit`: web framework (frontend and backend) and hosting
+-   `openai` and `cohere`: embedding and rerank models
 -   `scrapeops`: scraping proxy
 -   `pypdf`: pdf parsing
--   `scikit-learn`: PCA
+-   `scikit-learn`: PCA, KMeans
+-   `bm25s`: fast BM25 implementation
+
+## TODO
+
+-   mvp
+
+    -   named entity recognition
+    -   topic modelling
+
+    -   [ ] add clustering viz
+        -   show your dot / transform space around your dot
+        -   add color to your dot
+        -   auto cluster n
+
+-   new features
+    -   [ ] add download button
+    -   [ ] expand database to work in real time. hook up the scraping to the app
+    -   [ ] add local semantic search
+    -   [ ] add local reranker
+    -   [ ] add local llm permutation
+    -   [ ] infer keywords and city from the text. do several at once
+    -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
+    -   [ ] prepend other cols before embedding
+    -   [ ] upgrade database to sqlite
+    -   [ ] add reverse mode (employers ordering applicants by relevance)
+        -   this would be bad for interdisciplinarians as they would not be ranked very highly.
+    -   [ ] add tracking the bluesky firehose for ai jobs
+    -   [ ] prompt engineering for the permutation
+    -   [ ] permutation: test yaml
+-   fix
+    -   [ ] add 'x days ago' instead of datetime
+    -   [ ] limit reranker to 100
+        -   bm25: fix ocr spacing bugs first
+        -   bm25: show title and delta
 
 ## Explanations
 
--   OpenAI and Streamlit are the fastest ways to make a prototype.
--   There is no need to use the bigger embedding model for this use case.
--   the cost shouldnt be an issue unless you are embedding millions of documents.
--   For a small job like this there is no need for a vector database. There is no need to use SQL yet. Feather does the job.
+-   OpenAI, Streamlit and Cohere are the fastest ways to make a prototype. This is the same reason there is no need for a vector database or even sqlite.
 -   For similarity we can use a dot product because OpenAI embeddings are normalized.
--   _CV-Library_ is cited by the [UK Government](https://nationalcareers.service.gov.uk/careers-advice/advertised-job-vacancies).
-    -   https://www.cv-library.co.uk/ai-jobs-in-london?perpage=100&us=1
-    -   https://www.cv-library.co.uk/job/222849530/AI-Engineer
--   Respects robots.txt
+-   _CV-Library_ is used as the data source as it is cited by the [UK Government](https://nationalcareers.service.gov.uk/careers-advice/advertised-job-vacancies).
 -   Scraping
+    -   Respects robots.txt
     -   just a request doesnt work (403)
     -   request with user agent doesnt work (403)
     -   request with genuine headers doesnt work (403)
@@ -63,37 +93,6 @@ measure how much time it takes to use a reranker and ebedding local and remote.
 
 lexical search. sparse vectors
 semantic search. dense vectors.
-
-## TODO
-
--   mvp
-
-    -   [ ] add clustering viz
-        -   show your dot / transform space around your dot
-        -   add color to your dot
-        -   auto cluster n
-    -   [ ] add NLP things (named entity recognition, topic modelling)
-
--   new features
-    -   [ ] add download button
-    -   [ ] expand database to work in real time. hook up the scraping to the app
-    -   [ ] add local semantic search
-    -   [ ] add local reranker
-    -   [ ] add local llm permutation
-    -   [ ] infer keywords and city from the text. do several at once
-    -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
-    -   [ ] prepend other cols before embedding
-    -   [ ] upgrade database to sqlite
-    -   [ ] add reverse mode (employers ordering applicants by relevance)
-        -   this would be bad for interdisciplinarians as they would not be ranked very highly.
-    -   [ ] add tracking the bluesky firehose for ai jobs
-    -   [ ] prompt engineering for the permutation
-    -   [ ] permutation: test yaml
--   fix
-    -   [ ] add 'x days ago' instead of datetime
-    -   [ ] limit reranker to 100
-        -   bm25: fix ocr spacing bugs first
-        -   bm25: show title and delta
 
 ## Job boards
 
