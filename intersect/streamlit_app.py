@@ -15,43 +15,46 @@ load_dotenv()
 df = pd.read_feather(DB_FILEPATH)
 
 st.title("Intersect")
-st.write("Find the job you actually want - using AI")
 
-st.write(
-    "Finds jobs based on vibes instead of specific parameters. This is not supposed to substitute manual search, but to make it easier by ordering the results by relevance."
-)
+"""Find the job you actually want - using AI.
 
-st.write(
-    "Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm."
-)
+Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
 
-st.write("## Usage")
+Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
+
+Possible alternative product names: axis, compass, pathway, waypoint
+"""
+
+st.write("## How to use")
+
+with st.expander("1. About the job"):
+    st.write(
+        """Right now we are using a database of 141 ai jobs in london. Soon enough you will be able to search for your own. Sorry!"""
+    )
 
 with st.form("my_form", border=False):
-    st.write("")
-    st.write("Upload your CV as a pdf or paste it as text below")
+    with st.expander("2. About you"):
+        st.write("")
+        st.write("Upload your CV as a pdf or paste it as text below")
 
-    uploaded_file = st.file_uploader("Choose your .pdf file", type="pdf")
+        uploaded_file = st.file_uploader("Choose your .pdf file", type="pdf")
 
-    if uploaded_file is not None:
-        input_text = get_text_from_pdf(uploaded_file)
+        if uploaded_file is not None:
+            input_text = get_text_from_pdf(uploaded_file)
 
-        if input_text == "":
-            st.error(
-                "No text found in pdf. You might have a scanned document, which is not supported."
-            )
-    else:
-        with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
-            TEXT = f.read()
-        input_text = st.text_area("Tell me about yourself:", TEXT, height=34 * 4)
+            if input_text == "":
+                st.error(
+                    "No text found in pdf. You might have a scanned document, which is not supported."
+                )
+        else:
+            with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
+                TEXT = f.read()
+            input_text = st.text_area("Tell me about yourself:", TEXT, height=34 * 4)
 
     submit = st.form_submit_button("Intersect!")
 
-
 if submit:
-    st.write("---")
     st.write("## Results")
-
     with st.spinner():
         df_intersect = df.copy(deep=True)
         intersected = intersect.intersect(df_intersect, input_text)  # type: ignore
@@ -96,7 +99,9 @@ if submit:
     st.write("### Lexical Search (BM25)")
     with st.spinner():
         df_lexical = df.copy(deep=True)
-        bm25_results = lexical_search(input_text, df_lexical["description"].tolist())
+        bm25_results = lexical_search(
+            input_text, df_lexical["description"].tolist()
+        )
         st.dataframe(bm25_results.head(5), hide_index=True)
 
     st.write("### Rerank with Cross-encoding")

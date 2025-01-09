@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-import json
-from rich import print
 from openai import OpenAI
 import pandas as pd
 

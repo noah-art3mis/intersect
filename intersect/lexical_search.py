@@ -1,5 +1,4 @@
 import bm25s
-from rich import print
 import pandas as pd
 
 # rank_bm25 is a somewhat popular python implementation of bm25. bm25s is a more performant alternative.

@@ -21,7 +21,6 @@ def add_clusters(df: pd.DataFrame, n_clusters: int, n_components: int) -> pd.Dat
 
 
 def get_chart(df: pd.DataFrame) -> alt.Chart:
-    print(df.columns)
     chart = (
         alt.Chart(df)
         .mark_circle(size=100)

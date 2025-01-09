@@ -2,11 +2,9 @@
 
 Find the job you actually want - using AI.
 
-Cyborg search -- both humanized and automated.
+Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
 
-Tell me about yourself -- no need to use your CV. Paste the lyrics to your favourite song. X. Or do whatever. Any text will do, including your CV. Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
-
-Finds jobs based on vibes instead of specific parameters. Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm. This is not supposed to substitute manual search, but to make it easier by ordering the results by relevance. This can also be combined with more traditional NLP techniques such as TF-IDF.
+Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
 
 Possible alternative product names: axis, compass, pathway, waypoint
 
@@ -68,9 +66,7 @@ semantic search. dense vectors.
 
 ## TODO
 
-create new branch dev
-
--   for showcasing
+-   mvp
 
     -   [ ] add clustering viz
         -   show your dot / transform space around your dot
@@ -78,12 +74,9 @@ create new branch dev
         -   auto cluster n
     -   [ ] add NLP things (named entity recognition, topic modelling)
 
--   core functionality
-    -   [ ] assemble etl
-        -   [ ] get description
-            -   [ ] add async to scraping
-        -   [ ] get embedding
 -   new features
+    -   [ ] add download button
+    -   [ ] expand database to work in real time. hook up the scraping to the app
     -   [ ] add local semantic search
     -   [ ] add local reranker
     -   [ ] add local llm permutation
@@ -109,7 +102,7 @@ Some info on this [here](https://www.techradar.com/best/uk-job-sites) and [here]
 Each one of these would need a bespoke scraping strategy.
 
 -   General
-    -   [ ] CV-Library
+    -   [x] CV-Library
     -   [ ] Indeed
     -   [ ] Indeed UK
     -   [ ] Adzuna
