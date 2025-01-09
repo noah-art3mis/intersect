@@ -5,6 +5,7 @@ import intersect
 from read_pdf import get_text_from_pdf
 from cluster_viz import pca_df, get_chart, add_clusters
 from lexical_search import lexical_search
+from rerank import rerank_cohere
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
@@ -38,7 +39,7 @@ with st.form("my_form", border=False):
     else:
         with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
             TEXT = f.read()
-        input_text = st.text_area("Or paste it here", TEXT, height=34 * 4)
+        input_text = st.text_area("Tell me about yourself:", TEXT, height=34 * 4)
 
     submit = st.form_submit_button("Intersect!")
 
@@ -47,7 +48,7 @@ if submit:
     st.write("---")
     st.write("## Results")
 
-    with st.spinner("Loading..."):
+    with st.spinner():
         intersected = intersect.intersect(DB_FILEPATH, input_text)  # type: ignore
 
     st.metric("Jobs found", len(intersected))
@@ -72,6 +73,7 @@ if submit:
     # # TODO topic modelling
 
     # st.subheader("Cluster Visualization (KMeans + PCA)")
+    # with st.spinner():
     # n_components = 2  # not using 2 will break
     # n_clusters = 5
     # df_with_pca = pca_df(intersected, "Vector", n_components)
@@ -85,13 +87,26 @@ if submit:
     # st.subheader("Comparison with ")
 
     st.write("### Lexical Search (BM25)")
-    df2 = pd.read_feather(DB_FILEPATH)
-    bm25_results = lexical_search(input_text, df2["description"].tolist())
-    st.dataframe(bm25_results.head(5), hide_index=True)
+    with st.spinner():
+        df_lexical = pd.read_feather(DB_FILEPATH)
+        bm25_results = lexical_search(input_text, df_lexical["description"].tolist())
+        st.dataframe(bm25_results.head(5), hide_index=True)
+
+    st.write("### Reranker")
+    with st.spinner():
+        df_reranker = pd.read_feather(DB_FILEPATH)
+        reranked_results = rerank_cohere(
+            input_text, df_reranker["description"].tolist()
+        )
+        st.dataframe(reranked_results.head(5), hide_index=True)
 
     st.write("### Semantic Search (MTEB)")
-    st.write("### Reranker")
+    with st.spinner():
+        pass
+
     st.write("### LLM")
+    with st.spinner():
+        pass
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")

@@ -2,6 +2,10 @@
 
 Find the job you actually want - using AI.
 
+Cyborg search -- both humanized and automated.
+
+Tell me about yourself -- no need to use your CV. Paste the lyrics to your favourite song. X. Or do whatever. Any text will do, including your CV. Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
+
 Finds jobs based on vibes instead of specific parameters. Uses a similarity search workflow with embedding models to compare your CV with jobs descriptions. Reorders listings based on similarity with the input text, not unlike a [recommendation](https://cookbook.openai.com/examples/recommendation_using_embeddings) algorithm. This is not supposed to substitute manual search, but to make it easier by ordering the results by relevance. This can also be combined with more traditional NLP techniques such as TF-IDF.
 
 Possible alternative product names: axis, compass, pathway, waypoint
@@ -52,6 +56,13 @@ Assignment for the Right Word module at LIS.
 
 bm25 is is an industry standard algorithm for search. bm25 itself is a variation on tfidf. this uses the lucene method as it is the default of the bm25s package.
 
+can also add a reranker after the semantic search
+
+-   cohere rerank
+-
+
+measure how much time it takes to use a reranker and ebedding local and remote.
+
 lexical search. sparse vectors
 semantic search. dense vectors.
 
@@ -65,16 +76,28 @@ semantic search. dense vectors.
     -   [ ] add NLP things (named entity recognition, topic modelling)
     -   [ ] add evals (original x embedding x bm25 x rerank x mteb x llm)
         -   [ ] bm25s
-            - fix ocr spacing bugs first
-        -   [ ] reranked
+            -   fix ocr spacing bugs first
+            -   show title and delta
+        -   [ ] reranker
+            -   https://docs.cohere.com/docs/reranking-best-practices
+            -   https://osanseviero.github.io/hackerllama/blog/posts/sentence_embeddings2/#conclusion
+            -   https://huggingface.co/cross-encoder/ms-marco-TinyBERT-L-2
+            -   https://www.answer.ai/posts/2024-09-16-rerankers.html
+            - cohere supports reranking for structured data
         -   [ ] mteb local embedding
+            -   https://huggingface.co/dunzhang/stella_en_1.5B_v5
+            -   https://huggingface.co/dunzhang/stella_en_400M_v5
+            -   https://huggingface.co/intfloat/e5-mistral-7b-instruct
+            -   https://huggingface.co/BAAI/bge-reranker-base
         -   [ ] llm
+        -   https://cookbook.openai.com/examples/search_reranking_with_cross-encoders
 -   core functionality
     -   [ ] assemble etl
         -   [ ] get description
             -   [ ] add async to scraping
         -   [ ] get embedding
 -   new features
+    -   [ ] infer keywords and city from the text. do several at once
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
     -   [ ] prepend other cols before embedding

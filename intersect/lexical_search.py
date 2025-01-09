@@ -40,7 +40,7 @@ def lexical_search(query: str, corpus: list[str]) -> pd.DataFrame:
         formatted_results.append(
             {
                 "Rank": i + 1,
-                "Score": score,
+                "debug_lexical_score": score,
                 # "Title": ,
                 # "Link": ,
                 "Document": doc,
