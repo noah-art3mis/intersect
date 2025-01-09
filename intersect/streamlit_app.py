@@ -1,8 +1,10 @@
 import streamlit as st
+import pandas as pd
 
 import intersect
 from read_pdf import get_text_from_pdf
 from cluster_viz import pca_df, get_chart, add_clusters
+from lexical_search import lexical_search
 
 DB_FILEPATH = "intersect/data/jobs-144.feather"
 
@@ -52,38 +54,43 @@ if submit:
 
     st.subheader("Best fit")
     st.write("Roles with the highest semantic similarity to your text")
-    ranked = intersected[["Rank", "Title", "Description"]].head(5)
+    ranked = intersected[["Rank", "Title", "Description", "Link"]].head(5)
     st.dataframe(ranked, hide_index=True)
 
-    st.subheader("Most interesting")
-    st.write(
-        "Roles that their position changed the most in comparison with the website's original order ('most relevant')"
-    )
-    sorted = intersected.sort_values("Delta", ascending=False)
-    sorted = sorted[["Rank", "Title", "Description"]].head(5)
-    st.dataframe(sorted, hide_index=True)
+    # st.subheader("Most interesting")
+    # st.write(
+    #     "Roles that their position changed the most in comparison with the website's original order ('most relevant')"
+    # )
+    # sorted = intersected.sort_values("Delta", ascending=False)
+    # sorted = sorted[["Rank", "Title", "Description"]].head(5)
+    # st.dataframe(sorted, hide_index=True)
 
-    st.subheader("Prominent words in the jobs")
-    # TODO named entity recognition
+    # st.subheader("Prominent words in the jobs")
+    # # TODO named entity recognition
 
-    st.subheader("Words that show up in your CV")
-    # TODO topic modelling
+    # st.subheader("Words that show up in your CV")
+    # # TODO topic modelling
 
-    st.subheader("Cluster Visualization (KMeans + PCA)")
-    n_components = 2  # not using 2 will break
-    n_clusters = 5
-    df_with_pca = pca_df(intersected, "Vector", n_components)
-    clustered = add_clusters(df_with_pca, n_clusters, n_components)
-    chart = get_chart(clustered)
-    st.altair_chart(chart, use_container_width=True)
+    # st.subheader("Cluster Visualization (KMeans + PCA)")
+    # n_components = 2  # not using 2 will break
+    # n_clusters = 5
+    # df_with_pca = pca_df(intersected, "Vector", n_components)
+    # clustered = add_clusters(df_with_pca, n_clusters, n_components)
+    # chart = get_chart(clustered)
+    # st.altair_chart(chart, use_container_width=True)
 
-    st.subheader("All results")
-    st.dataframe(intersected, hide_index=True)
+    # st.subheader("All results")
+    # st.dataframe(intersected, hide_index=True)
 
-    st.subheader("Comparison with ")
-    st.write("### BM25")
-    st.write("### MTEB")
-    st.write("### reranker")
+    # st.subheader("Comparison with ")
+
+    st.write("### Lexical Search (BM25)")
+    df2 = pd.read_feather(DB_FILEPATH)
+    bm25_results = lexical_search(input_text, df2["description"].tolist())
+    st.dataframe(bm25_results.head(5), hide_index=True)
+
+    st.write("### Semantic Search (MTEB)")
+    st.write("### Reranker")
     st.write("### LLM")
 
 st.write("---")

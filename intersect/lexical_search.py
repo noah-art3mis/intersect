@@ -1,5 +1,6 @@
 import bm25s
 from rich import print
+import pandas as pd
 
 # rank_bm25 is a somewhat popular python implementation of bm25. bm25s is a more performant alternative.
 
@@ -20,7 +21,7 @@ from rich import print
 import bm25s
 import Stemmer
 
-def lexical_search(query: str, corpus: list[str]) -> list[str]:
+def lexical_search(query: str, corpus: list[str]) -> pd.DataFrame:
     preprocessed_query = preprocess_text(query)
     preprocessed_corpus = [preprocess_text(doc) for doc in corpus]
 
@@ -40,25 +41,15 @@ def lexical_search(query: str, corpus: list[str]) -> list[str]:
             {
                 "Rank": i + 1,
                 "Score": score,
+                # "Title": ,
+                # "Link": ,
                 "Document": doc,
             }
         )
     
-    return formatted_results
-
+    return pd.DataFrame(formatted_results)
 
 def preprocess_text(text: str) -> str:
     text = text.lower()
     # text = re.sub(r'[^a-z\s]', '', text)
     return text
-
-query = "does the fish purr like a cat?"
-
-corpus = [
-    "a cat is a feline and likes to purr",
-    "a dog is the human's best friend and loves to play",
-    "a bird is a beautiful animal that can fly",
-    "a fish is a creature that lives in water and swims",
-]
-
-print(lexical_search(query, corpus))
