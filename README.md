@@ -65,6 +65,7 @@ semantic search. dense vectors.
     -   [ ] add NLP things (named entity recognition, topic modelling)
     -   [ ] add evals (original x embedding x bm25 x rerank x mteb x llm)
         -   [ ] bm25s
+            - fix ocr spacing bugs first
         -   [ ] reranked
         -   [ ] mteb local embedding
         -   [ ] llm

@@ -1,16 +1,59 @@
 import bm25s
+from rich import print
 
 # rank_bm25 is a somewhat popular python implementation of bm25. bm25s is a more performant alternative.
 
 # https://github.com/dorianbrown/rank_bm25
 # https://github.com/xhluca/bm25s
 
-# tokenize
-# remove special CHARACTERS
-# remove stop words
-# stemming
+# - preprocessing
+#     - [x] lowercasing
+#     - [x] tokenizing
+#     - [x] removing stop words
+#     - [x] stemming
+#     - [ ] lemmatizing
+#     - [x] removing special characters
+#     - [x] removing numbers
 
-# Create your corpus here
+# as this is not the focus of the project, using the default configurations should suffice - (tokenizer, stemmer, stop words, lucene method). example does not use lemmatizing and library does not have immediate integration. since it is a real time application the stemmer will be used even though using a lemmatizer might give better results.
+
+import bm25s
+import Stemmer
+
+def lexical_search(query: str, corpus: list[str]) -> list[str]:
+    preprocessed_query = preprocess_text(query)
+    preprocessed_corpus = [preprocess_text(doc) for doc in corpus]
+
+    stemmer = Stemmer.Stemmer("english")
+    corpus_tokens = bm25s.tokenize(preprocessed_corpus, stopwords="en", stemmer=stemmer)
+    retriever = bm25s.BM25()
+    retriever.index(corpus_tokens)
+
+    query_tokens = bm25s.tokenize(preprocessed_query, stopwords="en", stemmer=stemmer)
+    results, scores = retriever.retrieve(query_tokens, corpus=corpus, k=len(corpus))
+
+    formatted_results = []
+    
+    for i in range(results.shape[1]):
+        doc, score = results[0, i], scores[0, i]
+        formatted_results.append(
+            {
+                "Rank": i + 1,
+                "Score": score,
+                "Document": doc,
+            }
+        )
+    
+    return formatted_results
+
+
+def preprocess_text(text: str) -> str:
+    text = text.lower()
+    # text = re.sub(r'[^a-z\s]', '', text)
+    return text
+
+query = "does the fish purr like a cat?"
+
 corpus = [
     "a cat is a feline and likes to purr",
     "a dog is the human's best friend and loves to play",
@@ -18,14 +61,4 @@ corpus = [
     "a fish is a creature that lives in water and swims",
 ]
 
-# Create the BM25 model and index the corpus
-retriever = bm25s.BM25(corpus=corpus)
-retriever.index(bm25s.tokenize(corpus))
-
-# Query the corpus and get top-k results
-query = "does the fish purr like a cat?"
-results, scores = retriever.retrieve(bm25s.tokenize(query), k=2)
-
-# Let's see what we got!
-doc, score = results[0, 0], scores[0, 0]
-print(f"Rank {i+1} (score: {score:.2f}): {doc}")
+print(lexical_search(query, corpus))
