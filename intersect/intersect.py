@@ -2,7 +2,11 @@ import pandas as pd
 import numpy as np
 from embedding import get_embedding
 from openai import OpenAI
-from dotenv import load_dotenv
+
+# -   https://huggingface.co/dunzhang/stella_en_1.5B_v5
+# -   https://huggingface.co/dunzhang/stella_en_400M_v5
+# -   https://huggingface.co/intfloat/e5-mistral-7b-instruct
+# -   https://huggingface.co/BAAI/bge-reranker-base
 
 
 def similarity_search(df: pd.DataFrame, embedding: list) -> pd.DataFrame:
@@ -24,10 +28,8 @@ def similarity_search(df: pd.DataFrame, embedding: list) -> pd.DataFrame:
     return sorted
 
 
-def intersect(db_filepath: str, input_text: str) -> pd.DataFrame:
-    load_dotenv()
+def intersect(df: pd.DataFrame, input_text: str) -> pd.DataFrame:
     v = get_embedding(OpenAI(), input_text)
-    df = pd.read_feather(db_filepath)
     result = similarity_search(df, v)
     formatted = format_columns(result)
     return formatted

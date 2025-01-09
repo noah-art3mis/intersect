@@ -69,42 +69,36 @@ semantic search. dense vectors.
 ## TODO
 
 -   for showcasing
+
     -   [ ] add clustering viz
         -   show your dot / transform space around your dot
         -   add color to your dot
         -   auto cluster n
     -   [ ] add NLP things (named entity recognition, topic modelling)
-    -   [ ] add evals (original x embedding x bm25 x rerank x mteb x llm)
-        -   [ ] bm25s
-            -   fix ocr spacing bugs first
-            -   show title and delta
-        -   [ ] reranker
-            -   https://docs.cohere.com/docs/reranking-best-practices
-            -   https://osanseviero.github.io/hackerllama/blog/posts/sentence_embeddings2/#conclusion
-            -   https://huggingface.co/cross-encoder/ms-marco-TinyBERT-L-2
-            -   https://www.answer.ai/posts/2024-09-16-rerankers.html
-            - cohere supports reranking for structured data
-        -   [ ] mteb local embedding
-            -   https://huggingface.co/dunzhang/stella_en_1.5B_v5
-            -   https://huggingface.co/dunzhang/stella_en_400M_v5
-            -   https://huggingface.co/intfloat/e5-mistral-7b-instruct
-            -   https://huggingface.co/BAAI/bge-reranker-base
-        -   [ ] llm
-        -   https://cookbook.openai.com/examples/search_reranking_with_cross-encoders
+
 -   core functionality
     -   [ ] assemble etl
         -   [ ] get description
             -   [ ] add async to scraping
         -   [ ] get embedding
 -   new features
+    -   [ ] add local semantic search
+    -   [ ] add local reranker
+    -   [ ] add local llm permutation
     -   [ ] infer keywords and city from the text. do several at once
-    -   [ ] add 'x days ago' instead of datetime
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
     -   [ ] prepend other cols before embedding
     -   [ ] upgrade database to sqlite
     -   [ ] add reverse mode (employers ordering applicants by relevance)
         -   this would be bad for interdisciplinarians as they would not be ranked very highly.
     -   [ ] add tracking the bluesky firehose for ai jobs
+    -   [ ] prompt engineering for the permutation
+    -   [ ] permutation: test yaml
+-   fix
+    -   [ ] add 'x days ago' instead of datetime
+    -   [ ] limit reranker to 100
+        -   bm25: fix ocr spacing bugs first
+        -   bm25: show title and delta
 
 ## Job boards
 

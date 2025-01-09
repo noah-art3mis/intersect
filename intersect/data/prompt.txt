@@ -1,0 +1,1 @@
+I will provide you with passages. \nRank the passages based on their relevance to query:
