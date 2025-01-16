@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=1&perpage=100&us=1
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=2&perpage=100&us=1
 
-KEYWORDS = "ai"
+KEYWORDS = "leadership"
 LOCATION = "london"
-N_PAGES = 2
+N_PAGES = 7
 PERPAGE = 100
 
 
@@ -23,8 +23,8 @@ def setup_url(keywords: str, location: str, page: int, perpage: int):
     return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
 
 
-def scrape_search(url: str) -> httpx.Response:
-    response = httpx.get(
+def scrape_search(client: httpx.Client, url: str) -> httpx.Response:
+    response = client.get(
         url="https://proxy.scrapeops.io/v1/",
         params={
             "api_key": os.environ["SCRAPEOPS_API_KEY"],
@@ -37,11 +37,12 @@ def scrape_search(url: str) -> httpx.Response:
 
 
 def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: int):
-    for page in range(1, n_pages + 1):
-        url = setup_url(keywords, location, page, perpage=perpage)
-        response = scrape_search(url).raise_for_status()
-        print(f"{response.status_code}: Scraped {url}")
-        yield response
+    with httpx.Client() as client:
+        for page in range(1, n_pages + 1):
+            url = setup_url(client, keywords, location, page, perpage=perpage)
+            response = scrape_search(client, url).raise_for_status()
+            print(f"{response.status_code}: Scraped {url}")
+            yield response
 
 
 def main():
@@ -54,7 +55,10 @@ def main():
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    end_time = time.time()
+    print(f"Execution time: {end_time - start_time} seconds")
 
 
 # alternatives

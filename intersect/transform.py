@@ -4,8 +4,11 @@ from selectolax.lexbor import LexborNode
 from urllib.parse import urljoin
 import os
 
-INPUT_PATH = "intersect/data/jobs-144.txt"
-OUTPUT_PATH = "intersect/data/jobs-144.feather"
+INPUT_PATH = (
+    "intersect/data/raw/leadership"
+)
+OUTPUT_PATH = "intersect/data/leadership.feather"
+
 
 def load(data: list, path: str) -> None:
     new_df = pd.DataFrame(data)
@@ -67,11 +70,11 @@ def transform_item_cvlibrary(item: LexborNode) -> dict:
 
 
 def main():
-    with open(INPUT_PATH, "r") as f:
-        html = f.read()
-
-    data = transform_cvlibrary(html)
-    load(data, OUTPUT_PATH)
+    for file in os.listdir(INPUT_PATH):
+        with open(os.path.join(INPUT_PATH, file), "r") as f:
+            html = f.read()
+            data = transform_cvlibrary(html)
+            load(data, OUTPUT_PATH)
 
 
 if __name__ == "__main__":

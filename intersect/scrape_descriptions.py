@@ -1,12 +1,13 @@
 import pandas as pd
 from selectolax.lexbor import LexborHTMLParser
 from extract import scrape_search
-
+import httpx
 
 def get_description(url: str) -> str | None:
     try:
-        response = scrape_search(url)
-        print(f"OK: {url}")
+        with httpx.Client() as client:
+            response = scrape_search(client, url)
+            print(f"OK: {url}")
     except Exception as e:
         print(f"Failed to scrape {url}: {e}")
         return None
