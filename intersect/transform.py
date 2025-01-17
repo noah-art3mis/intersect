@@ -5,9 +5,9 @@ from urllib.parse import urljoin
 import os
 
 INPUT_PATH = (
-    "intersect/data/raw/leadership"
+    "intersect/data/raw/facilitator"
 )
-OUTPUT_PATH = "intersect/data/leadership.feather"
+OUTPUT_PATH = "intersect/data/facilitator.feather"
 
 
 def load(data: list, path: str) -> None:

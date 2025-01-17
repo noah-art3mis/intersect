@@ -1,3 +1,4 @@
+import asyncio
 import uuid
 import os
 import time
@@ -7,9 +8,9 @@ from dotenv import load_dotenv
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=1&perpage=100&us=1
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=2&perpage=100&us=1
 
-KEYWORDS = "leadership"
+KEYWORDS = "innovation"
 LOCATION = "london"
-N_PAGES = 7
+N_PAGES = 5
 PERPAGE = 100
 
 
@@ -23,8 +24,8 @@ def setup_url(keywords: str, location: str, page: int, perpage: int):
     return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
 
 
-def scrape_search(client: httpx.Client, url: str) -> httpx.Response:
-    response = client.get(
+async def scrape_search(client: httpx.AsyncClient, url: str) -> httpx.Response:
+    response = await client.get(
         url="https://proxy.scrapeops.io/v1/",
         params={
             "api_key": os.environ["SCRAPEOPS_API_KEY"],
@@ -36,27 +37,32 @@ def scrape_search(client: httpx.Client, url: str) -> httpx.Response:
     return response
 
 
-def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: int):
-    with httpx.Client() as client:
-        for page in range(1, n_pages + 1):
-            url = setup_url(client, keywords, location, page, perpage=perpage)
-            response = scrape_search(client, url).raise_for_status()
-            print(f"{response.status_code}: Scraped {url}")
-            yield response
+async def scrape_all_pages(
+    client: httpx.AsyncClient, keywords: str, location: str, n_pages: int, perpage: int
+):
+    for page in range(1, n_pages + 1):
+        url = setup_url(keywords, location, page, perpage=perpage)
+        response = await scrape_search(client, url)
+        response.raise_for_status()
+        print(f"{response.status_code}: Scraped {url}")
+        yield response
 
 
-def main():
+async def main():
     load_dotenv()
-    for response in scrape_all_pages(KEYWORDS, LOCATION, N_PAGES, PERPAGE):
-        with open(f"jobs-{uuid.uuid4()}.txt", "w") as f:
-            f.write(response.text)
-            time.sleep(1)
+    async with httpx.AsyncClient() as client:
+        async for response in scrape_all_pages(
+            client, KEYWORDS, LOCATION, N_PAGES, PERPAGE
+        ):
+            with open(f"jobs-{uuid.uuid4()}.txt", "w") as f:
+                f.write(response.text)
+                time.sleep(1)
     print("done")
 
 
 if __name__ == "__main__":
     start_time = time.time()
-    main()
+    asyncio.run(main())
     end_time = time.time()
     print(f"Execution time: {end_time - start_time} seconds")
 

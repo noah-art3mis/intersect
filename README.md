@@ -12,6 +12,11 @@ Possible alternative product names: axis, compass, pathway, waypoint
 
 Assignment for the Right Word module at LIS.
 
+1. extract
+2. transform
+3. generate descriptions
+4. generate embeddings
+
 ## Tech stack:
 
 -   `uv`: environment and dependency management
