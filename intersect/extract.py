@@ -3,45 +3,14 @@ import os
 import time
 import httpx
 from dotenv import load_dotenv
-from transform import INPUT_PATH, cvlibrary_text2feather
+from transform import cvlibrary_text2feather
 
 # Configuration
 KEYWORDS = "law"
 LOCATION = "london"
-N_PAGES = 5
+N_PAGES = 2
 PERPAGE = 100
-SEMAPHORE = 5
-
-
-def setup_url(keywords: str, location: str, page: int, perpage: int):
-    """Generate the target URL."""
-    return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
-
-
-async def scrape(
-    client: httpx.AsyncClient, url: str, semaphore: asyncio.Semaphore
-) -> str | None:
-    """Scrape a single page with concurrency control."""
-    async with semaphore:
-        try:
-            start_time = time.time()
-            response = await client.get(
-                url="https://proxy.scrapeops.io/v1/",
-                params={
-                    "api_key": os.environ["SCRAPEOPS_API_KEY"],
-                    "url": url,
-                },
-                timeout=50,
-            )
-            response.raise_for_status()
-            end_time = time.time()
-            print(
-                f"{response.status_code} : {end_time - start_time:.2f}s : Scraped {url}"
-            )
-            return response.text
-        except Exception as e:
-            print(f"!!! Failed to scrape {url} - {e}")
-            return None
+SEMAPHORE = 3
 
 
 async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: int):
@@ -63,14 +32,44 @@ async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: 
         return indexed_results
 
 
+async def scrape(
+    client: httpx.AsyncClient, url: str, semaphore: asyncio.Semaphore
+) -> httpx.Response | None:
+    """Scrape a single page with concurrency control."""
+    async with semaphore:
+        try:
+            start_time = time.time()
+            response = await client.get(
+                url="https://proxy.scrapeops.io/v1/",
+                params={
+                    "api_key": os.environ["SCRAPEOPS_API_KEY"],
+                    "url": url,
+                },
+                timeout=50,
+            )
+            response.raise_for_status()
+            end_time = time.time()
+            print(
+                f"{response.status_code} : {end_time - start_time:.2f}s : Scraped {url}"
+            )
+            return response
+        except Exception as e:
+            print(f"!!! Failed to scrape {url} - {e}")
+            return None
+
+
+def setup_url(keywords: str, location: str, page: int, perpage: int):
+    """Generate the target URL."""
+    return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
+
+
 def save_jobs(responses: list, keywords: str):
     """Save job responses to disk, as txt and as feather."""
 
     OUTPATH_TXT = f"intersect/data/raw/{keywords.replace(' ', '-')}"
     os.makedirs(OUTPATH_TXT, exist_ok=True)
 
-    OUTPATH_FEATHER = f"intersect/data/{keywords.replace(' ', '-')}"
-    os.makedirs(OUTPATH_FEATHER, exist_ok=True)
+    OUTPATH_FEATHER = f"intersect/data/{keywords.replace(' ', '-')}.feather"
 
     for index, response in responses:
         filename = f"{index}-{keywords.replace(' ', '-')}.txt"
@@ -90,7 +89,8 @@ def main():
 
     load_dotenv()
     responses = asyncio.run(scrape_all_pages(KEYWORDS, LOCATION, N_PAGES, PERPAGE))
-    save_jobs(responses, KEYWORDS)
+    responses_text = [(index, response.text) for index, response in responses]
+    save_jobs(responses_text, KEYWORDS)
 
     end_time = time.time()
 

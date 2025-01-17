@@ -58,29 +58,37 @@ import pandas as pd
 from selectolax.lexbor import LexborHTMLParser
 from extract import scrape
 
-INPUT_FILEPATH = "intersect/data/facilitator.feather"
-SEMAPHORE_LIMIT = 10
+INPUT_FILEPATH = "intersect/data/law.feather"
+SEMAPHORE_LIMIT = 5
 
 
-async def get_description(client: httpx.AsyncClient, url: str, index: int, semaphore: asyncio.Semaphore) -> tuple[int, str | None]:
+async def get_description(
+    client: httpx.AsyncClient, url: str, index: int, semaphore: asyncio.Semaphore
+) -> tuple[int, str | None]:
     """
     Fetch the job description from the given URL.
     """
-    async with semaphore:
-        try:
-            response = await scrape(client, url)
-            print(f"OK: {url}")
-        except Exception as e:
-            print(f"Failed to scrape {url}: {e}")
-            return index, None
+    try:
+        start_time = time.time()
+        response = await scrape(client, url, semaphore)
+        end_time = time.time()
+        print(
+            f"{response.status_code if response else 'Failed'} : {end_time - start_time:.2f}s : Scraped {url}"
+        )
+    except Exception as e:
+        print(f"Failed to scrape {url}: {e}")
+        return index, None
 
-        parser = LexborHTMLParser(response.text)
-        result = parser.css_first(".job__description")
+    if response is None:
+        return index, None
 
-        if result is None:
-            return index, None
+    parser = LexborHTMLParser(response.text)
+    result = parser.css_first(".job__description")
 
-        return index, result.text().strip()
+    if result is None:
+        return index, None
+
+    return index, result.text().strip()
 
 
 async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
@@ -119,13 +127,8 @@ async def main():
 
     try:
         df = pd.read_feather(INPUT_FILEPATH)
-        print(f"Loaded {len(df)} URLs from {INPUT_FILEPATH}")
-
         df = await get_descriptions(df)
-        print(f"Scraped descriptions for {len(df)} rows.")
-
         df.to_feather(INPUT_FILEPATH)
-        print(f"Updated DataFrame saved to {INPUT_FILEPATH}")
     except Exception as e:
         print(f"Error occurred during scraping: {e}")
 
