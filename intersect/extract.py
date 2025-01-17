@@ -3,6 +3,7 @@ import os
 import time
 import httpx
 from dotenv import load_dotenv
+from transform import INPUT_PATH, cvlibrary_text2feather
 
 # Configuration
 KEYWORDS = "law"
@@ -63,14 +64,25 @@ async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: 
 
 
 def save_jobs(responses: list, keywords: str):
-    """Save job responses to disk."""
-    OUTPATH = f"intersect/data/raw/{keywords.replace(' ', '-')}"
-    os.makedirs(OUTPATH, exist_ok=True)
+    """Save job responses to disk, as txt and as feather."""
+
+    OUTPATH_TXT = f"intersect/data/raw/{keywords.replace(' ', '-')}"
+    os.makedirs(OUTPATH_TXT, exist_ok=True)
+
+    OUTPATH_FEATHER = f"intersect/data/{keywords.replace(' ', '-')}"
+    os.makedirs(OUTPATH_FEATHER, exist_ok=True)
 
     for index, response in responses:
-        filepath = os.path.join(OUTPATH, f"{index}-{keywords.replace(' ', '-')}.txt")
+        filename = f"{index}-{keywords.replace(' ', '-')}.txt"
+        filepath = os.path.join(OUTPATH_TXT, filename)
+
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(response)
+
+    cvlibrary_text2feather(
+        input_path=OUTPATH_TXT,
+        output_path=OUTPATH_FEATHER,
+    )
 
 
 def main():

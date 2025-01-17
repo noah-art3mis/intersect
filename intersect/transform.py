@@ -4,10 +4,8 @@ from selectolax.lexbor import LexborNode
 from urllib.parse import urljoin
 import os
 
-INPUT_PATH = (
-    "intersect/data/raw/facilitator"
-)
-OUTPUT_PATH = "intersect/data/facilitator.feather"
+INPUT_PATH = "intersect/data/raw/law"
+OUTPUT_PATH = "intersect/data/law.feather"
 
 
 def load(data: list, path: str) -> None:
@@ -70,11 +68,15 @@ def transform_item_cvlibrary(item: LexborNode) -> dict:
 
 
 def main():
-    for file in os.listdir(INPUT_PATH):
-        with open(os.path.join(INPUT_PATH, file), "r") as f:
+    cvlibrary_text2feather(INPUT_PATH, OUTPUT_PATH)
+
+
+def cvlibrary_text2feather(input_path: str, output_path: str) -> None:
+    for file in sorted(os.listdir(input_path)):
+        with open(os.path.join(input_path, file), "r") as f:
             html = f.read()
             data = transform_cvlibrary(html)
-            load(data, OUTPUT_PATH)
+            load(data, output_path)
 
 
 if __name__ == "__main__":

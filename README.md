@@ -26,20 +26,13 @@ Assignment for the Right Word module at LIS.
 ## TODO
 
 -   mvp
-
-    -   named entity recognition
-    -   topic modelling
-
     -   [ ] add clustering viz
         -   show your dot / transform space around your dot
         -   add color to your dot
         -   auto cluster n
-
-    -   ner
-        - drop keywords, city and uk
-        - why is this so slow
         
 -   new features
+    - [ ] assemble etl pipeline so it works in real time
     -   [ ] add download button
     -   [ ] expand database to work in real time. hook up the scraping to the app
     -   [ ] add local semantic search
@@ -59,6 +52,9 @@ Assignment for the Right Word module at LIS.
     -   [ ] limit reranker to 100
         -   bm25: fix ocr spacing bugs first
         -   bm25: show title and delta
+    -   ner
+        - drop keywords, city and uk
+        - why is this so slow
 
 ## Explanations
 

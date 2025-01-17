@@ -1,6 +1,7 @@
+from dotenv import load_dotenv
 import extract
+
 def e():
-    extract.main()
     pass
 
 def t():
