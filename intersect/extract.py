@@ -1,5 +1,4 @@
 import asyncio
-import uuid
 import os
 import time
 import httpx
@@ -8,10 +7,11 @@ from dotenv import load_dotenv
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=1&perpage=100&us=1
 # https://www.cv-library.co.uk/ai-jobs-in-london?page=2&perpage=100&us=1
 
-KEYWORDS = "innovation"
+KEYWORDS = "data"
 LOCATION = "london"
 N_PAGES = 5
 PERPAGE = 100
+SEMAPHORE = 5
 
 
 def setup_url(keywords: str, location: str, page: int, perpage: int):
@@ -24,47 +24,81 @@ def setup_url(keywords: str, location: str, page: int, perpage: int):
     return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
 
 
-async def scrape_search(client: httpx.AsyncClient, url: str) -> httpx.Response:
-    response = await client.get(
-        url="https://proxy.scrapeops.io/v1/",
-        params={
-            "api_key": os.environ["SCRAPEOPS_API_KEY"],
-            "url": url,
-        },
-        timeout=100,
-        # follow_redirects=True,
-    )
-    return response
-
-
-async def scrape_all_pages(
-    client: httpx.AsyncClient, keywords: str, location: str, n_pages: int, perpage: int
+async def scrape_page(
+    client: httpx.AsyncClient, url: str, index: int, semaphore: asyncio.Semaphore
 ):
-    for page in range(1, n_pages + 1):
-        url = setup_url(keywords, location, page, perpage=perpage)
-        response = await scrape_search(client, url)
-        response.raise_for_status()
-        print(f"{response.status_code}: Scraped {url}")
-        yield response
+    result = await scrape(client, url, semaphore)
+    return (index, result)
 
 
-async def main():
-    load_dotenv()
+async def scrape(
+    client: httpx.AsyncClient, url: str, semaphore: asyncio.Semaphore
+) -> httpx.Response:
+    async with semaphore:
+        try:
+            start_time = time.time()
+            response = await client.get(
+                url="https://proxy.scrapeops.io/v1/",
+                params={
+                    "api_key": os.environ["SCRAPEOPS_API_KEY"],
+                    "url": url,
+                },
+                timeout=100,
+            )
+            response.raise_for_status()
+            end_time = time.time()
+            print(
+                f"{response.status_code} : {end_time - start_time:.2f}s : Scraped {url}"
+            )
+            return response
+        except Exception as e:
+            print("!!! Failed to scrape", url, e)
+            return httpx.Response(status_code=500)
+
+
+async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: int):
+    semaphore = asyncio.Semaphore(SEMAPHORE)
+    
     async with httpx.AsyncClient() as client:
-        async for response in scrape_all_pages(
-            client, KEYWORDS, LOCATION, N_PAGES, PERPAGE
-        ):
-            with open(f"jobs-{uuid.uuid4()}.txt", "w") as f:
-                f.write(response.text)
-                time.sleep(1)
-    print("done")
+
+        urls = [
+            setup_url(keywords, location, page, perpage=perpage)
+            for page in range(1, n_pages + 1)
+        ]
+
+        tasks = [
+            scrape_page(client, url, index, semaphore) for index, url in enumerate(urls)
+        ]
+
+        return await asyncio.gather(*tasks)
+
+
+def extract_jobs(keywords: str, location: str, n_pages: int, perpage: int):
+    responses = asyncio.run(scrape_all_pages(keywords, location, n_pages, perpage))
+    responses.sort(key=lambda x: x[0])
+
+    for index, response in responses:
+        OUTPATH = f"intersect/data/raw/{KEYWORDS}"
+
+        if not os.path.exists(OUTPATH):
+            os.makedirs(OUTPATH)
+
+        filepath = f"{index}-{KEYWORDS.replace(' ', '-')}.txt"
+
+        with open(os.path.join(OUTPATH, filepath), "w") as f:
+            f.write(response.text)
+
+
+def main():
+    load_dotenv()
+    start_time = time.time()
+    extract_jobs(KEYWORDS, LOCATION, N_PAGES, PERPAGE)
+    end_time = time.time()
+    print(f"Execution time: {end_time - start_time:.2f} seconds")
 
 
 if __name__ == "__main__":
-    start_time = time.time()
-    asyncio.run(main())
-    end_time = time.time()
-    print(f"Execution time: {end_time - start_time} seconds")
+    main()
 
 
 # alternatives

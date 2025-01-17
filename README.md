@@ -4,10 +4,6 @@ Find the job you actually want - using AI.
 
 Access here: https://intersect.streamlit.app
 
-Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
-
-Compare the results of your CV with your actual interests! This is supposed to be an edifying experience -- the journey might inform you better than the destination.
-
 Possible alternative product names: axis, compass, pathway, waypoint
 
 Assignment for the Right Word module at LIS.
@@ -39,6 +35,10 @@ Assignment for the Right Word module at LIS.
         -   add color to your dot
         -   auto cluster n
 
+    -   ner
+        - drop keywords, city and uk
+        - why is this so slow
+        
 -   new features
     -   [ ] add download button
     -   [ ] expand database to work in real time. hook up the scraping to the app
