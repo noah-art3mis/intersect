@@ -49,9 +49,10 @@ Assignment for the Right Word module at LIS.
     -   [ ] permutation: test yaml
 -   fix
     -   [ ] add 'x days ago' instead of datetime
-    -   [ ] limit reranker to 100
+    -   [ ] limit reranker to 1000
         -   bm25: fix ocr spacing bugs first
         -   bm25: show title and delta
+    - why is drop duplicates not working
     -   ner
         - drop keywords, city and uk
         - why is this so slow

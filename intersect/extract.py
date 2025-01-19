@@ -3,6 +3,7 @@ import os
 import time
 import httpx
 from dotenv import load_dotenv
+from urllib.parse import urlencode
 from transform import cvlibrary_text2feather
 
 # Configuration
@@ -18,7 +19,7 @@ async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: 
     semaphore = asyncio.Semaphore(SEMAPHORE)
     async with httpx.AsyncClient() as client:
         urls = [
-            setup_url(keywords, location, page, perpage=perpage)
+            setup_url_cvlibrary(keywords, location, page, perpage=perpage)
             for page in range(1, n_pages + 1)
         ]
 
@@ -58,9 +59,21 @@ async def scrape(
             return None
 
 
-def setup_url(keywords: str, location: str, page: int, perpage: int):
-    """Generate the target URL."""
-    return f"https://www.cv-library.co.uk/{keywords.replace(' ', '-')}-jobs-in-{location.replace(' ', '-')}?page={page}&perpage={perpage}&us=1"
+
+def setup_url_cvlibrary(keywords: str, location: str, page: int, perpage: int) -> str:
+    base_url = "https://www.cv-library.co.uk/"
+
+    query_params = {
+        "page": page,
+        "perpage": perpage,
+        "us": 1
+    }
+
+    query_string = urlencode(query_params)
+    keywords_encoded = keywords.replace(' ', '-')
+    location_encoded = location.replace(' ', '-')
+
+    return f"{base_url}{keywords_encoded}-jobs-in-{location_encoded}?{query_string}"
 
 
 def save_jobs(responses: list, keywords: str):
