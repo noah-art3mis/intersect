@@ -31,7 +31,7 @@ Assignment for the Right Word module at LIS.
         -   add color to your dot
         -   auto cluster n
 -   new features
-    -   [ ] assemble etl pipeline so it works in real time
+    -   [ ] openai embedding async
     -   [ ] add download button
     -   [ ] expand database to work in real time. hook up the scraping to the app
     -   [ ] add local semantic search
@@ -55,7 +55,7 @@ Assignment for the Right Word module at LIS.
     -   ner
         -   drop keywords, city and uk
         -   why is this so slow
-    -   incremental saving so long tasks are not lost   
+    -   incremental saving so long tasks are not lost
 
 ## Explanations
 

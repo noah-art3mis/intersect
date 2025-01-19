@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en-GB">
-    <head><meta name="xsrf_token" content="50fd71c6e72de84e1b0892ca33add5faa083ecec"/>
+    <head><meta name="xsrf_token" content="72987ce1c571169a644a44579f592b4d5896e16a"/>
         
         
         
@@ -103,7 +103,7 @@
 <!-- Google Tag Manager Data Layer & GA object initialization -->
 <script>
     window.dataLayer = window.dataLayer || [];
-    dataLayer.push({"PAGE_GROUP":"Candidate","HASHED_EMAIL":"","TOP_FIVE_JOBS":"222906948,222893929,222886550,222916002,222893992","JOBS_LIST":[222906948,222893929,222886550],"ZEOTAP_SUB_CATEGORY":"","CLIENT_ID":null,"COUNTRY_CODE":"GBR","ZEOTAP_PARENT_CATEGORY":"Other","iOS":0,"CRITEO_ACCOUNT":"3842","USER_TYPE":"Guest","TOP_THREE_JOBS":"222906948, 222893929, 222886550","CRITEO_SITE_TYPE":"d","JOB_LIST_TITLE":"Law Ai Jobs in London - January 2025 | CV-Library.co.uk","PARTNER_CATEGORY":"Other","NO_JOB_RESULTS":"10","PAGE_TYPE":"Job List Page"});
+    dataLayer.push({"PAGE_TYPE":"Job List Page","HASHED_EMAIL":"","PARTNER_CATEGORY":"Other","ZEOTAP_SUB_CATEGORY":"","CRITEO_ACCOUNT":"3842","TOP_FIVE_JOBS":"222906948,222893929,222886550,222916002,222895070","JOB_LIST_TITLE":"Law Ai Jobs in London - January 2025 | CV-Library.co.uk","JOBS_LIST":[222906948,222893929,222886550],"CLIENT_ID":null,"NO_JOB_RESULTS":"10","COUNTRY_CODE":"GBR","ZEOTAP_PARENT_CATEGORY":"Other","CRITEO_SITE_TYPE":"d","USER_TYPE":"Guest","PAGE_GROUP":"Candidate","iOS":0,"TOP_THREE_JOBS":"222906948, 222893929, 222886550"});
 
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
     ga('create', 'UA-23741307-1', 'auto', {allowLinker: true});
@@ -375,7 +375,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             affiliate_id: "",
             context: "cvlibrary-uk /search-jobs",
             host: "https://mail-validation.api.cv-library.co.uk",
-            uuid: "1eabb5ec-5e6b-49f8-9ff8-bc0afec612b5",
+            uuid: "be98e489-8b2f-4443-afe2-30cf88af57f8",
         };
 
         document.getElementById('clickstreamSearchScript').addEventListener('load', function() {
@@ -404,11 +404,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             }
 
             
-                jobTypes = ['Any'];jobIDs.push('222906948');jobIDs.push('222893929');jobIDs.push('222886550');jobIDs.push('222916002');jobIDs.push('222893992');jobIDs.push('222792686');jobIDs.push('222792724');jobIDs.push('222792583');jobIDs.push('222823191');jobIDs.push('222770693');
+                jobTypes = ['Any'];jobIDs.push('222906948');jobIDs.push('222893929');jobIDs.push('222886550');jobIDs.push('222916002');jobIDs.push('222895070');jobIDs.push('222792686');jobIDs.push('222792724');jobIDs.push('222792583');jobIDs.push('222823191');jobIDs.push('222770693');
             var searchDetails = {
                 candidate_id: '',
                 email_address: '',
-                solr_search_id: '2af9ff86-fa28-4d90-9502-81cfd2de5543',
+                solr_search_id: '08e299ac-26d4-4185-b1e5-c1baba3dc1a2',
                 page_number: 1,
                 ordered_job_ids: jobIDs,
                 keywords: 'law ai',
@@ -459,7 +459,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <script defer src="/assets/js/data-layer-candidate-da890585a51276a764b577944450e3231bcad6767f1f1922b7219602281fe1ad.js"></script>
 
         <script defer src="/assets/js/unify_search-d5e348d4701f91db5a4efd59efd125a6973b203740228416dbf2b604fcc26504.js"></script>
-    <script data-cfasync="false" nonce="2728d77f-6870-4f05-819f-256acfb92a88">try{(function(w,d){!function(a,b,c,d){if(a.zaraz)console.error("zaraz is loaded twice");else{a[c]=a[c]||{};a[c].executed=[];a.zaraz={deferred:[],listeners:[]};a.zaraz._v="5848";a.zaraz._n="2728d77f-6870-4f05-819f-256acfb92a88";a.zaraz.q=[];a.zaraz._f=function(e){return async function(){var f=Array.prototype.slice.call(arguments);a.zaraz.q.push({m:e,a:f})}};for(const g of["track","set","debug"])a.zaraz[g]=a.zaraz._f(g);a.zaraz.init=()=>{var h=b.getElementsByTagName(d)[0],i=b.createElement(d),j=b.getElementsByTagName("title")[0];j&&(a[c].t=b.getElementsByTagName("title")[0].text);a[c].x=Math.random();a[c].w=a.screen.width;a[c].h=a.screen.height;a[c].j=a.innerHeight;a[c].e=a.innerWidth;a[c].l=a.location.href;a[c].r=b.referrer;a[c].k=a.screen.colorDepth;a[c].n=b.characterSet;a[c].o=(new Date).getTimezoneOffset();a[c].q=[];for(;a.zaraz.q.length;){const n=a.zaraz.q.shift();a[c].q.push(n)}i.defer=!0;for(const o of[localStorage,sessionStorage])Object.keys(o||{}).filter((q=>q.startsWith("_zaraz_"))).forEach((p=>{try{a[c]["z_"+p.slice(7)]=JSON.parse(o.getItem(p))}catch{a[c]["z_"+p.slice(7)]=o.getItem(p)}}));i.referrerPolicy="origin";i.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a[c])));h.parentNode.insertBefore(i,h)};["complete","interactive"].includes(b.readyState)?zaraz.init():a.addEventListener("DOMContentLoaded",zaraz.init)}}(w,d,"zarazData","script");window.zaraz._p=async bs=>new Promise((bt=>{if(bs){bs.e&&bs.e.forEach((bu=>{try{const bv=d.querySelector("script[nonce]"),bw=bv?.nonce||bv?.getAttribute("nonce"),bx=d.createElement("script");bw&&(bx.nonce=bw);bx.innerHTML=bu;bx.onload=()=>{d.head.removeChild(bx)};d.head.appendChild(bx)}catch(by){console.error(`Error executing script: ${bu}\n`,by)}}));Promise.allSettled((bs.f||[]).map((bz=>fetch(bz[0],bz[1]))))}bt()}));zaraz._p({"e":["(function(w,d){})(window,document)"]});})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
+    <script data-cfasync="false" nonce="58f5e850-ae2f-477b-9117-3be38f23cd25">try{(function(w,d){!function(a,b,c,d){if(a.zaraz)console.error("zaraz is loaded twice");else{a[c]=a[c]||{};a[c].executed=[];a.zaraz={deferred:[],listeners:[]};a.zaraz._v="5848";a.zaraz._n="58f5e850-ae2f-477b-9117-3be38f23cd25";a.zaraz.q=[];a.zaraz._f=function(e){return async function(){var f=Array.prototype.slice.call(arguments);a.zaraz.q.push({m:e,a:f})}};for(const g of["track","set","debug"])a.zaraz[g]=a.zaraz._f(g);a.zaraz.init=()=>{var h=b.getElementsByTagName(d)[0],i=b.createElement(d),j=b.getElementsByTagName("title")[0];j&&(a[c].t=b.getElementsByTagName("title")[0].text);a[c].x=Math.random();a[c].w=a.screen.width;a[c].h=a.screen.height;a[c].j=a.innerHeight;a[c].e=a.innerWidth;a[c].l=a.location.href;a[c].r=b.referrer;a[c].k=a.screen.colorDepth;a[c].n=b.characterSet;a[c].o=(new Date).getTimezoneOffset();a[c].q=[];for(;a.zaraz.q.length;){const n=a.zaraz.q.shift();a[c].q.push(n)}i.defer=!0;for(const o of[localStorage,sessionStorage])Object.keys(o||{}).filter((q=>q.startsWith("_zaraz_"))).forEach((p=>{try{a[c]["z_"+p.slice(7)]=JSON.parse(o.getItem(p))}catch{a[c]["z_"+p.slice(7)]=o.getItem(p)}}));i.referrerPolicy="origin";i.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a[c])));h.parentNode.insertBefore(i,h)};["complete","interactive"].includes(b.readyState)?zaraz.init():a.addEventListener("DOMContentLoaded",zaraz.init)}}(w,d,"zarazData","script");window.zaraz._p=async bs=>new Promise((bt=>{if(bs){bs.e&&bs.e.forEach((bu=>{try{const bv=d.querySelector("script[nonce]"),bw=bv?.nonce||bv?.getAttribute("nonce"),bx=d.createElement("script");bw&&(bx.nonce=bw);bx.innerHTML=bu;bx.onload=()=>{d.head.removeChild(bx)};d.head.appendChild(bx)}catch(by){console.error(`Error executing script: ${bu}\n`,by)}}));Promise.allSettled((bs.f||[]).map((bz=>fetch(bz[0],bz[1]))))}bt()}));zaraz._p({"e":["(function(w,d){})(window,document)"]});})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
 
     <body id="searchjobs" class="site-cvlibrary-uk header-search-bar-showing js-disabled">
 
@@ -573,7 +573,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                                             <input type="hidden" name="us" value="1">
                             
                             <label for="mob-keywords">Keywords</label>
-                            <input name="q" value="law ai" maxlength="100" type="text" id="mob-keywords" placeholder="e.g Receptionist" data-autocomplete-jobtitles >
+                            <input name="q" value="law ai" maxlength="100" type="text" id="mob-keywords" placeholder="e.g Electrician" data-autocomplete-jobtitles >
 
                             <label for="mob-location">Location</label>
                             <input name="geo" value="London" type="text" id="mob-location" class="location" placeholder="e.g. postcode or town" data-prefer="" data-restrict_to="" autocomplete="off" data-autocomplete-location >
@@ -751,7 +751,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="search-nav-actions__right">
                         
         
-        <p><a href="/search-jobs">Search 128,544 jobs</a> from 9,578 <a href="/companies"><span>companies</span></a></p>
+        <p><a href="/search-jobs">Search 128,549 jobs</a> from 9,578 <a href="/companies"><span>companies</span></a></p>
 
 
     
@@ -765,7 +765,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="search-nav-form__top">
                                     <input type="hidden" name="us" value="1">
                                 <label class="search-nav__label" for="header-search-keywords">Keywords</label>
-                <input id="header-search-keywords" class="search-nav__input" type="text" name="q" value="law ai" maxlength="400" placeholder="e.g. Electrician" data-autocomplete-jobtitles>
+                <input id="header-search-keywords" class="search-nav__input" type="text" name="q" value="law ai" maxlength="400" placeholder="e.g. Project Manager" data-autocomplete-jobtitles>
                 <label class="search-nav__label" for="header-search-location">Location</label>
                 <input id="header-search-location" class="search-nav__input" type="text" name="geo" value="London" placeholder="e.g. postcode or town" data-autocomplete-location  data-prefer="" data-restrict_to="">
                 <input class="search-nav__submit cvl-btn cand-btn" type="submit" value="Find jobs" data-gtm-key="JobSearch" data-gtm-label="Job List Page">
@@ -1664,7 +1664,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 <li class="jbe jbe--results notify-module--lite sm-no md-no lg-no" data-create-alert-cta-module>
                     
-<form class="jbe-form" method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="50fd71c6e72de84e1b0892ca33add5faa083ecec" />
+<form class="jbe-form" method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="72987ce1c571169a644a44579f592b4d5896e16a" />
     <input type="hidden" name="qs" value="geo=London&amp;page=1&amp;perpage=25&amp;q=law+ai&amp;salarymax=&amp;salarymin=&amp;us=1">
     <input type="hidden" name="return" value="/law-ai-jobs-in-london?page=1&amp;perpage=25&amp;us=1">
     <input type="hidden" name="jbe_loc" value="top">
@@ -1763,7 +1763,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222906948/Privacy-Counsel?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Privacy Counsel" data-job-title="Privacy Counsel" data-job-id="222906948"  datalayer-track-click>
+                <a href="/job/222906948/Privacy-Counsel?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Privacy Counsel" data-job-title="Privacy Counsel" data-job-id="222906948"  datalayer-track-click>
                     Privacy Counsel
                 </a>
             </h2>
@@ -1801,7 +1801,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     This opportunity arises as our client looks to expand their services across the APAC region in addition to strengthening their <span style="color: #aa0000">AI</span> initiatives. Responsibilities. Work with the senior leadership team and the board to drive <span style="color: #aa0000">AI</span> initiatives and ensure compliance with relevant privacy &lt; …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222906948/Privacy-Counsel?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Privacy Counsel" data-job-id="222906948" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222906948/Privacy-Counsel?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Privacy Counsel" data-job-id="222906948" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -1817,7 +1817,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222906948/Privacy-Counsel/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222906948" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222906948 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222906948/Privacy-Counsel/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222906948" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222906948 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -1928,7 +1928,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222893929/Head-of-Innovation-Transformation?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Head of Innovation &amp; Transformation" data-job-title="Head of Innovation &amp; Transformation" data-job-id="222893929"  datalayer-track-click>
+                <a href="/job/222893929/Head-of-Innovation-Transformation?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Head of Innovation &amp; Transformation" data-job-title="Head of Innovation &amp; Transformation" data-job-id="222893929"  datalayer-track-click>
                     Head of Innovation &amp; Transformation
                 </a>
             </h2>
@@ -1966,7 +1966,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     I am currently partnered with a UK based <span style="color: #aa0000">Law</span> firm who have created a new position as the Head of Innovation &amp; Transformation. This would be a hybrid role and can be based out of their London, Leeds or Birmingham office, the role is Hybrid and will require onsite attendance 2x days a week.  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222893929/Head-of-Innovation-Transformation?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Head of Innovation &amp; Transformation" data-job-id="222893929" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222893929/Head-of-Innovation-Transformation?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Head of Innovation &amp; Transformation" data-job-id="222893929" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -1986,7 +1986,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222893929/Head-of-Innovation-Transformation/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222893929" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222893929 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222893929/Head-of-Innovation-Transformation/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222893929" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222893929 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -2107,7 +2107,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-id="222886550"  datalayer-track-click>
+                <a href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-id="222886550"  datalayer-track-click>
                     Cloud Infrastructure Engineer - <span style="color:#aa0000">AI</span> Startup, Remote, £85K+
                 </a>
             </h2>
@@ -2145,7 +2145,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Join a pioneering tech company at the forefront of <span style="color: #aa0000">AI</span> and machine learning innovation. Our team comprises experts from top-tier institutions and industry leaders, all dedicated to developing cutting-edge technology. We are backed by prominent investors and offer a collaborative environment  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-id="222886550" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Cloud Infrastructure Engineer - AI Startup, Remote, £85K+" data-job-id="222886550" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -2165,7 +2165,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222886550" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222886550 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222886550/Cloud-Infrastructure-Engineer-AI-Startup-Remote-85K/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222886550" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222886550 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -2286,7 +2286,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222916002/IT-Innovation-Manager-Legal-Tech?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="IT Innovation Manager (Legal Tech)" data-job-title="IT Innovation Manager (Legal Tech)" data-job-id="222916002"  datalayer-track-click>
+                <a href="/job/222916002/IT-Innovation-Manager-Legal-Tech?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="IT Innovation Manager (Legal Tech)" data-job-title="IT Innovation Manager (Legal Tech)" data-job-id="222916002"  datalayer-track-click>
                     IT Innovation Manager (Legal Tech)
                 </a>
             </h2>
@@ -2324,7 +2324,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     My client is a growling <span style="color: #aa0000">Law</span> Firm in London and due to continued growth, they are looking to add a IT Innovation Manager to their team which will be a brand new position for the company. The IT Innovation Manager will bring a competitive edge to the business, offering creative client-facing  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222916002/IT-Innovation-Manager-Legal-Tech?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="IT Innovation Manager (Legal Tech)" data-job-id="222916002" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222916002/IT-Innovation-Manager-Legal-Tech?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="IT Innovation Manager (Legal Tech)" data-job-id="222916002" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -2344,7 +2344,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222916002/IT-Innovation-Manager-Legal-Tech/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222916002" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222916002 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222916002/IT-Innovation-Manager-Legal-Tech/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222916002" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222916002 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -2465,14 +2465,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 <li class="results__item">
-    <article id="jobsearchresult5" class="job search-card" data-job-222893992 data-job-id="222893992" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-company-id="295576" data-company-name="Adecco" data-job-location="City of London, London" data-job-salary="£80,000 - £100,000/annum Benefits " data-job-type="Permanent" data-job-posted="2025-01-13T11:52:48Z" data-job-industry="" data-gtm-key="job" data-job-result>
+    <article id="jobsearchresult5" class="job search-card" data-job-222895070 data-job-id="222895070" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-company-id="295576" data-company-name="Adecco" data-job-location="City of London, London" data-job-salary="£80,000 - £100,000/annum Benefits " data-job-type="Permanent" data-job-posted="2025-01-13T13:49:15Z" data-job-industry="" data-gtm-key="job" data-job-result>
 
         
         <div class="job__main">
             
             
             <h2 class="job__title">
-                <a href="/job/222893992/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-id="222893992"  datalayer-track-click>
+                <a href="/job/222895070/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-id="222895070"  datalayer-track-click>
                     HEAD OF TRANSFORMATION - <span style="color:#aa0000">AI</span> / TECH  / LEGAL
                 </a>
             </h2>
@@ -2500,11 +2500,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </span>
 
                     
-                        <button class="location__expand mobile-no" aria-expanded="false" type="button" data-location-toggle data-target="[data-location-group-222893992]" data-id="222893992" data-q="295576-80000-100000-HEAD OF TRANSFORMATION ">
+                        <button class="location__expand mobile-no" aria-expanded="false" type="button" data-location-toggle data-target="[data-location-group-222895070]" data-id="222895070" data-q="295576-80000-100000-HEAD OF TRANSFORMATION ">
                             Also in other locations
                             <span class="triangle--blue" aria-hidden="true"></span>
                         </button>
-                        <ul class="is-hidden mobile-no text--normal" data-location-group-222893992 data-slide></ul>
+                        <ul class="is-hidden mobile-no text--normal" data-location-group-222895070 data-slide></ul>
                     
                 </dd>
 
@@ -2516,7 +2516,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Head of Transformation - <span style="color: #aa0000">AI</span> / Legal. Central London / Hybrid. £80,000 - £100,000 (depending on experience) + benefits. A remarkable opportunity has arisen for a Head of Transformation with expertise in artificial intelligence to join a prestigious <span style="color: #aa0000">law</span> firm in Central London. This  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222893992/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-id="222893992" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222895070/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="HEAD OF TRANSFORMATION - AI / TECH  / LEGAL" data-job-id="222895070" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -2525,14 +2525,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
 
                 
-                <button class="btn-more md-no lg-no noscript-hide" aria-expanded="false" aria-controls="job-desc5" data-toggle-description data-toggle data-target="#job-desc5" data-id="222893992" data-dl-featured datalayer-track-click>
+                <button class="btn-more md-no lg-no noscript-hide" aria-expanded="false" aria-controls="job-desc5" data-toggle-description data-toggle data-target="#job-desc5" data-id="222895070" data-dl-featured datalayer-track-click>
                     View more
                 </button>
 
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222893992/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222893992" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222893992 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222895070/HEAD-OF-TRANSFORMATION-AI-TECH-LEGAL/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222895070" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222895070 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -2557,6 +2557,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
             <dl class="job__details mobile-no">
                 
+                    <dt class="job__details-term applications">Applications:</dt>
+                    <dd class="job__details-value">
+                        
+                            Less than 10
+                        
+                    </dd>
+                
 
                 
             </dl>
@@ -2567,11 +2574,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     
 <button
-    id="savelnk222893992"
+    id="savelnk222895070"
     class="btn-save "
-    name="savelnk222893992"
+    name="savelnk222895070"
     data-gtm-key="JobActions-SaveJob"
-    data-save-job="222893992"
+    data-save-job="222895070"
     data-save-mobile
     data-title="You have already saved this job."
     title="You can save this job and apply at a later date."
@@ -2636,7 +2643,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Agricultural Property Lawyer - New Life in the Country?" data-job-title="Agricultural Property Lawyer - New Life in the Country?" data-job-id="222792686"  datalayer-track-click>
+                <a href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Agricultural Property Lawyer - New Life in the Country?" data-job-title="Agricultural Property Lawyer - New Life in the Country?" data-job-id="222792686"  datalayer-track-click>
                     Agricultural Property Lawyer - New Life in the Country?
                 </a>
             </h2>
@@ -2671,7 +2678,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Ready to be part of a different kind of <span style="color: #aa0000">law</span> firm. * Warning ** This is not the same as other Ads you may have just read. We're fixing the outdated and broken <span style="color: #aa0000">law</span> firm model. This doesn't mean we're going all <span style="color: #aa0000">AI</span> and virtual, we've just found a better way to help our people  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Agricultural Property Lawyer - New Life in the Country?" data-job-id="222792686" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Agricultural Property Lawyer - New Life in the Country?" data-job-id="222792686" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -2691,7 +2698,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222792686" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792686 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222792686/Agricultural-Property-Lawyer-New-Life-in-the-Country/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222792686" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792686 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -2819,7 +2826,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Luxury Property Solicitor - New Life in the Country?" data-job-title="Luxury Property Solicitor - New Life in the Country?" data-job-id="222792724"  datalayer-track-click>
+                <a href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Luxury Property Solicitor - New Life in the Country?" data-job-title="Luxury Property Solicitor - New Life in the Country?" data-job-id="222792724"  datalayer-track-click>
                     Luxury Property Solicitor - New Life in the Country?
                 </a>
             </h2>
@@ -2854,7 +2861,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Ready to be part of a different kind of <span style="color: #aa0000">law</span> firm. * Warning ** This is not the same as other Ads you may have just read. We're fixing the outdated and broken <span style="color: #aa0000">law</span> firm model. This doesn't mean we're going all <span style="color: #aa0000">AI</span> and virtual, we've just found a better way to help our people  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Luxury Property Solicitor - New Life in the Country?" data-job-id="222792724" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Luxury Property Solicitor - New Life in the Country?" data-job-id="222792724" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -2874,7 +2881,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222792724" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792724 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222792724/Luxury-Property-Solicitor-New-Life-in-the-Country/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222792724" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792724 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -3002,7 +3009,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-id="222792583"  datalayer-track-click>
+                <a href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-id="222792583"  datalayer-track-click>
                     Luxury Senior Property Solicitor - Team Lead. New Life in the Country?
                 </a>
             </h2>
@@ -3037,7 +3044,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Ready to be part of a different kind of <span style="color: #aa0000">law</span> firm. * Warning ** This is not the same as other Ads you may have just read. We're fixing the outdated and broken <span style="color: #aa0000">law</span> firm model. This doesn't mean we're going all <span style="color: #aa0000">AI</span> and virtual, we've just found a better way to help our people  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-id="222792583" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Luxury Senior Property Solicitor - Team Lead. New Life in the Country?" data-job-id="222792583" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -3057,7 +3064,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222792583" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792583 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222792583/Luxury-Senior-Property-Solicitor-Team-Lead-New-Life-in-the-Country/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222792583" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222792583 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -3200,7 +3207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Senior Digital Project Manager, AI, Mainly Remote" data-job-title="Senior Digital Project Manager, AI, Mainly Remote" data-job-id="222823191"  datalayer-track-click>
+                <a href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Senior Digital Project Manager, AI, Mainly Remote" data-job-title="Senior Digital Project Manager, AI, Mainly Remote" data-job-id="222823191"  datalayer-track-click>
                     Senior Digital Project Manager, <span style="color:#aa0000">AI</span>, Mainly Remote
                 </a>
             </h2>
@@ -3238,7 +3245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     Senior Digital Project Manager, Portfolio, Programme, <span style="color: #aa0000">AI</span>, Technical Background, Remote. Senior Digital Project Manager required to work for a Professional Services business based in Central London. However, this is Global role that may require some Global travel (fully expensed) but most of …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Senior Digital Project Manager, AI, Mainly Remote" data-job-id="222823191" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Senior Digital Project Manager, AI, Mainly Remote" data-job-id="222823191" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -3258,7 +3265,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222823191" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222823191 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222823191/Senior-Digital-Project-Manager-AI-Mainly-Remote/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222823191" data-external="0" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222823191 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -3381,7 +3388,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             
             <h2 class="job__title">
-                <a href="/job/222770693/Business-Controller?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" data-open-js="1" target="_blank" rel="noopener" title="Business Controller" data-job-title="Business Controller" data-job-id="222770693"  datalayer-track-click>
+                <a href="/job/222770693/Business-Controller?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" data-open-js="1" target="_blank" rel="noopener" title="Business Controller" data-job-title="Business Controller" data-job-id="222770693"  datalayer-track-click>
                     Business Controller
                 </a>
             </h2>
@@ -3422,7 +3429,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                     We currently employ over 500 people across eight sites in the UK, and our specialisations include software engineering, underwater robotics, radars, <span style="color: #aa0000">AI</span>, and armed forces training. As part of the global entity Saab AB, Saab UK combines the innovative spirit of a start-up with the resources  …
                 
-                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222770693/Business-Controller?hlkw=law-ai&amp;sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" data-open-js="1" data-job-title="Business Controller" data-job-id="222770693" rel="nofollow noopener"  datalayer-track-click>more</a>
+                <a class="job__description-more cvl-btn--border mobile-no mt0" href="/job/222770693/Business-Controller?hlkw=law-ai&amp;sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" data-open-js="1" data-job-title="Business Controller" data-job-id="222770693" rel="nofollow noopener"  datalayer-track-click>more</a>
             </p>
 
             
@@ -3442,7 +3449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 
                 
                     
-                        <a class="cvl-btn chevron" href="/job/222770693/Business-Controller/apply?sid=2af9ff86-fa28-4d90-9502-81cfd2de5543" target="_blank" rel="nofollow noopener" data-job-id="222770693" data-external="1" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222770693 datalayer-track-click>Apply Now</a>
+                        <a class="cvl-btn chevron" href="/job/222770693/Business-Controller/apply?sid=08e299ac-26d4-4185-b1e5-c1baba3dc1a2" target="_blank" rel="nofollow noopener" data-job-id="222770693" data-external="1" data-gtm-key="JobApplicationActions" data-gtm-action="Apply for Job Click" data-1click-hide-222770693 datalayer-track-click>Apply Now</a>
                         
                     
                 
@@ -3524,7 +3531,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             
             <div class="jbe jbe--results notify-module--lite" data-create-alert-cta-module>
                 
-<form class="jbe-form" method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="50fd71c6e72de84e1b0892ca33add5faa083ecec" />
+<form class="jbe-form" method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="72987ce1c571169a644a44579f592b4d5896e16a" />
     <input type="hidden" name="qs" value="geo=London&amp;page=1&amp;perpage=25&amp;q=law+ai&amp;salarymax=&amp;salarymin=&amp;us=1">
     <input type="hidden" name="return" value="/law-ai-jobs-in-london?page=1&amp;perpage=25&amp;us=1">
     <input type="hidden" name="jbe_loc" value="bottom">
@@ -3653,7 +3660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     
                 
             </button>
-            <form class="jbe-dropdown__container is-hidden" data-jbe-dropdown data-slide method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="50fd71c6e72de84e1b0892ca33add5faa083ecec" />
+            <form class="jbe-dropdown__container is-hidden" data-jbe-dropdown data-slide method="post" action="/alerts/job" data-create-alert-form><input type="hidden" name="xsrf_token" value="72987ce1c571169a644a44579f592b4d5896e16a" />
                 <input type="hidden" name="qs" value="geo=London&amp;page=1&amp;perpage=25&amp;q=law+ai&amp;salarymax=&amp;salarymin=&amp;us=1">
                 <input type="hidden" name="return" value="/law-ai-jobs-in-london?page=1&amp;perpage=25&amp;us=1">
                 <input type="hidden" name="jbe_loc" value="top">
@@ -3922,7 +3929,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             function save_search_criteria () {
-                var criteria = {"location":"/locations/euro_regions/London","type":[],"salary_band_ids":null,"salary_period":"annum","category_prefix":null,"salary_band_annual":[],"salary_min":"","distance":15,"salary_max":"","geo":"London","industry":null,"salary_type":null,"keywords":"law ai"};
+                var criteria = {"type":[],"salary_band_ids":null,"category_prefix":null,"salary_max":"","distance":15,"salary_period":"annum","industry":null,"keywords":"law ai","location":"/locations/euro_regions/London","salary_band_annual":[],"geo":"London","salary_min":"","salary_type":null};
 
                 firebase.messaging().getToken()
                 .then( function(token) {
@@ -3940,7 +3947,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 // Browser doesn't support the APIs required to use the firebase SDK
                 if (!firebase.messaging.isSupported()) return;
 
-                firebase.initializeApp({"apiKey":"AIzaSyBqdocaT9EMcqJX4xQ-jpZzQIamDFvF9hI","authDomain":"cv-library.firebaseapp.com","databaseURL":"https://cv-library.firebaseio.com","measurementId":"G-VT9FHLL2J9","storageBucket":"cv-library.appspot.com","appId":"1:618559594986:web:0e999bba7dbcc23b475293","messagingSenderId":"618559594986","projectId":"cv-library"});
+                firebase.initializeApp({"appId":"1:618559594986:web:0e999bba7dbcc23b475293","authDomain":"cv-library.firebaseapp.com","storageBucket":"cv-library.appspot.com","projectId":"cv-library","databaseURL":"https://cv-library.firebaseio.com","apiKey":"AIzaSyBqdocaT9EMcqJX4xQ-jpZzQIamDFvF9hI","messagingSenderId":"618559594986","measurementId":"G-VT9FHLL2J9"});
 
                 firebase.messaging().onMessage(function(payload) {
                     // Intercept payload on page

@@ -11,10 +11,19 @@ from tfidf import wordcloud_tfidf, tfidf_words
 from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
-DB_FILEPATH = "intersect/data/jobs-144.feather"
+
+def get_current_dbs() -> list[str]:
+    return [
+        # "ai",
+        "law",
+    ]
+
+
+def get_db_filepath(db_name: str) -> str:
+    return f"intersect/data/{db_name}.feather"
+
 
 load_dotenv()
-df = pd.read_feather(DB_FILEPATH)
 
 st.title("Intersect")
 
@@ -27,15 +36,23 @@ with st.form("my_form", border=False):
 
     st.write("## About the job")
 
+    st.write(
+        """This is a work in progress. Soon enough you will be able to search for your own keywords and locations. For now, you can use the following databases."""
+    )
+
     col1, col2 = st.columns(2)
 
-    keywords = col1.text_input("Keyword", placeholder="ai", disabled=True)
+    # keywords = col1.text_input("Keyword", placeholder="ai", disabled=True)
 
-    keywords = col2.text_input("City (UK)", placeholder="london", disabled=True)
-
-    st.write(
-        """This is a work in progress. Soon enough you will be able to search for your own. Sorry!"""
+    db_name = col1.selectbox(
+        "Database",
+        get_current_dbs(),
+        index=0,
     )
+
+    df = pd.read_feather(get_db_filepath(db_name))
+
+    location = col2.text_input("City (UK)", placeholder="london", disabled=True)
 
     st.write("## About you")
 
@@ -58,19 +75,37 @@ with st.form("my_form", border=False):
     submit = st.form_submit_button("Search!")
 
 
+with st.spinner("Looking for jobs..."):
+    pass
+
+with st.spinner("Scraping job descriptions..."):
+    pass
+
+with st.spinner("Generating embeddings..."):
+    pass
+
 if submit:
     st.write("## Results")
-    with st.spinner():
-        df_intersect = df.copy(deep=True)
-        intersected = semantic_search_openai(df_intersect, input_text)  # type: ignore
 
-    st.metric("Jobs found", len(intersected))
+    st.metric("Jobs found", len(df))
+
+    st.write("### Most relevant")
+    st.write("Original results")
+    with st.spinner():
+        ranked = df[["Rank", "Title", "Description", "Link"]].head(5)
+        st.dataframe(ranked, hide_index=True)
 
     st.write("### Best fit")
+    # st.write("### Semantic Search")
     st.write("Roles with the highest semantic similarity to your text")
     with st.spinner():
-        ranked = intersected[["Rank", "Title", "Description", "Link"]].head(5)
-        st.dataframe(ranked, hide_index=True)
+        df_semantic_search = df.copy(deep=True)
+        intersected = semantic_search_openai(df_semantic_search, input_text)  # type: ignore
+
+        semantic_search_view = intersected[
+            ["Rank", "Title", "Description", "Link"]
+        ].head(5)
+        st.dataframe(semantic_search_view, hide_index=True)
 
     st.write("### Most interesting")
     st.write(
