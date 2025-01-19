@@ -10,3 +10,5 @@ wheels/
 .venv
 
 .env
+
+proxyscrape_premium_http_proxies.txt

@@ -1,104 +1,18 @@
-# import httpx
-# import time
-# import asyncio
-# import pandas as pd
-# from selectolax.lexbor import LexborHTMLParser
-# from extract import scrape
-
-# INPUT_FILEPATH = "intersect/data/facilitator.feather"
-
-
-# async def get_description(url: str) -> str | None:
-#     try:
-#         async with httpx.AsyncClient() as client:
-#             response = await scrape(client, url)
-#             print(f"OK: {url}")
-#     except Exception as e:
-#         print(f"Failed to scrape {url}: {e}")
-#         return None
-
-#     parser = LexborHTMLParser(response.text)
-#     result = parser.css_first(".job__description")
-
-#     if result is None:
-#         return None
-
-#     return result.text().strip()
-
-
-# async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
-#     semaphore = asyncio.Semaphore(10)
-
-#     async with semaphore:
-#         tasks = [get_description(url) for url in df["url"]]
-#         descriptions = await asyncio.gather(*tasks)
-
-#     df["description"] = descriptions
-#     return df
-
-
-# async def main():
-#     start_time = time.time()
-
-#     df = pd.read_feather(INPUT_FILEPATH)
-#     df = await get_descriptions(df)
-#     df.to_feather(INPUT_FILEPATH)
-
-#     end_time = time.time()
-#     print(f"Execution time: {end_time - start_time} seconds")
-
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
-
-import httpx
 import time
 import asyncio
 import pandas as pd
 from selectolax.lexbor import LexborHTMLParser
 from extract import scrape
+from curl_cffi.requests import AsyncSession
 
 INPUT_FILEPATH = "intersect/data/law.feather"
 SEMAPHORE_LIMIT = 5
 
 
-async def get_description(
-    client: httpx.AsyncClient, url: str, index: int, semaphore: asyncio.Semaphore
-) -> tuple[int, str | None]:
-    """
-    Fetch the job description from the given URL.
-    """
-    try:
-        start_time = time.time()
-        response = await scrape(client, url, semaphore)
-        end_time = time.time()
-        print(
-            f"{response.status_code if response else 'Failed'} : {end_time - start_time:.2f}s : Scraped {url}"
-        )
-    except Exception as e:
-        print(f"Failed to scrape {url}: {e}")
-        return index, None
-
-    if response is None:
-        return index, None
-
-    parser = LexborHTMLParser(response.text)
-    result = parser.css_first(".job__description")
-
-    if result is None:
-        return index, None
-
-    return index, result.text().strip()
-
-
 async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Fetch job descriptions for all URLs in the DataFrame.
-    Process tasks as they are completed but maintain the original order in the DataFrame.
-    """
     semaphore = asyncio.Semaphore(SEMAPHORE_LIMIT)
 
-    async with httpx.AsyncClient() as client:
+    async with AsyncSession() as client:
         tasks = [
             get_description(client, url, index, semaphore)
             for index, url in enumerate(df["url"])
@@ -112,17 +26,33 @@ async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
     # Sort results by the original index
     results.sort(key=lambda x: x[0])
 
+    #TODO add incremental saving
+    
     # Assign descriptions back to the DataFrame
     descriptions = [desc for _, desc in results]
     df["description"] = descriptions
 
     return df
 
+async def get_description(
+    client: AsyncSession, url: str, index: int, semaphore: asyncio.Semaphore
+) -> tuple[int, str | None]:
+
+    response = await scrape(client, url, semaphore)
+
+    if response is None:
+        return index, None
+
+    parser = LexborHTMLParser(response.text)
+    result = parser.css_first(".job__description")
+
+    if result is None:
+        return index, None
+
+    return index, result.text().strip()
+
 
 async def main():
-    """
-    Main function to read the DataFrame, fetch descriptions, and save the result.
-    """
     start_time = time.time()
 
     try:
