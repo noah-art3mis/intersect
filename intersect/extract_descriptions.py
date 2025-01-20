@@ -1,21 +1,26 @@
+from dotenv import load_dotenv
+from openai import OpenAI
 import time
 import asyncio
 import pandas as pd
 from selectolax.lexbor import LexborHTMLParser
 from extract import scrape
 from curl_cffi.requests import AsyncSession
-from embedding import generate_embeddings
+from embedding import get_embedding
 
-INPUT_FILEPATH = "intersect/data/law-ai.feather"
+INPUT_FILEPATH = "intersect/data/leadership.feather"
 SEMAPHORE_LIMIT = 5
 
 
 async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
+
+    load_dotenv()
+    openai_client = OpenAI()
     semaphore = asyncio.Semaphore(SEMAPHORE_LIMIT)
 
     async with AsyncSession() as client:
         tasks = [
-            get_description(client, url, index, semaphore)
+            get_description(client, url, index, semaphore, openai_client)
             for index, url in enumerate(df["url"])
         ]
 
@@ -27,32 +32,38 @@ async def get_descriptions(df: pd.DataFrame) -> pd.DataFrame:
     # Sort results by the original index
     results.sort(key=lambda x: x[0])
 
-    # TODO add incremental saving
-    # TODO add embedding generation in parallel
+    temp_df = pd.DataFrame(results, columns=["index", "description", "embedding"])
+    df["description"] = temp_df["description"]
+    df["embedding"] = temp_df["embedding"]
 
-    # Assign descriptions back to the DataFrame
-    descriptions = [desc for _, desc in results]
-    df["description"] = descriptions
+    # TODO add incremental saving
 
     return df
 
 
 async def get_description(
-    client: AsyncSession, url: str, index: int, semaphore: asyncio.Semaphore
-) -> tuple[int, str | None]:
+    client: AsyncSession,
+    url: str,
+    index: int,
+    semaphore: asyncio.Semaphore,
+    ai_client: OpenAI,
+) -> tuple[int, str | None, list[float] | None]:
 
     response = await scrape(client, url, semaphore)
 
     if response is None:
-        return index, None
+        return index, None, None
 
     parser = LexborHTMLParser(response.text)
     result = parser.css_first(".job__description")
 
     if result is None:
-        return index, None
+        return index, None, None
 
-    return index, result.text().strip()
+    result_string = result.text().strip()
+    embedding = get_embedding(ai_client, result_string)
+
+    return index, result_string, embedding
 
 
 async def main():
@@ -64,8 +75,6 @@ async def main():
         df = await get_descriptions(df)
     except Exception as e:
         print(f"Error occurred during scraping: {e}")
-
-    df = generate_embeddings(df)
 
     df.to_feather(INPUT_FILEPATH)
 

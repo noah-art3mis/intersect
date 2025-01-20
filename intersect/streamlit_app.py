@@ -11,11 +11,17 @@ from tfidf import wordcloud_tfidf, tfidf_words
 from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
+DEFAULT_CV_PATH = "intersect/data/cvs/j.txt"
+
 
 def get_current_dbs() -> list[str]:
     return [
-        # "ai",
+        "change",
+        "data",
+        "facilitator",
+        "fun",
         "law",
+        "leadership",
     ]
 
 
@@ -51,6 +57,8 @@ with st.form("my_form", border=False):
     )
 
     df = pd.read_feather(get_db_filepath(db_name))
+    df = df.dropna()
+    df = df.drop_duplicates(subset=["description"])
 
     location = col2.text_input("City (UK)", placeholder="london", disabled=True)
 
@@ -66,7 +74,7 @@ with st.form("my_form", border=False):
                 "No text found in pdf. You might have a scanned document, which is not supported."
             )
     else:
-        with open("intersect/data/raw/cvs/cv2.txt", "r") as f:
+        with open(DEFAULT_CV_PATH, "r") as f:
             TEXT = f.read()
         input_text = st.text_area("Paste any text", TEXT, height=34 * 4)
 
@@ -92,16 +100,14 @@ if submit:
     st.write("### Most relevant")
     st.write("Original results")
     with st.spinner():
-        ranked = df[["Rank", "Title", "Description", "Link"]].head(5)
-        st.dataframe(ranked, hide_index=True)
+        df_copy = df.copy(deep=True)
+        st.dataframe(df_copy[["title", "description"]].head(5))
 
     st.write("### Best fit")
     # st.write("### Semantic Search")
     st.write("Roles with the highest semantic similarity to your text")
     with st.spinner():
-        df_semantic_search = df.copy(deep=True)
-        intersected = semantic_search_openai(df_semantic_search, input_text)  # type: ignore
-
+        intersected = semantic_search_openai(df_copy, input_text)  # type: ignore
         semantic_search_view = intersected[
             ["Rank", "Title", "Description", "Link"]
         ].head(5)
@@ -133,8 +139,8 @@ if submit:
         chart = get_chart(clustered)
         st.altair_chart(chart, use_container_width=True)
 
-    # st.write("### All results")
-    # st.dataframe(intersected, hide_index=True)
+    st.write("### All results")
+    st.dataframe(df_copy, hide_index=True)
 
     st.write("### Other methods")
 

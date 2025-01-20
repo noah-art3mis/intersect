@@ -2,6 +2,7 @@ import asyncio
 import os
 import time
 from curl_cffi.requests import AsyncSession, Response
+from tenacity import retry, stop_after_attempt, wait_exponential, RetryError
 from dotenv import load_dotenv
 from urllib.parse import urlencode
 from transform import cvlibrary_text2feather
@@ -9,10 +10,10 @@ import random
 from rich import print
 
 # Configuration
-KEYWORDS = "law ai"
+KEYWORDS = "data"
 LOCATION = "london"
-N_PAGES = 1
-PERPAGE = 25
+N_PAGES = 5
+PERPAGE = 100
 SEMAPHORE = 3
 
 
@@ -35,29 +36,41 @@ async def scrape_all_pages(keywords: str, location: str, n_pages: int, perpage: 
         return indexed_results
 
 
+@retry(
+    stop=stop_after_attempt(3),  # Retry up to 3 times
+    wait=wait_exponential(multiplier=1, min=2, max=10),  # Exponential backoff
+    reraise=True,  # Raise the exception if all retries fail
+)
+async def fetch_with_retry(client: AsyncSession, url: str, proxy: str) -> Response:
+    start_time = time.time()
+    response = await client.get(
+        url,
+        impersonate="chrome",
+        proxies={
+            "http": f"http://{proxy}",
+        },
+    )
+    end_time = time.time()
+    print(
+        f"{response.status_code if response else 'Failed'} : {end_time - start_time:.2f}s : Scraped {url[:50] + '...' if len(url) > 50 else url}"
+    )
+    return response
+
+
 async def scrape(
     client: AsyncSession, url: str, semaphore: asyncio.Semaphore
 ) -> Response | None:
-
     proxies = get_proxies("proxies.txt")
+    proxy = random.choice(proxies)
 
     async with semaphore:
         try:
-            start_time = time.time()
-            response = await client.get(
-                url,
-                impersonate="chrome",
-                proxies={
-                    "http": "http://" + random.choice(proxies),
-                },
-            )
-            end_time = time.time()
-            print(
-                f"{response.status_code if response else 'Failed'} : {end_time - start_time:.2f}s : Scraped {url[:50] + '...' if len(url) > 50 else url}"
-            )
-            return response
+            return await fetch_with_retry(client, url, proxy)
+        except RetryError as e:
+            print(f"Failed to scrape {url} after multiple attempts - {e}")
+            return None
         except Exception as e:
-            print(f"!!! Failed to scrape {url} - {e}")
+            print(f"Unexpected error while scraping {url} - {e}")
             return None
 
 

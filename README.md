@@ -31,6 +31,11 @@ Assignment for the Right Word module at LIS.
         -   add color to your dot
         -   auto cluster n
 -   new features
+    -   find the last page automatically (
+        <p class="search-header__results">
+        Displaying <b>1-100</b> of 562 jobs
+        </p>
+        )
     -   [ ] openai embedding async
     -   [ ] add download button
     -   [ ] expand database to work in real time. hook up the scraping to the app
@@ -46,7 +51,9 @@ Assignment for the Right Word module at LIS.
     -   [ ] add tracking the bluesky firehose for ai jobs
     -   [ ] prompt engineering for the permutation
     -   [ ] permutation: test yaml
+    -   [ ] 'tell me who your friends are' mode where you give other peoples cvs and average the vectors
 -   fix
+    -   add retry for 403
     -   [ ] add 'x days ago' instead of datetime
     -   [ ] limit reranker to 1000
         -   bm25: fix ocr spacing bugs first

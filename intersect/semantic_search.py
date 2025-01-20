@@ -30,7 +30,7 @@ def similarity_search(df: pd.DataFrame, embedding: list) -> pd.DataFrame:
 
 def semantic_search_openai(df: pd.DataFrame, input_text: str) -> pd.DataFrame:
     v = get_embedding(OpenAI(), input_text)
-    result = similarity_search(df, v)
+    result = similarity_search(df, v) # type: ignore
     formatted = format_columns(result)
     return formatted
 

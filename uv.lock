@@ -1300,6 +1300,7 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "spacy" },
     { name = "streamlit" },
+    { name = "tenacity" },
     { name = "tiktoken" },
     { name = "wordcloud" },
 ]
@@ -1328,6 +1329,7 @@ requires-dist = [
     { name = "scikit-learn", specifier = ">=1.6.0" },
     { name = "spacy", specifier = ">=3.8.3" },
     { name = "streamlit", specifier = ">=1.41.1" },
+    { name = "tenacity", specifier = ">=9.0.0" },
     { name = "tiktoken", specifier = ">=0.8.0" },
     { name = "wordcloud", specifier = ">=1.9.4" },
 ]

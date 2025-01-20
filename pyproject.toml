@@ -20,6 +20,7 @@ dependencies = [
     "scikit-learn>=1.6.0",
     "spacy>=3.8.3",
     "streamlit>=1.41.1",
+    "tenacity>=9.0.0",
     "tiktoken>=0.8.0",
     "wordcloud>=1.9.4",
 ]

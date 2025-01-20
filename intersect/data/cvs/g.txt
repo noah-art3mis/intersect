@@ -1,0 +1,85 @@
+Gustavo Araujo Costa
+	Clinical psychologist and software engineer
+
+Personal Information
+Phone: +55 (61) 981334405 / +44 07502445416
+E-mail: gustavo.costa@lis.ac.uk / gustavo@arcos.org.br
+Address: Claredale House, Claredale Street, London, UK – E2 6PE
+Date of birth: 29/09/1995
+Origin: Brasília, Brazil
+
+Links
+LinkedIn: www.linkedin.com/in/gustavoarcos
+Blog: https://simulacro.co.uk/
+Instagram: @simulacro.psi
+GitHub: https://github.com/noah-art3mis
+
+Academic Background
+Undergraduate
+Psychologist and Bachelor of Psychology – University of Brasília (2019). 
+Graduate
+Specialization in Lacanian Psychoanalysis – Faculdade Inspirar (2022). 
+Master of Arts and Sciences in Interdisciplinary Problems & Methods – The London Interdisciplinary School (2024 – ongoing)
+Experience
+2017 – 2019
+Internship – psychoanalytic counselling for adults – CAEP/UnB 
+	2020 – 2021
+Volunteer – psychoanalytic counselling for adults – CAEP/UnB 
+2021 – 2024
+Partner – Espaço Psique Psychology Clinic
+	2023 – 2024
+Technical Responsible – Espaço Psique  Psychology Clinic
+
+Projects
+simulacro
+Writings on data science, AI ethics and philosophy of science
+		 https://simulacro.co.uk/
+Fora Freud
+Essays on philosophy and psychoanalysis (in portuguese)
+		gustavocosta.psc.br
+Prophetic Strategies
+Synthetic prophet AI application. 
+		https://prophetic.streamlit.app/
+Learning to Love the Labyrinth 
+A game about irresponsible metaphysics and celestial hooks
+		https://noah-art3mis.itch.io/learning-to-love-the-labyrinth
+Crucible
+Lightweight AI prompt evaluation package
+		https://github.com/noah-art3mis/crucible
+simulacro.psi
+Every day a philosophy quote
+		https://www.instagram.com/simulacro.psi/
+Automaton
+Automation for Instagram content generation
+		https://github.com/noah-art3mis/apothecary
+WEAV
+Elementary cellular automata visualizer
+		https://github.com/noah-art3mis/WEAV
+LexGPT
+AI services for lawyers
+		https://lexgpt.com.br/beta/
+
+Languages
+Native Brazilian Portuguese
+Fluent in English (LanguageCert International ESOL SELT B2)
+Basic Spanish (Bravo Espanhol Fundamental Module, Level A1 – 29h)
+
+Certificates
+    • HarvardX Introduction to Artificial Intelligence (70h)
+    • Weaving Knowledge Practices: Introduction to Contemporary Science Studies (APPH) (15h)
+    • Introduction to Philosophy of Science (Centro de Formação) (15h)
+    • Introduction to the Thought of Bruno Latour (APPH) (15h)
+    • Introduction to the Thought of Donna Haraway (APPH) (15h)
+    • Living and Dying in the Chthulucene: Donna Haraway's Ethics of Care (APPH) (15h)
+    • Introduction to the Thought of Jacques Derrida: Writing and Deportation (APPH) (15h)
+    • Interfaces Between Ethics and Psychoanalysis in Jacques Derrida (Contemporâneo) (2h)
+    • The Philosophy of Difference and Its Problems: Philosophy, Ethics, and Politics (APPH) (15h)
+    • A Thousand Plateaus, Another Introduction: Ritornello, Body Without Organs, War Machine (APPH) (15h) 
+    • Deleuze and Contemporary Psychoanalysis: Transition to a New Plateau (Contemporary) (28h)
+    • Psychoanalysis and Gender Dissidences: Transphobia, Power, and Resistance (4h)
+    • IV Journey of the Lacanian Association of Brasília (7h)
+    • I International Colloquium: Unconscious and Writing
+    • How Does a Psychoanalyst Work? (Lacanian School of Psychoanalysis) (8h)
+    • The Clinical Proposal of Jacques Lacan with Camila Kushnir (15h)
+    • Lacan, Between Structuralist Philosophy and Social Theory (Module I) (8h)
+    • Artisanal Bakery (Kaza Chique) (20h) 
