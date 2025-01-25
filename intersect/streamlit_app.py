@@ -1,9 +1,13 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
+from datetime import datetime, timezone
 from dotenv import load_dotenv
+from embedding import get_embedding
+from openai import OpenAI
 
+from utils import add_you
 from read_pdf import get_text_from_pdf
-from semantic_search import semantic_search_openai
+from semantic_search import format_columns, similarity_search
 from cluster_viz import pca_df, get_chart, add_clusters
 from lexical_search import lexical_search
 from rerank import rerank_cohere
@@ -58,9 +62,17 @@ with st.form("my_form", border=False):
         index=0,
     )
 
-    df = pd.read_feather(get_db_filepath(db_name))
-    df = df.dropna()
-    df = df.drop_duplicates(subset=["description"])
+    original_df = pd.read_feather(get_db_filepath(db_name))
+    original_df = original_df.dropna()
+    original_df = original_df.drop_duplicates(subset=["description"])
+
+    original_df["i_relevance"] = original_df.index
+
+    original_df["timestamp"] = pd.to_datetime(original_df["posted"], utc=True)
+    now = datetime.now(timezone.utc)
+    original_df["days_ago"] = (now - original_df["timestamp"]).dt.days  # type: ignore
+
+    df = original_df.copy(deep=True)
 
     location = col2.text_input("City (UK)", placeholder="london", disabled=True)
 
@@ -97,56 +109,70 @@ with st.spinner("Generating embeddings..."):
 if submit:
     st.write("## Results")
 
-    st.metric("Jobs found", len(df))
+    st.metric("Jobs found", len(original_df))
 
     st.write("### Most relevant")
     st.write("Original results")
     with st.spinner():
-        df_copy = df.copy(deep=True)
-        st.dataframe(df_copy[["title", "description"]].head(5))
+        st.dataframe(
+            df[
+                ["i_relevance", "title", "company", "days_ago", "description", "url"]
+            ].head(5),
+            hide_index=True,
+        )
 
     st.write("### Best fit")
     # st.write("### Semantic Search")
     st.write("Roles with the highest semantic similarity to your text")
     with st.spinner():
-        intersected = semantic_search_openai(df_copy, input_text)  # type: ignore
-        semantic_search_view = intersected[
-            ["Rank", "Title", "Description", "Link"]
-        ].head(5)
-        st.dataframe(semantic_search_view, hide_index=True)
+        input_embedding = get_embedding(OpenAI(), input_text)
+
+        if input_embedding is None:
+            st.error("Failed to generate embedding.")
+
+        result = similarity_search(df_copy, input_embedding)  # type: ignore
+        df_semantic = format_columns(result)
+
+        view_semantic = df_semantic[["Rank", "Title", "Description", "Link"]].head(5)
+        st.dataframe(view_semantic, hide_index=True)
 
     st.write("### Most interesting")
     st.write(
         "Roles that their position changed the most in comparison with the website's original order ('most relevant')"
     )
     with st.spinner():
-        sorted = intersected.sort_values("Delta", ascending=False)
-        sorted = sorted[["Rank", "Title", "Description"]].head(5)
-        st.dataframe(sorted, hide_index=True)
+        df_semantic_delta = df_semantic.sort_values("Delta", ascending=False)
+        view_semantic_delta = df_semantic_delta[["Rank", "Title", "Description"]].head(
+            5
+        )
+        st.dataframe(view_semantic_delta, hide_index=True)
 
     st.write("### Relevant words")
     st.write("Topic modelling (TF-IDF)")
     with st.spinner():
-        wc = tfidf_words(intersected["Description"].tolist())
+        wc = tfidf_words(df_semantic["Description"].tolist())
         wcdf = pd.DataFrame(list(wc.items()), columns=["Word", "Frequency"])
         wordcloud_tfidf(wc)
 
     st.write("### Cluster Visualization (KMeans + PCA)")
     with st.spinner():
         st.write("Hover over items to see more details")
-        
+
         cluster_range = [3]
         n_clusters = 0
         # cluster_range = range(1, 6)
         # n_clusters = st.select_slider(
         #     "Number of clusters", options=cluster_range, value=3
         # )
-        df_with_pca = pca_df(intersected, "Vector", n_components=2)
+        df_w_you = add_you(df_semantic, input_text, input_embedding)
+        df_with_pca = pca_df(df_w_you, "Vector", n_components=2)
         clustered = [
             add_clusters(df_with_pca, i, n_components=2) for i in cluster_range
         ]
+
         chart = get_chart(clustered[n_clusters])
         st.altair_chart(chart, use_container_width=True)
+        st.dataframe(clustered[n_clusters])
 
     # st.write("### All results")
     # st.dataframe(df_copy, hide_index=True)
@@ -174,7 +200,7 @@ if submit:
     # too slow
     # st.write("### Named entity recognition")
     # with st.spinner():
-    #     sentences = intersected["Description"].tolist()
+    #     sentences = df_semantic["Description"].tolist()
     #     entities = ner_count(sentences)
     #     entities_df = pd.DataFrame.from_dict(entities, orient="index")
     #     entities_sorted = entities_df.sort_values(by="0", ascending=False)

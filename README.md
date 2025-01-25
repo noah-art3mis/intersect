@@ -36,7 +36,6 @@ Assignment for the Right Word module at LIS.
 
     -   show delta for bm25
     -   [ ] prompt engineering for the permutation
-    -   [ ] add 'x days ago' instead of datetime
     -
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
 

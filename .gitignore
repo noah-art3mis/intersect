@@ -11,4 +11,4 @@ wheels/
 
 .env
 
-proxyscrape_premium_http_proxies.txt
+.proxies.txt
