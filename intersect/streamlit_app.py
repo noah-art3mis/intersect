@@ -16,10 +16,12 @@ DEFAULT_CV_PATH = "intersect/data/cvs/j.txt"
 
 def get_current_dbs() -> list[str]:
     return [
+        "ai",
         "change",
         "data",
         "facilitator",
         "fun",
+        "law-ai",
         "law",
         "leadership",
     ]
@@ -132,15 +134,22 @@ if submit:
     st.write("### Cluster Visualization (KMeans + PCA)")
     with st.spinner():
         st.write("Hover over items to see more details")
-        n_components = 2  # not using 2 will break
-        n_clusters = 5
-        df_with_pca = pca_df(intersected, "Vector", n_components)
-        clustered = add_clusters(df_with_pca, n_clusters, n_components)
-        chart = get_chart(clustered)
+        
+        cluster_range = [3]
+        n_clusters = 0
+        # cluster_range = range(1, 6)
+        # n_clusters = st.select_slider(
+        #     "Number of clusters", options=cluster_range, value=3
+        # )
+        df_with_pca = pca_df(intersected, "Vector", n_components=2)
+        clustered = [
+            add_clusters(df_with_pca, i, n_components=2) for i in cluster_range
+        ]
+        chart = get_chart(clustered[n_clusters])
         st.altair_chart(chart, use_container_width=True)
 
-    st.write("### All results")
-    st.dataframe(df_copy, hide_index=True)
+    # st.write("### All results")
+    # st.dataframe(df_copy, hide_index=True)
 
     st.write("### Other methods")
 
@@ -158,9 +167,9 @@ if submit:
         )
         st.dataframe(reranked_results.head(5), hide_index=True)
 
-    st.write("### TF-IDF Table")
-    wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)
-    st.dataframe(wc_sorted, hide_index=True)
+    # st.write("### TF-IDF Table")
+    # wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)
+    # st.dataframe(wc_sorted, hide_index=True)
 
     # too slow
     # st.write("### Named entity recognition")
@@ -173,15 +182,15 @@ if submit:
     #     wordcloud_ner(ner_count(sentences))
 
     # does not follow the prompt
-    # st.write("#### Permutation Generation (LLM)")
-    # with st.spinner():
-    #     df_permutation = df.copy(deep=True)
-    #     permutation_results = permutation_openai(
-    #         input_text,
-    #         df_reranker["description"].tolist(),
-    #         top_k=10,
-    #     )
-    #     st.dataframe(permutation_results.head(5), hide_index=True)
+    st.write("#### Permutation Generation (LLM)")
+    with st.spinner():
+        df_permutation = df.copy(deep=True)
+        permutation_results = permutation_openai(
+            input_text,
+            df_reranker["description"].tolist(),
+            top_k=10,
+        )
+        st.dataframe(permutation_results.head(5), hide_index=True)
 
 st.write("---")
 st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")

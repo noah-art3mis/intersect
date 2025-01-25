@@ -18,7 +18,7 @@ Assignment for the Right Word module at LIS.
 -   `uv`: environment and dependency management
 -   `streamlit`: web framework (frontend and backend) and hosting
 -   `openai` and `cohere`: embedding and rerank models
--   `scrapeops`: scraping proxy
+-   `proxyscrape` and `curl_cffi`: scraping
 -   `pypdf`: pdf parsing
 -   `scikit-learn`: PCA, KMeans
 -   `bm25s`: fast BM25 implementation
@@ -27,10 +27,19 @@ Assignment for the Right Word module at LIS.
 
 -   mvp
     -   [ ] add clustering viz
+        -   add kmeans n selection
+            -   fix reactivity state management
         -   show your dot / transform space around your dot
         -   add color to your dot
         -   auto cluster n
 -   new features
+
+    -   show delta for bm25
+    -   [ ] prompt engineering for the permutation
+    -   [ ] add 'x days ago' instead of datetime
+    -
+    -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
+
     -   find the last page automatically (
         <p class="search-header__results">
         Displaying <b>1-100</b> of 562 jobs
@@ -43,20 +52,18 @@ Assignment for the Right Word module at LIS.
     -   [ ] add local reranker
     -   [ ] add local llm permutation
     -   [ ] infer keywords and city from the text. do several at once
-    -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
     -   [ ] prepend other cols before embedding
     -   [ ] upgrade database to sqlite
     -   [ ] add reverse mode (employers ordering applicants by relevance)
         -   this would be bad for interdisciplinarians as they would not be ranked very highly.
     -   [ ] add tracking the bluesky firehose for ai jobs
-    -   [ ] prompt engineering for the permutation
     -   [ ] permutation: test yaml
     -   [ ] 'tell me who your friends are' mode where you give other peoples cvs and average the vectors
+
 -   fix
-    -   add retry for 403
-    -   [ ] add 'x days ago' instead of datetime
+    -   fix spacing issues
+        -   maybe summarize with llm? the blocks of text are especially bad
     -   [ ] limit reranker to 1000
-        -   bm25: fix ocr spacing bugs first
         -   bm25: show title and delta
     -   why is drop duplicates not working
     -   ner

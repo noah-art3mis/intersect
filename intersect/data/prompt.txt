@@ -1,1 +1,1 @@
-I will provide you with passages. \nRank the passages based on their relevance to query:
+I will provide you with passages. \nRank the passages based on their relevance to query. Provide the reranked passages without commentary. The description should be a copy of the original description.
