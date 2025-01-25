@@ -16,13 +16,13 @@ def similarity_search(df: pd.DataFrame, embedding: list[float]) -> pd.DataFrame:
     df["similarity"] = df["embedding"].apply(lambda x: np.dot(embedding, x))
     sorted = df.sort_values("similarity", ascending=False).reset_index(drop=True)
 
-    sorted["new_position"] = sorted.index
+    sorted["i_semantic"] = sorted.index
 
     sorted = sorted.merge(
         df[["original_position"]], left_on="original_position", right_index=True
     )
 
-    sorted["position_change"] = sorted["original_position"] - sorted["new_position"]
+    sorted["delta_semantic"] = sorted["original_position"] - sorted["i_semantic"]
     return sorted
 
 
@@ -59,33 +59,33 @@ def similarity_search(df: pd.DataFrame, embedding: list[float]) -> pd.DataFrame:
 #     return sorted_df
 
 
-def format_columns(df: pd.DataFrame) -> pd.DataFrame:
+# def format_columns(df: pd.DataFrame) -> pd.DataFrame:
 
-    # df["rank"] = df.index
-    df["rank"] = df.index + 1
+#     # df["rank"] = df.index
+#     df["rank"] = df.index + 1
 
-    # reorder and drop columns
-    df = df[
-        [
-            "rank",
-            "title",
-            "position_change",
-            "similarity",
-            "description",
-            "url",
-            "embedding",
-        ]
-    ]
+#     # reorder and drop columns
+#     df = df[
+#         [
+#             "rank",
+#             "title",
+#             "position_change",
+#             "similarity",
+#             "description",
+#             "url",
+#             "embedding",
+#         ]
+#     ]
 
-    # rename columns
-    df.columns = [
-        "Rank",
-        "Title",
-        "Delta",
-        "Similarity",
-        "Description",
-        "Link",
-        "Vector",
-    ]
+#     # rename columns
+#     df.columns = [
+#         "Rank",
+#         "Title",
+#         "Delta",
+#         "Similarity",
+#         "Description",
+#         "Link",
+#         "Vector",
+#     ]
 
-    return df
+#     return df

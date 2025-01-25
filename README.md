@@ -23,20 +23,16 @@ Assignment for the Right Word module at LIS.
 -   `scikit-learn`: PCA, KMeans
 -   `bm25s`: fast BM25 implementation
 
+## findings
+
+-   fun pca
+
 ## TODO
 
--   mvp
-    -   [ ] add clustering viz
-        -   add kmeans n selection
-            -   fix reactivity state management
-        -   show your dot / transform space around your dot
-        -   add color to your dot
-        -   auto cluster n
 -   new features
 
     -   show delta for bm25
     -   [ ] prompt engineering for the permutation
-    -
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
 
     -   find the last page automatically (

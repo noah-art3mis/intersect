@@ -30,10 +30,10 @@ def get_chart(df: pd.DataFrame) -> alt.Chart:
             color="Cluster:N",
             tooltip=alt.Tooltip(
                 [
-                    "Rank:N",
-                    "Title:N",
-                    "Delta:Q",
-                    "Similarity:Q",
+                    "title:N",
+                    "days_ago:Q",
+                    "similarity:Q",
+                    "description:N",
                 ],
                 # format=".2f", # coerces all fields
             ),
