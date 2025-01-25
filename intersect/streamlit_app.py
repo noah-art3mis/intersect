@@ -15,7 +15,7 @@ from tfidf import wordcloud_tfidf, tfidf_words
 from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
-DEFAULT_CV_PATH = "intersect/data/cvs/j.txt"
+DEFAULT_CV_PATH = "intersect/data/cvs/g.txt"
 
 
 def get_current_dbs() -> list[str]:
@@ -106,6 +106,8 @@ if submit:
     st.write("## Results")
 
     st.metric("Jobs found", len(original_df))
+
+    st.write("The tables are interactive. Click on a row to view the full description.")
 
     ### RELEVANCE ###
 
