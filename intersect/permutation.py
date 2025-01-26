@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from rich import print
+import re
+import json
 from openai import OpenAI
 import pandas as pd
 
@@ -11,55 +13,60 @@ import pandas as pd
 # https://cookbook.openai.com/examples/search_reranking_with_cross-encoders
 
 
-class PermutationResult(BaseModel):
-    new_rank: int
-    old_rank: int
-    description: str
+def build_prompt(query: str, snippets: str) -> list[dict]:
+    with open("intersect/data/prompt.txt", "r") as f:
+        content = f.read()
 
-
-class PermutationResults(BaseModel):
-    results: list[PermutationResult]
-
-
-def build_prompt(query: str, snippets: list[dict]) -> list[dict]:
-    content = f"I will provide you with passages. Rank the passages based on their relevance to query: {query}. Respond with a list of json objects and nothing else. these objects should have the fields: `title`, `old_rank` and `new_rank`. Order results by `new_rank`.\n\n###\n\nPassages:\n\n"
-
-    for snippet in snippets:
-        content = content + f"* {str(snippet)}\n\n"
+    content = re.sub(r"{{query}}", query, content)
+    content = re.sub(r"{{variable}}", snippets, content)
 
     return [
-        {
-            "role": "developer",
-            "content": "You are RankGPT, an assistant that can rank passages based on their relevance to the query.",
-        },
         {"role": "user", "content": content},
     ]
 
 
-def permutation_openai(query: str, snippets: list[dict], model="gpt-4o-mini", top_k=10):
+def permutation_openai(query: str, df: pd.DataFrame, model="gpt-4o-mini", top_k=10):
 
     client = OpenAI()
 
-    completion = client.beta.chat.completions.parse(
+    df = df.sort_values("i_relevance", ascending=False)
+
+    snippets = ""
+    for index, row in df[:top_k].iterrows():
+        snippets += f"""
+            <item_{index}>
+                index: {row['i_relevance']}
+                title: {row["title"]}
+                description: {row["description"]}
+            </item_{index}>
+                """
+
+    prompt = build_prompt(query, snippets)
+    completion = client.chat.completions.create(
         model=model,
-        messages=build_prompt(query, snippets),  # type: ignore
+        messages=prompt,  # type: ignore
         temperature=0,
-        response_format=PermutationResults,
     )
 
-    results = completion.choices[0].message.parsed
+    results = completion.choices[0].message.content
 
     if results is None:
         raise Exception("No results")
 
-    return postprocess_permutation(results, top_k=top_k)
+    return postprocess_permutation(results)
 
 
-def postprocess_permutation(response: PermutationResults, top_k=10) -> pd.DataFrame:
+def postprocess_permutation(response: str) -> pd.DataFrame:
 
-    data = [result.model_dump() for result in response.results]
+    cleaned_text = re.sub(
+        r"<ranking_criteria>.*?</ranking_criteria>", "", response, flags=re.DOTALL
+    )
+
+    cleaned_text = re.sub("new_rank", "i_permutation", cleaned_text)
+    cleaned_text = re.sub("index", "i_relevance", cleaned_text)
+    
+    data = json.loads(cleaned_text.strip())
     df = pd.DataFrame(data)
-    df = df.sort_values("new_rank")
+    df = df.sort_values("i_permutation")
 
-    df = df[["new_rank", "old_rank", "description"]]
     return df

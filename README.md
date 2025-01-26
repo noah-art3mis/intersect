@@ -20,20 +20,15 @@ Assignment for the Right Word module at LIS.
 
 -   new features
 
-    -   [ ] prompt engineering for the permutation
+    -   [ ] add llm permutation
+        -   [ ] sync old indices with new indices
     -   [ ] turn tables into cards
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
     -   [ ] infer keyword and location from the text
-
-    -   [ ] expand database to work in real time. hook up the scraping to the app
-    -   find the last page automatically
-
-        <p class="search-header__results">
-        Displaying <b>1-100</b> of 562 jobs
-        </p>
-
+    -   [ ] add scraping in real time (~a few minutes)
+        -   [ ] add csv download and upload so you dont have to scrape every time
+    -   [ ] find the last page automatically
     -   [ ] add async to openai embedding
-    -   [ ] add download button
     -   [ ] add local
         -   semantic search
         -   reranker
@@ -46,11 +41,10 @@ Assignment for the Right Word module at LIS.
 
 -   fix
     -   [ ] fix spacing issues
-    -   [ ] limit reranker to 1000
     -   [ ] why is drop duplicates not working
     -   [ ] why is ner so slow
-    -   [ ] scraping:incremental saving so long tasks are not lost
-    -   [ ] careful about limits in reranker
+    -   [ ] scraping: incremental saving so long tasks are not lost
+    -   [ ] careful about limits in reranker and llm
 
 ## Job boards
 

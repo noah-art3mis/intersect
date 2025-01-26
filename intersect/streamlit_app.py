@@ -16,7 +16,6 @@ from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
 DEFAULT_CV_PATH = "intersect/data/cvs/g.txt"
-TABLE_SIZE = 5
 
 
 def get_current_dbs() -> list[str]:
@@ -45,6 +44,10 @@ st.title("Intersect")
 Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
 """
 
+with st.sidebar:
+    table_size = st.select_slider("Table size", range(3, 11), 5)
+
+
 with st.form("my_form", border=False):
 
     st.write("## About the job")
@@ -67,6 +70,7 @@ with st.form("my_form", border=False):
     original_df = original_df.dropna()
     original_df = original_df.drop_duplicates(subset=["description"])
     original_df["i_relevance"] = original_df.index
+    original_df["id"] = original_df.index
     original_df["timestamp"] = pd.to_datetime(original_df["posted"], utc=True)
     now = datetime.now(timezone.utc)
     original_df["days_ago"] = (now - original_df["timestamp"]).dt.days  # type: ignore
@@ -108,7 +112,7 @@ if submit:
 
     st.metric("Jobs found", len(original_df))
 
-    st.write("The tables are interactive. Click on a row to view the full description.")
+    st.write("The tables are interactive. Double click the description to read it.")
 
     ### RELEVANCE ###
 
@@ -117,7 +121,7 @@ if submit:
     with st.spinner():
         view_relevance = df[
             [
-                "i_relevance",
+                "id",
                 "title",
                 "company",
                 "days_ago",
@@ -125,7 +129,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_relevance.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_relevance.head(table_size), hide_index=True)
 
     ### SEMANTIC ###
 
@@ -143,8 +147,8 @@ if submit:
 
         view_semantic = df[
             [
-                "i_relevance",
-                "i_semantic",
+                "id",
+                # "i_semantic",
                 "title",
                 "company",
                 "days_ago",
@@ -153,7 +157,7 @@ if submit:
             ]
         ]
 
-        st.dataframe(view_semantic.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_semantic.head(table_size), hide_index=True)
 
     ### SEMANTIC DELTA ###
 
@@ -164,9 +168,9 @@ if submit:
         df_semantic_delta = df.sort_values("delta_semantic", ascending=False)
         view_semantic_delta = df_semantic_delta[
             [
-                "i_relevance",
-                "i_semantic",
-                "delta_semantic",
+                "id",
+                # "i_semantic",
+                # "delta_semantic",
                 "title",
                 "company",
                 "days_ago",
@@ -174,7 +178,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_semantic_delta.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_semantic_delta.head(table_size), hide_index=True)
 
     ### EMBEDDING PCA ###
 
@@ -235,9 +239,9 @@ if submit:
         view_lexical = df.sort_values(by="score_lexical", ascending=False)
         view_lexical = view_lexical[
             [
-                "i_relevance",
-                "i_lexical",
-                "score_lexical",
+                "id",
+                # "i_lexical",
+                # "score_lexical",
                 "title",
                 "company",
                 "days_ago",
@@ -245,7 +249,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_lexical.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_lexical.head(table_size), hide_index=True)
 
     st.write("#### Lexical Search Displacement")
     with st.spinner():
@@ -253,9 +257,9 @@ if submit:
         df_lexical_delta = df.sort_values("delta_lexical", ascending=False)
         view_lexical_delta = df_lexical_delta[
             [
-                "i_relevance",
-                "i_lexical",
-                "delta_lexical",
+                "id",
+                # "i_lexical",
+                # "delta_lexical",
                 "title",
                 "company",
                 "days_ago",
@@ -263,7 +267,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_lexical_delta.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_lexical_delta.head(table_size), hide_index=True)
 
     ### RERANKER ###
 
@@ -274,9 +278,9 @@ if submit:
         view_reranked = df.sort_values(by="score_reranker", ascending=False)
         view_reranked = view_reranked[
             [
-                "i_relevance",
-                "i_reranker",
-                "score_reranker",
+                "id",
+                # "i_reranker",
+                # "score_reranker",
                 "title",
                 "company",
                 "days_ago",
@@ -284,7 +288,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_reranked.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_reranked.head(table_size), hide_index=True)
 
     st.write("#### Cross-encoding Displacement")
     with st.spinner():
@@ -292,9 +296,9 @@ if submit:
         df_reranker = df.sort_values("delta_reranker", ascending=False)
         view_reranker = df_reranker[
             [
-                "i_relevance",
-                "i_reranker",
-                "delta_reranker",
+                "id",
+                # "i_reranker",
+                # "delta_reranker",
                 "title",
                 "company",
                 "days_ago",
@@ -302,7 +306,7 @@ if submit:
                 "url",
             ]
         ]
-        st.dataframe(view_reranker.head(TABLE_SIZE), hide_index=True)
+        st.dataframe(view_reranker.head(table_size), hide_index=True)
 
     # st.write("### TF-IDF Table")
     # wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)
@@ -318,18 +322,29 @@ if submit:
     #     st.dataframe(entities_df)
     #     wordcloud_ner(ner_count(sentences))
 
-    ### PERMUTATION ###
-
-    # does not follow the prompt
+    ## PERMUTATION ###
     # st.write("#### Permutation Generation (LLM)")
     # with st.spinner():
-    #     df_permutation = df.copy(deep=True)
     #     permutation_results = permutation_openai(
     #         input_text,
-    #         df_reranker["description"].tolist(),
+    #         df,
     #         top_k=10,
     #     )
-    #     st.dataframe(permutation_results.head(5), hide_index=True)
+    #     st.dataframe(permutation_results)
+    #     df = df.merge(permutation_results, how="left", on="i_relevance")
+    #     st.dataframe(df, hide_index=True)
+    #     view_permutation = df[
+    #         [
+    #             "i_relevance",
+    #             "i_permutation",
+    #             "title",
+    #             "company",
+    #             "days_ago",
+    #             "description",
+    #             "url",
+    #         ]
+    #     ].sort_values(by="i_permutation", ascending=False)
+    #     st.dataframe(view_permutation.head(table_size), hide_index=True)
 
 st.write("---")
 st.write(
