@@ -16,6 +16,7 @@ from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
 DEFAULT_CV_PATH = "intersect/data/cvs/g.txt"
+TABLE_SIZE = 10
 
 
 def get_current_dbs() -> list[str]:
@@ -114,19 +115,17 @@ if submit:
     st.write("### Most relevant")
     st.write("Original results")
     with st.spinner():
-        st.dataframe(
-            df[
-                [
-                    "i_relevance",
-                    "title",
-                    "company",
-                    "days_ago",
-                    "description",
-                    "url",
-                ]
-            ].head(5),
-            hide_index=True,
-        )
+        view_relevance = df[
+            [
+                "i_relevance",
+                "title",
+                "company",
+                "days_ago",
+                "description",
+                "url",
+            ]
+        ]
+        st.dataframe(view_relevance.head(TABLE_SIZE), hide_index=True)
 
     ### SEMANTIC ###
 
@@ -139,29 +138,32 @@ if submit:
         if input_embedding is None:
             st.error("Failed to generate embedding.")
 
-        df_semantic = similarity_search(df, input_embedding)  # type: ignore
+        df = similarity_search(df, input_embedding)  # type: ignore
 
-        view_semantic = df_semantic[
+        view_semantic = df[
             [
                 "i_relevance",
+                "i_semantic",
                 "title",
                 "company",
                 "days_ago",
                 "description",
                 "url",
             ]
-        ].head(5)
+        ]
 
-        st.dataframe(view_semantic, hide_index=True)
+        st.dataframe(view_semantic.head(TABLE_SIZE), hide_index=True)
 
     ### SEMANTIC DELTA ###
 
     st.write("### Most interesting")
     st.write("Roles with highest change in position")
     with st.spinner():
-        df_semantic_delta = df_semantic.sort_values("delta_semantic", ascending=False)
+        df_semantic_delta = df.sort_values("delta_semantic", ascending=False)
         view_semantic_delta = df_semantic_delta[
             [
+                "i_relevance",
+                "i_semantic",
                 "delta_semantic",
                 "title",
                 "company",
@@ -169,8 +171,8 @@ if submit:
                 "description",
                 "url",
             ]
-        ].head(5)
-        st.dataframe(view_semantic_delta, hide_index=True)
+        ]
+        st.dataframe(view_semantic_delta.head(TABLE_SIZE), hide_index=True)
 
     ### EMBEDDING PCA ###
 
@@ -180,18 +182,18 @@ if submit:
         st.write("Select tabs for different clustering")
         st.write("Hover over items to see more details")
 
-        df_w_you = add_you(df_semantic, input_text, input_embedding)  # type: ignore
-        # st.dataframe(df_w_you, hide_index=True)
-        df_pca = pca_df(df_w_you, "embedding", n_components=2)
+        df_without_you = df.copy()
+        df_you = add_you(df_without_you, input_text, input_embedding)  # type: ignore
+        df_pca = pca_df(df_you, "embedding", n_components=2)
 
         tab1, tab2, tab3, tab4, tab5 = st.tabs(
             ["No clusters", "2 clusters", "3 clusters", "4 clusters", "5 clusters"]
         )
 
-        def generate_chart(df: pd.DataFrame, n_clusters: int) -> None:
-            df = add_clusters(df_pca, n_clusters, n_components=2)
-            df.loc[df["title"] == "Your text", "Cluster"] = "You"
-            chart = get_chart(df)
+        def generate_chart(_df: pd.DataFrame, n_clusters: int) -> None:
+            _df = add_clusters(df_pca, n_clusters, n_components=2)
+            _df.loc[_df["title"] == "Your text", "Cluster"] = "You"
+            chart = get_chart(_df)
             st.altair_chart(chart, use_container_width=True)
 
         with tab1:
@@ -214,7 +216,7 @@ if submit:
     st.write("### Relevant words")
     st.write("Topic modelling (TF-IDF)")
     with st.spinner():
-        wc = tfidf_words(df_semantic["description"].tolist())
+        wc = tfidf_words(df["description"].tolist())
         wcdf = pd.DataFrame(list(wc.items()), columns=["Word", "Frequency"])
         wordcloud_tfidf(wc)
 
@@ -227,9 +229,21 @@ if submit:
 
     st.write("#### Lexical Search (BM25)")
     with st.spinner():
-        df_lexical = df.copy(deep=True)
-        bm25_results = lexical_search(input_text, df_lexical["description"].tolist())
-        st.dataframe(bm25_results.head(5), hide_index=True)
+        df = lexical_search(input_text, df)
+        view_lexical = df.sort_values(by="score_lexical", ascending=False)
+        view_lexical = view_lexical[
+            [
+                "i_relevance",
+                "i_lexical",
+                "score_lexical",
+                "title",
+                "company",
+                "days_ago",
+                "description",
+                "url",
+            ]
+        ]
+        st.dataframe(view_lexical.head(TABLE_SIZE), hide_index=True)
 
     ### RERANKER ###
 
@@ -239,7 +253,7 @@ if submit:
         reranked_results = rerank_cohere(
             input_text, df_reranker["description"].tolist()
         )
-        st.dataframe(reranked_results.head(5), hide_index=True)
+        st.dataframe(reranked_results.head(TABLE_SIZE), hide_index=True)
 
     # st.write("### TF-IDF Table")
     # wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)

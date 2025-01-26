@@ -26,11 +26,13 @@ Assignment for the Right Word module at LIS.
 ## findings
 
 -   fun pca
+-   bm25 looks similar to the semantic displacement and not that much to the semantic search
 
 ## TODO
 
 -   new features
 
+    -   fix view for bm25 and rerankrer
     -   show delta for bm25
     -   [ ] prompt engineering for the permutation
     -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
