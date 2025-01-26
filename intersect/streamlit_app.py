@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from embedding import get_embedding
 from openai import OpenAI
 
-from utils import add_you
+from utils import add_you, add_index
 from read_pdf import get_text_from_pdf
 from semantic_search import similarity_search
 from cluster_viz import pca_df, get_chart, add_clusters
@@ -131,7 +131,7 @@ if submit:
 
     st.write("### Best fit")
     # st.write("### Semantic Search")
-    st.write("Roles with the highest semantic similarity to your text")
+    st.write("Roles with the highest semantic similarity")
     with st.spinner():
         input_embedding = get_embedding(OpenAI(), input_text)
 
@@ -139,6 +139,7 @@ if submit:
             st.error("Failed to generate embedding.")
 
         df = similarity_search(df, input_embedding)  # type: ignore
+        df = add_index(df, "score_semantic", "i_semantic")
 
         view_semantic = df[
             [
@@ -157,8 +158,9 @@ if submit:
     ### SEMANTIC DELTA ###
 
     st.write("### Most interesting")
-    st.write("Roles with highest change in position")
+    st.write("Roles with highest displacement")
     with st.spinner():
+        df["delta_semantic"] = df["i_relevance"] - df["i_semantic"]
         df_semantic_delta = df.sort_values("delta_semantic", ascending=False)
         view_semantic_delta = df_semantic_delta[
             [
@@ -245,15 +247,62 @@ if submit:
         ]
         st.dataframe(view_lexical.head(TABLE_SIZE), hide_index=True)
 
+    st.write("#### Lexical Search Displacement")
+    with st.spinner():
+        df["delta_lexical"] = df["i_relevance"] - df["i_lexical"]
+        df_lexical_delta = df.sort_values("delta_lexical", ascending=False)
+        view_lexical_delta = df_lexical_delta[
+            [
+                "i_relevance",
+                "i_lexical",
+                "delta_lexical",
+                "title",
+                "company",
+                "days_ago",
+                "description",
+                "url",
+            ]
+        ]
+        st.dataframe(view_lexical_delta.head(TABLE_SIZE), hide_index=True)
+
     ### RERANKER ###
 
     st.write("#### Rerank with Cross-encoding")
     with st.spinner():
-        df_reranker = df.copy(deep=True)
-        reranked_results = rerank_cohere(
-            input_text, df_reranker["description"].tolist()
-        )
-        st.dataframe(reranked_results.head(TABLE_SIZE), hide_index=True)
+        df = rerank_cohere(input_text, df)
+        df = add_index(df, "score_reranker", new_index="i_reranker")
+        view_reranked = df.sort_values(by="score_reranker", ascending=False)
+        view_reranked = view_reranked[
+            [
+                "i_relevance",
+                "i_reranker",
+                "score_reranker",
+                "title",
+                "company",
+                "days_ago",
+                "description",
+                "url",
+            ]
+        ]
+        st.dataframe(view_reranked.head(TABLE_SIZE), hide_index=True)
+
+    st.write("#### Cross-encoding Displacement")
+    with st.spinner():
+        df["delta_reranker"] = df["i_relevance"] - df["i_reranker"]
+        df_reranker = df.sort_values("delta_reranker", ascending=False)
+        view_reranker = df_reranker[
+            [
+                "i_relevance",
+                "i_reranker",
+                "delta_reranker",
+                "title",
+                "company",
+                "days_ago",
+                "description",
+                "url",
+            ]
+        ]
+        st.dataframe(view_reranker.head(TABLE_SIZE), hide_index=True)
 
     # st.write("### TF-IDF Table")
     # wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)
@@ -283,4 +332,6 @@ if submit:
     #     st.dataframe(permutation_results.head(5), hide_index=True)
 
 st.write("---")
-st.write("Made by [Gustavo Costa](https://github.com/noah-art3mis)")
+st.write(
+    "Made by Gustavo Costa ([Github](https://github.com/noah-art3mis) / [LinkedIn](https://www.linkedin.com/in/gustavoarcos/) / [Website](https://simulacro.co.uk/)) "
+)

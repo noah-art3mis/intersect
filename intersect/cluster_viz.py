@@ -32,7 +32,7 @@ def get_chart(df: pd.DataFrame) -> alt.Chart:
                 [
                     "title:N",
                     "days_ago:Q",
-                    "similarity:Q",
+                    "score_semantic:Q",
                     "description:N",
                 ],
                 # format=".2f", # coerces all fields

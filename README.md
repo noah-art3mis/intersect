@@ -27,6 +27,7 @@ Assignment for the Right Word module at LIS.
 
 -   fun pca
 -   bm25 looks similar to the semantic displacement and not that much to the semantic search
+-   either very different from the original one
 
 ## TODO
 
@@ -67,6 +68,7 @@ Assignment for the Right Word module at LIS.
         -   drop keywords, city and uk
         -   why is this so slow
     -   incremental saving so long tasks are not lost
+    -   careful about limits in reranker
 
 ## Explanations
 
