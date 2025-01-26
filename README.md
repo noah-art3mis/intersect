@@ -4,14 +4,7 @@ Find the job you actually want - using AI.
 
 Access here: https://intersect.streamlit.app
 
-Possible alternative product names: axis, compass, pathway, waypoint
-
 Assignment for the Right Word module at LIS.
-
-1. extract
-2. transform
-3. generate descriptions
-4. generate embeddings
 
 ## Tech stack:
 
@@ -22,12 +15,6 @@ Assignment for the Right Word module at LIS.
 -   `pypdf`: pdf parsing
 -   `scikit-learn`: PCA, KMeans
 -   `bm25s`: fast BM25 implementation
-
-## findings
-
--   fun pca
--   bm25 looks similar to the semantic displacement and not that much to the semantic search
--   either very different from the original one
 
 ## TODO
 
@@ -75,6 +62,7 @@ Some info on this [here](https://www.techradar.com/best/uk-job-sites) and [here]
     -   [ ] Indeed UK
     -   [ ] Adzuna
     -   [ ] Reed
+    -   [ ] Google for jobs
     -   [ ] Monster
     -   [ ] Totaljobs
     -   [ ] LinkedIn

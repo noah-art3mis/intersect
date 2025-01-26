@@ -16,7 +16,7 @@ from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
 
 DEFAULT_CV_PATH = "intersect/data/cvs/g.txt"
-TABLE_SIZE = 10
+TABLE_SIZE = 5
 
 
 def get_current_dbs() -> list[str]:
@@ -194,7 +194,7 @@ if submit:
 
         def generate_chart(_df: pd.DataFrame, n_clusters: int) -> None:
             _df = add_clusters(df_pca, n_clusters, n_components=2)
-            _df.loc[_df["title"] == "Your text", "Cluster"] = "You"
+            _df.loc[_df["title"] == "Your text", "Cluster"] = " You"
             chart = get_chart(_df)
             st.altair_chart(chart, use_container_width=True)
 
