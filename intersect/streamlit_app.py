@@ -42,6 +42,8 @@ st.title("Intersect")
 """Find the job you actually want - using AI.
 
 Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
+
+This is essentially intersecting two searches - one using a keyword and another using the meaning of a text. You can think of this as searching both for what you want and what you need.
 """
 
 with st.sidebar:
