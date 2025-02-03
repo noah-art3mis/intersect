@@ -8,7 +8,6 @@ import pandas as pd
 # https://arxiv.org/abs/2304.09542
 # https://arxiv.org/html/2406.12433v2
 # https://github.com/castorini/rank_llm/
-# https://github.com/castorini/rank_llm/
 # https://blog.reachsumit.com/posts/2023/12/prompting-llm-for-ranking/
 # https://cookbook.openai.com/examples/search_reranking_with_cross-encoders
 

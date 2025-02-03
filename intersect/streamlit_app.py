@@ -23,7 +23,7 @@ def get_current_dbs() -> list[str]:
         "ai",
         "change",
         "data",
-        "facilitator",
+        # "facilitator",
         "fun",
         "law-ai",
         "law",
@@ -42,6 +42,8 @@ st.title("Intersect")
 """Find the job you actually want - using AI.
 
 Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
+
+This is essentially intersecting two searches - one using a keyword and another using the meaning of a text. You can think of this as searching both for what you want and what you need.
 """
 
 with st.sidebar:
@@ -114,10 +116,19 @@ if submit:
 
     st.write("The tables are interactive. Double click the description to read it.")
 
+    ### TFDIF ###
+
+    # st.write("### Relevant words")
+    # st.write("Topic modelling (TF-IDF)")
+    with st.spinner():
+        wc = tfidf_words(df["description"].tolist())
+        wcdf = pd.DataFrame(list(wc.items()), columns=["Word", "Frequency"])
+        wordcloud_tfidf(wc)
+
     ### RELEVANCE ###
 
     st.write("### Most relevant")
-    st.write("Original results")
+    # st.write("Original results")
     with st.spinner():
         view_relevance = df[
             [
@@ -135,7 +146,7 @@ if submit:
 
     st.write("### Best fit")
     # st.write("### Semantic Search")
-    st.write("Roles with the highest semantic similarity")
+    # st.write("Roles with the highest semantic similarity")
     with st.spinner():
         input_embedding = get_embedding(OpenAI(), input_text)
 
@@ -162,7 +173,7 @@ if submit:
     ### SEMANTIC DELTA ###
 
     st.write("### Most interesting")
-    st.write("Roles with highest displacement")
+    # st.write("Roles with highest displacement")
     with st.spinner():
         df["delta_semantic"] = df["i_relevance"] - df["i_semantic"]
         df_semantic_delta = df.sort_values("delta_semantic", ascending=False)
@@ -217,23 +228,14 @@ if submit:
         with tab5:
             generate_chart(df_pca, 5)
 
-    ### TFDIF ###
-
-    st.write("### Relevant words")
-    st.write("Topic modelling (TF-IDF)")
-    with st.spinner():
-        wc = tfidf_words(df["description"].tolist())
-        wcdf = pd.DataFrame(list(wc.items()), columns=["Word", "Frequency"])
-        wordcloud_tfidf(wc)
-
     # st.write("### All results")
     # st.dataframe(df, hide_index=True)
 
-    st.write("### Other methods")
+    # st.write("### Other methods")
 
     ### LEXICAL ###
 
-    st.write("#### Lexical Search (BM25)")
+    st.write("### Lexical Search (BM25)")
     with st.spinner():
         df = lexical_search(input_text, df)
         view_lexical = df.sort_values(by="score_lexical", ascending=False)
@@ -251,27 +253,27 @@ if submit:
         ]
         st.dataframe(view_lexical.head(table_size), hide_index=True)
 
-    st.write("#### Lexical Search Displacement")
-    with st.spinner():
-        df["delta_lexical"] = df["i_relevance"] - df["i_lexical"]
-        df_lexical_delta = df.sort_values("delta_lexical", ascending=False)
-        view_lexical_delta = df_lexical_delta[
-            [
-                "id",
-                # "i_lexical",
-                # "delta_lexical",
-                "title",
-                "company",
-                "days_ago",
-                "description",
-                "url",
-            ]
-        ]
-        st.dataframe(view_lexical_delta.head(table_size), hide_index=True)
+    # st.write("#### Lexical Search Displacement")
+    # with st.spinner():
+    #     df["delta_lexical"] = df["i_relevance"] - df["i_lexical"]
+    #     df_lexical_delta = df.sort_values("delta_lexical", ascending=False)
+    #     view_lexical_delta = df_lexical_delta[
+    #         [
+    #             "id",
+    #             # "i_lexical",
+    #             # "delta_lexical",
+    #             "title",
+    #             "company",
+    #             "days_ago",
+    #             "description",
+    #             "url",
+    #         ]
+    #     ]
+    #     st.dataframe(view_lexical_delta.head(table_size), hide_index=True)
 
     ### RERANKER ###
 
-    st.write("#### Rerank with Cross-encoding")
+    st.write("### Rerank with Cross-encoding")
     with st.spinner():
         df = rerank_cohere(input_text, df)
         df = add_index(df, "score_reranker", new_index="i_reranker")
@@ -290,23 +292,23 @@ if submit:
         ]
         st.dataframe(view_reranked.head(table_size), hide_index=True)
 
-    st.write("#### Cross-encoding Displacement")
-    with st.spinner():
-        df["delta_reranker"] = df["i_relevance"] - df["i_reranker"]
-        df_reranker = df.sort_values("delta_reranker", ascending=False)
-        view_reranker = df_reranker[
-            [
-                "id",
-                # "i_reranker",
-                # "delta_reranker",
-                "title",
-                "company",
-                "days_ago",
-                "description",
-                "url",
-            ]
-        ]
-        st.dataframe(view_reranker.head(table_size), hide_index=True)
+    # st.write("#### Cross-encoding Displacement")
+    # with st.spinner():
+    #     df["delta_reranker"] = df["i_relevance"] - df["i_reranker"]
+    #     df_reranker = df.sort_values("delta_reranker", ascending=False)
+    #     view_reranker = df_reranker[
+    #         [
+    #             "id",
+    #             # "i_reranker",
+    #             # "delta_reranker",
+    #             "title",
+    #             "company",
+    #             "days_ago",
+    #             "description",
+    #             "url",
+    #         ]
+    #     ]
+    #     st.dataframe(view_reranker.head(table_size), hide_index=True)
 
     # st.write("### TF-IDF Table")
     # wc_sorted = wcdf.sort_values(by="Frequency", ascending=False)

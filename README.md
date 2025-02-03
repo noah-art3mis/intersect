@@ -13,7 +13,7 @@ Assignment for the Right Word module at LIS.
 -   `openai` and `cohere`: embedding and rerank models
 -   `proxyscrape` and `curl_cffi`: scraping
 -   `pypdf`: pdf parsing
--   `scikit-learn`: PCA, KMeans
+-   `scikit-learn`: PCA, KMeans, Tfidf (word count)
 -   `bm25s`: fast BM25 implementation
 
 ## TODO
