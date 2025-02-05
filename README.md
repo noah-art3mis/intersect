@@ -2,19 +2,31 @@
 
 Find the job you actually want - using AI.
 
-Access here: https://intersect.streamlit.app
+Access the web page here: https://intersect.streamlit.app
+
+Read the report in the `M7003_finalpiece_24000114067.html` file (pdf and ipynb also available).
 
 Assignment for the Right Word module at LIS.
 
-## Tech stack:
+## Implementation details:
 
 -   `uv`: environment and dependency management
 -   `streamlit`: web framework (frontend and backend) and hosting
--   `openai` and `cohere`: embedding and rerank models
--   `proxyscrape` and `curl_cffi`: scraping
 -   `pypdf`: pdf parsing
--   `scikit-learn`: PCA, KMeans, Tfidf (word count)
--   `bm25s`: fast BM25 implementation
+-   `proxyscrape` and `curl_cffi`: scraping
+-   semantic search: OpenAI's `text-embedding-3-small`
+-   lexical search: `bm25s` (Lucene method)
+    -   preprocessing (tokenizer, stemmer, stop words)
+-   visualization: PCA for dimensionality reduction, KMeans for clustering from `scikit-learn` (Might be more appropriate to use other algorithms such as t-SNE, LSA, mean-shift and dbscan)
+-   reranker: Cohere's reranking model
+
+Scraping cost around $2 to use the proxy for one day. Implementation includes, async, semaphore and retry.
+
+`openai` and `cohere` mdoels can be changed to models which are free, local and open source.
+
+Named entity recognition and llm permutation were experimented with but were not used in the final product. Also tables with displacement from reranker and lexical search, as it would add unnecessary cognitive load with little benefit. While the word cloud is mostly meaningless, testers seem to like the visuals.
+
+The obvious next move here is to add different job boards and concatenate the ETL pipeline properly so it scrapes in real time (although this would take a few minutes).
 
 ## TODO
 
