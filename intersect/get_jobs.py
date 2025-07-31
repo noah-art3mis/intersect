@@ -1,7 +1,7 @@
 import requests
 import json
 import logging
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass
 from datetime import datetime
 import os
@@ -18,9 +18,7 @@ logger = logging.getLogger(__name__)
 class ReedJob:
     """Data class to represent a job listing"""
     job_id: int
-    employer_id: int
     employer_name: str
-    employer_profile_id: Optional[int]
     job_title: str
     description: str
     location_name: str
@@ -33,8 +31,9 @@ class ReedJob:
     contract_type: Optional[str]
     job_type: Optional[str]
     expiration_date: Optional[str]
-    external_url: Optional[str]
-    reed_url: Optional[str]
+    applications: Optional[int]
+    job_url: Optional[str]
+    data_source: str
 
 
 class ReedAPI:
@@ -72,7 +71,7 @@ class ReedAPI:
                    posted_by_direct_employer: Optional[bool] = None,
                    graduate: Optional[bool] = None,
                    results_to_take: Optional[int] = None,
-                   results_to_skip: Optional[int] = None) -> list[ReedJob]:
+                   results_to_skip: Optional[int] = None) -> Tuple[list[ReedJob], Dict[str, Any]]:
         """
         Search for jobs using the Reed.co.uk API
         
@@ -167,17 +166,23 @@ class ReedAPI:
         
         jobs = []
         
+        # Ensure jobs_data is a list before iterating
+        if not isinstance(jobs_data, list):
+            logger.error(f"jobs_data is not a list after processing: {type(jobs_data)}")
+            raise Exception(f"Expected list of jobs, got {type(jobs_data)}")
+        
         for job_data in jobs_data:
+
             job = ReedJob(
                 job_id=job_data.get('jobId'),
-                employer_id=job_data.get('employerId'),
-                employer_name=job_data.get('employerName', ''),
-                employer_profile_id=job_data.get('employerProfileId'),
-                job_title=job_data.get('jobTitle', ''),
-                description=job_data.get('description', ''),
-                location_name=job_data.get('locationName', ''),
+                employer_name=job_data.get('employerName'),
+                job_title=job_data.get('jobTitle'),
+                description=job_data.get('jobDescription'),
+                location_name=job_data.get('locationName'),
                 minimum_salary=job_data.get('minimumSalary'),
                 maximum_salary=job_data.get('maximumSalary'),
+                applications=job_data.get('applications'),
+                job_url=job_data.get('jobUrl'),
                 yearly_minimum_salary=None,  # Not available in search results
                 yearly_maximum_salary=None,  # Not available in search results
                 currency=None,  # Not available in search results
@@ -185,14 +190,13 @@ class ReedAPI:
                 contract_type=None,  # Not available in search results
                 job_type=None,  # Not available in search results
                 expiration_date=None,  # Not available in search results
-                external_url=None,  # Not available in search results
-                reed_url=None  # Not available in search results
+                data_source="reef",
             )
             jobs.append(job)
-        
-        return jobs
+
+        return jobs, params
     
-    def get_job_details(self, job_id: int) -> Optional[ReedJob]:
+    def get_job_details(self, job_id: int) -> Optional[Dict[str, Any]]:
         """
         Get detailed information about a specific job
         
@@ -200,7 +204,7 @@ class ReedAPI:
             job_id: The ID of the job to retrieve
             
         Returns:
-            ReedJob object with full details, or None if job not found
+            Dictionary with key job details, or None if job not found
         """
         url = f"{self.base_url}/jobs/{job_id}"
         logger.info(f"Making job details request to: {url}")
@@ -224,87 +228,44 @@ class ReedAPI:
         if not job_data or not job_data.get('jobId'):
             return None
         
-        job = ReedJob(
-            job_id=job_data.get('jobId'),
-            employer_id=job_data.get('employerId'),
-            employer_name=job_data.get('employerName', ''),
-            employer_profile_id=None,  # Not available in details
-            job_title=job_data.get('jobTitle', ''),
-            description=job_data.get('jobDescription', ''),
-            location_name=job_data.get('locationName', ''),
-            minimum_salary=job_data.get('minimumSalary'),
-            maximum_salary=job_data.get('maximumSalary'),
-            yearly_minimum_salary=job_data.get('yearlyMinimumSalary'),
-            yearly_maximum_salary=job_data.get('yearlyMaximumSalary'),
-            currency=job_data.get('currency'),
-            salary_type=job_data.get('salaryType'),
-            contract_type=job_data.get('contractType'),
-            job_type=job_data.get('jobType'),
-            expiration_date=job_data.get('expirationDate'),
-            external_url=job_data.get('externalUrl'),
-            reed_url=job_data.get('url')
-        )
-        
-        return job
+        # Return simplified dictionary with key fields
+        return {
+            'salary': job_data.get('salary'),
+            'datePosted': job_data.get('datePosted'),
+            'jobDetails': job_data.get('jobDescription'),
+        }
 
 
-def main():
-    """Example usage of the Reed API client"""
+def reed_jobs_to_dicts(jobs: List[ReedJob]) -> List[Dict[str, Any]]:
+    """
+    Convert ReedJob objects to dictionaries for storage
     
-    dotenv.load_dotenv()
-    api_key = os.getenv("REED_API_KEY")
-    
-    try:
-        # Initialize the API client
-        api = ReedAPI()
+    Args:
+        jobs: List of ReedJob objects
         
-        logger.info(f"API Key configured: {'Yes' if api.api_key else 'No'}")
-        logger.info("🔍 Searching for Python developer jobs in London...")
-        
-        # Search for Python developer jobs in London
-        job_result = api.search_jobs(
-            keywords="Python developer",
-            location_name="London",
-            results_to_take=5
-        )
-        logger.info(f"Found {len(job_result)} jobs:")
-        print("-" * 50)
-        
-        for i, job in enumerate(job_result, 1):
-            print(f"{i}. {job.job_title}")
-            print(f"   Company: {job.employer_name}")
-            print(f"   Location: {job.location_name}")
-            if job.minimum_salary and job.maximum_salary:
-                print(f"   Salary: £{job.minimum_salary:,} - £{job.maximum_salary:,}")
-            elif job.minimum_salary:
-                print(f"   Salary: From £{job.minimum_salary:,}")
-            print(f"   Job ID: {job.job_id}")
-            print()
-        
-        # Get detailed information for the first job
-        if job_result:
-            logger.info("📋 Getting detailed information for the first job...")
-            detailed_job = api.get_job_details(job_result[0].job_id)
-            
-            if detailed_job:
-                print(f"Detailed job information for: {detailed_job.job_title}")
-                print(f"Company: {detailed_job.employer_name}")
-                print(f"Location: {detailed_job.location_name}")
-                print(f"Contract Type: {detailed_job.contract_type}")
-                print(f"Job Type: {detailed_job.job_type}")
-                if detailed_job.yearly_minimum_salary and detailed_job.yearly_maximum_salary:
-                    print(f"Yearly Salary: £{detailed_job.yearly_minimum_salary:,} - £{detailed_job.yearly_maximum_salary:,}")
-                if detailed_job.reed_url:
-                    print(f"Apply here: {detailed_job.reed_url}")
-                print(f"Description: {detailed_job.description[:200]}...")
-            else:
-                logger.warning("Could not retrieve detailed job information")
-        
-    except ValueError as e:
-        logger.error(f"❌ Configuration error: {e}")
-        print("Please set your REED_API_KEY environment variable:")
-        print("export REED_API_KEY='your_api_key_here'")
-
-
-if __name__ == "__main__":
-    main()
+    Returns:
+        List of job dictionaries
+    """
+    jobs_data = []
+    for job in jobs:
+        job_dict = {
+            'job_id': job.job_id,
+            'employer_name': job.employer_name,
+            'job_title': job.job_title,
+            'description': job.description,
+            'location_name': job.location_name,
+            'minimum_salary': job.minimum_salary,
+            'maximum_salary': job.maximum_salary,
+            'yearly_minimum_salary': job.yearly_minimum_salary,
+            'yearly_maximum_salary': job.yearly_maximum_salary,
+            'currency': job.currency,
+            'salary_type': job.salary_type,
+            'contract_type': job.contract_type,
+            'job_type': job.job_type,
+            'expiration_date': job.expiration_date,
+            'applications': job.applications,
+            'job_url': job.job_url,
+            'data_source': job.data_source
+        }
+        jobs_data.append(job_dict)
+    return jobs_data

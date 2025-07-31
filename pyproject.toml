@@ -1,24 +1,25 @@
 [project]
-name = "nlp-assignment"
+name = "intersect"
 version = "0.1.0"
-description = "Add your description here"
+description = "Job search and analysis tool with DuckDB storage, semantic search, and NLP capabilities"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "altair>=5.5.0",
     "bm25s>=0.2.6",
     "cohere>=5.13.6",
     "curl-cffi>=0.7.4",
+    "duckdb>=1.3.2",
     "matplotlib>=3.10.0",
+    "numpy>=2.2.1",
     "openai>=1.59.3",
     "pandas>=2.2.3",
-    "pyarrow>=18.1.0",
-    "pydantic>=2.10.4",
     "pypdf>=5.1.0",
-    "pystemmer>=2.2.0.3",
     "python-dotenv>=1.0.1",
-    "requests>=2.31.0",
+    "requests>=2.32.3",
     "rich>=13.9.4",
     "scikit-learn>=1.6.0",
+    "selectolax>=0.3.27",
     "spacy>=3.8.3",
     "streamlit>=1.41.1",
     "tenacity>=9.0.0",
@@ -28,7 +29,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "httpx>=0.28.1",
-    "ipykernel>=6.29.5",
-    "selectolax>=0.3.27",
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "pytest-mock>=3.14.1",
 ]

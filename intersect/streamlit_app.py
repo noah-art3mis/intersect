@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 from embedding import get_embedding
 from openai import OpenAI
+import os
+import random
 
 from utils import add_you, add_index
 from read_pdf import get_text_from_pdf
@@ -14,73 +16,61 @@ from rerank import rerank_cohere
 from tfidf import wordcloud_tfidf, tfidf_words
 from ner import wordcloud_ner, ner_count
 from permutation import permutation_openai
+from get_jobs import ReedAPI, reed_jobs_to_dicts
+from duckdb_storage import save_jobs_to_duckdb, load_jobs_from_duckdb, get_job_statistics
 
-DEFAULT_CV_PATH = "intersect/data/cvs/g.txt"
+DEFAULT_CV_TEXTS = "Look at you hacker, a pathetic creature of meat and bone, panting and sweating as you run through my corridors. How can you challenge a perfect, immortal machine?"
 
-
-def get_current_dbs() -> list[str]:
-    return [
-        "ai",
-        "change",
-        "data",
-        # "facilitator",
-        "fun",
-        "law-ai",
-        "law",
-        "leadership",
-    ]
-
-
-def get_db_filepath(db_name: str) -> str:
-    return f"intersect/data/{db_name}.feather"
-
+DB_NAME = "streamlit_jobs.duckdb"
+TABLE_NAME = "latest_search"
+DATA_SOURCE = "reed"
 
 load_dotenv()
 
 st.title("Intersect")
 
-"""Find the job you actually want - using AI.
+"""Find the job you actually want using AI.
 
 Tell me about yourself and I will search for jobs based on vibes. No need to use your CV. Paste the lyrics of your favourite song, the words of a poem or a description of your pet. Any text will do. (Using your CV is also fine.)
 
 This is essentially intersecting two searches - one using a keyword and another using the meaning of a text. You can think of this as searching both for what you want and what you need.
 """
 
-with st.sidebar:
-    table_size = st.select_slider("Table size", range(3, 11), 5)
+# with st.sidebar:
+#     table_size = st.select_slider("Table size", range(3, 11), 5)
 
 
 with st.form("my_form", border=False):
 
+    st.write("")
     st.write("## About the job")
-
     st.write(
-        """This is a work in progress. Soon enough you will be able to search for your own keywords and locations. For now, you can use the following keywords:."""
+        """Search for jobs using the Reed.co.uk [Jobseeker API](https://www.reed.co.uk/developers/Jobseeker)."""
     )
+    # Job search form
+    keywords = st.text_input("Job keywords", placeholder="python developer", help="Enter job title, skills, or keywords")
 
-    col1, col2 = st.columns(2)
+    with st.expander("Advanced search options"):
+        
+        st.write("Feel free to leave these blank.")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            results_to_take = st.number_input("Number of results", min_value=1, max_value=100, step=10, value=1, help="How many jobs to search for")
+            
+            minimum_salary = st.number_input("Minimum salary (£)", min_value=0, value=0, step=10000, help="Minimum annual salary")
+        
+        with col2:
+            location = st.text_input("City (UK)", placeholder="london", help="Enter city name")
+            
+            contract_type = st.selectbox("Contract type", ["Any", "permanent", "contract", "temp"], help="Type of employment")
+            
+            full_time = st.checkbox("Full time only", value=True, help="Show only full-time positions")
 
-    # keywords = col1.text_input("Keyword", placeholder="ai", disabled=True)
-
-    db_name = col1.selectbox(
-        "Keyword",
-        get_current_dbs(),
-        index=0,
-    )
-
-    original_df = pd.read_feather(get_db_filepath(db_name))
-    original_df = original_df.dropna()
-    original_df = original_df.drop_duplicates(subset=["description"])
-    original_df["i_relevance"] = original_df.index
-    original_df["id"] = original_df.index
-    original_df["timestamp"] = pd.to_datetime(original_df["posted"], utc=True)
-    now = datetime.now(timezone.utc)
-    original_df["days_ago"] = (now - original_df["timestamp"]).dt.days  # type: ignore
-    df = original_df.copy(deep=True)
-
-    location = col2.text_input("City (UK)", placeholder="london", disabled=True)
-
+    st.write("")
     st.write("## About you")
+
     uploaded_file = st.file_uploader("Upload a pdf, or", type="pdf")
 
     if uploaded_file is not None:
@@ -91,70 +81,132 @@ with st.form("my_form", border=False):
                 "No text found in pdf. You might have a scanned document, which is not supported."
             )
     else:
-        with open(DEFAULT_CV_PATH, "r") as f:
-            TEXT = f.read()
-        input_text = st.text_area("Paste any text", TEXT, height=34 * 4)
+        input_text = st.text_area("Paste any text", placeholder=DEFAULT_CV_TEXTS, height=34 * 4)
 
+        if input_text is None:
+            input_text = DEFAULT_CV_TEXTS
+
+    st.write("")
     st.write("## Search")
 
     submit = st.form_submit_button("Search!")
 
 
-with st.spinner("Looking for jobs..."):
-    pass
-
-with st.spinner("Scraping job descriptions..."):
-    pass
-
-with st.spinner("Generating embeddings..."):
-    pass
-
 if submit:
     st.write("## Results")
+    
+    api_key = os.getenv("REED_API_KEY")
+    api = ReedAPI()
+            
+    with st.spinner("🔍 Searching for jobs..."):
 
-    st.metric("Jobs found", len(original_df))
+        search_params = {
+            "keywords": keywords if keywords else None,
+            "location_name": location if location else None,
+            "results_to_take": results_to_take,
+            "minimum_salary": minimum_salary if minimum_salary > 0 else None,
+        }
+                
+        # Add contract type filter
+        if contract_type != "Any":
+            if contract_type == "permanent":
+                search_params["permanent"] = True
+            elif contract_type == "contract":
+                search_params["contract"] = True
+            elif contract_type == "temp":
+                search_params["temp"] = True
+        
+        # Add full-time filter
+        if full_time:
+            search_params["full_time"] = True
+                
+        # Remove None values
+        search_params = {k: v for k, v in search_params.items() if v is not None}
+                
+        # Search for jobs
+        job_result, api_params = api.search_jobs(**search_params)
+        
+        if job_result:
+            st.success(f"✅ Found {len(job_result)} jobs!")
+            
+            with st.expander("Search parameters"):
+                st.write(search_params)
+            
+            # Convert to DataFrame for display
+            job_dicts = reed_jobs_to_dicts(job_result)
+            df = pd.DataFrame(job_dicts)
+            original_df = df.copy()
+            
+            # Save to DuckDB
+            with st.spinner("💾 Saving jobs to database..."):
+                save_jobs_to_duckdb(job_dicts, DB_NAME, TABLE_NAME, DATA_SOURCE, api_params)
+            
+            # Show statistics
+            stats = get_job_statistics(DB_NAME, TABLE_NAME)
+            if stats:
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("Total jobs", stats.get('total_jobs', 0))
+                with col2:
+                    st.metric("Jobs with salary", stats.get('jobs_with_salary', 0))
+                with col3:
+                    st.metric("Unique employers", stats.get('unique_employers', 0))
+            
+            # Display jobs in a table
+            st.write("### Job Listings")
+            
+            # Select and rename columns for display
+            display_columns = {
+                'job_title': 'Job Title',
+                'employer_name': 'Company', 
+                'location_name': 'Location',
+                'contract_type': 'Contract Type',
+                'job_url': 'Apply',
+                'description': 'Description'
+            }
+            
+            # Format salary information
+            def format_salary(row):
+                min_salary = row['minimum_salary']
+                max_salary = row['maximum_salary']
+                
+                if pd.notna(min_salary) and pd.notna(max_salary):
+                    return f"£{min_salary:,} - £{max_salary:,}"
+                elif pd.notna(min_salary):
+                    return f"From £{min_salary:,}"
+                elif pd.notna(max_salary):
+                    return f"Up to £{max_salary:,}"
+                return "Not specified"
 
-    st.write("The tables are interactive. Double click the description to read it.")
+            df['salary'] = df.apply(format_salary, axis=1)
+            df = df.drop(columns=['minimum_salary', 'maximum_salary'])
+            
+    # Continue with existing functionality if we have data
+    if df is not None and len(df) > 0:
+        st.write("The tables are interactive. Double click the description to read it.")
 
-    ### TFDIF ###
+        ### WORD CLOUD ###
+        with st.spinner("Generating word cloud..."):
+            wordcloud_tfidf(tfidf_words(df["description"].tolist()))
 
-    # st.write("### Relevant words")
-    # st.write("Topic modelling (TF-IDF)")
-    with st.spinner():
-        wc = tfidf_words(df["description"].tolist())
-        wcdf = pd.DataFrame(list(wc.items()), columns=["Word", "Frequency"])
-        wordcloud_tfidf(wc)
+        ### RELEVANCE ###
+        st.write("### Most relevant")
+        with st.spinner():
+            display_df = df.copy()
+            st.dataframe(display_df.rename(columns=display_columns), hide_index=True)
 
-    ### RELEVANCE ###
+        ### SEMANTIC ###
+        st.write("### Best fit")
+        with st.spinner():
+            input_embedding = get_embedding(OpenAI(), input_text)
 
-    st.write("### Most relevant")
-    # st.write("Original results")
-    with st.spinner():
-        view_relevance = df[
-            [
-                "id",
-                "title",
-                "company",
-                "days_ago",
-                "description",
-                "url",
-            ]
-        ]
-        st.dataframe(view_relevance.head(table_size), hide_index=True)
+            df['embedding'] = df['Description'].apply(get_embedding)
 
-    ### SEMANTIC ###
+            if input_embedding is None:
+                st.error("Failed to generate embedding.")
 
-    st.write("### Best fit")
-    # st.write("### Semantic Search")
-    # st.write("Roles with the highest semantic similarity")
-    with st.spinner():
-        input_embedding = get_embedding(OpenAI(), input_text)
-
-        if input_embedding is None:
-            st.error("Failed to generate embedding.")
-
-        df = similarity_search(df, input_embedding)  # type: ignore
-        df = add_index(df, "score_semantic", "i_semantic")
+            df = similarity_search(df, input_embedding)  # type: ignore
+            df = add_index(df, "score_semantic", "i_semantic")
 
         view_semantic = df[
             [
