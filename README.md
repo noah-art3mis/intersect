@@ -67,6 +67,7 @@ It involves
 -   [ ] 'tell me who your friends are' mode where you give other peoples cvs and average the vectors
 
 -   fix
+    -   [ ] fix column width for urls being too long
     -   [ ] fix spacing issues
     -   [ ] why is drop duplicates not working
     -   [ ] why is ner so slow

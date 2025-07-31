@@ -21,8 +21,16 @@ import Stemmer
 # even though the point of tf-idf and bm25 is to deal with this, we find that the word clouds are dominated by words that are too generic to be useful.
 
 
-def lexical_search(query: str, df: pd.DataFrame) -> pd.DataFrame:
-    corpus = df["description"].tolist()
+def lexical_search(query: str, df: pd.DataFrame, corpus_col: str) -> pd.DataFrame:
+    """Side effects:
+        - adds "i_lexical": index (int),
+        - adds "score_lexical": score (float),
+
+    Returns:
+        - df: pd.DataFrame with the added columns
+    """
+
+    corpus = df[corpus_col].tolist()
 
     preprocessed_query = preprocess_text(query)
     preprocessed_corpus = [preprocess_text(doc) for doc in corpus]
@@ -34,7 +42,7 @@ def lexical_search(query: str, df: pd.DataFrame) -> pd.DataFrame:
     retriever.index(corpus_tokens)
 
     query_tokens = bm25s.tokenize(preprocessed_query, stopwords="en", stemmer=stemmer)
-    results, scores = retriever.retrieve(query_tokens, corpus=corpus, k=len(corpus))
+    results, scores = retriever.retrieve(query_tokens, corpus=preprocessed_corpus, k=len(corpus))
 
     formatted_results = []
 
@@ -56,4 +64,4 @@ def lexical_search(query: str, df: pd.DataFrame) -> pd.DataFrame:
 def preprocess_text(text: str) -> str:
     text = text.lower()
     # text = re.sub(r'[^a-z\s]', '', text)
-    return text
+    return text 

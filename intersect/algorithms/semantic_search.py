@@ -43,4 +43,4 @@ def similarity_search(df: pd.DataFrame, embedding: list[float]) -> pd.DataFrame:
 #         "Vector",
 #     ]
 
-#     return df
+#     return df 
