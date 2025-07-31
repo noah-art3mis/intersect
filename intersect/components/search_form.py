@@ -50,7 +50,7 @@ def render_search_form():
                 st.error("No text found in pdf. You might have a scanned document, which is not supported.")
         else:
             input_text = st.text_area("Paste any text", placeholder=DEFAULT_INPUT_TEXT, height=34 * 4)
-            if input_text is None:
+            if input_text is None or input_text.strip() == "":
                 input_text = DEFAULT_INPUT_TEXT
 
         st.write("")

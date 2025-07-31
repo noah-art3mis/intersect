@@ -41,3 +41,10 @@ def generate_embeddings(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     return df
+
+
+def get_input_embeddings(client: OpenAI, input_text: str) -> list[float]:
+    input_embedding = get_embedding(client, input_text)
+    if input_embedding is None:
+        raise ValueError("Failed to generate embedding.")
+    return input_embedding

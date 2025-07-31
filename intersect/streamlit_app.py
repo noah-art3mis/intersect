@@ -2,9 +2,10 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from components.search_form import render_search_form
-from components.job_search import search_and_process_jobs
+from components.job_search import build_search_params, search_jobs, display_job_stats
 from components.results_display import process_search
 from components.footer import render_footer
+from data_sources.preprocessing import preprocess_jobs
 
 load_dotenv()
 
@@ -17,21 +18,22 @@ Tell me about yourself and I will search for jobs based on vibes. No need to use
 This is essentially intersecting two searches - one using a keyword and another using the meaning of a text. You can think of this as searching both for what you want and what you need.
 """)
 
-# with st.sidebar:
-#     table_size = st.select_slider("Table size", range(3, 11), 5)
-
 form_data = render_search_form()
 
 if form_data['submit']:
     st.write("## Results")
-    
-    df, search_params = search_and_process_jobs(form_data)
-    
-    if df is None or len(df) == 0:
-        st.error("No jobs found to display")
+        
+    with st.spinner("🔍 Searching for jobs..."):
+        search_params = build_search_params(form_data)
+        df = search_jobs(search_params, "reed")
+        df = preprocess_jobs(df)
+        
+    if df.empty:
+        st.error("No jobs found with the given criteria.")
     else:
         st.write("The tables are interactive. Double click the description to read it.")
+
+        display_job_stats(df)
         process_search(df, form_data['input_text'])
 
-# Render footer
 render_footer()

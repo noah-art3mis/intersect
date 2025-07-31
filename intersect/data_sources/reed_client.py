@@ -71,7 +71,7 @@ class ReedAPI:
                    posted_by_direct_employer: Optional[bool] = None,
                    graduate: Optional[bool] = None,
                    results_to_take: Optional[int] = None,
-                   results_to_skip: Optional[int] = None) -> Tuple[list[ReedJob], Dict[str, Any]]:
+                   results_to_skip: Optional[int] = None) -> list[ReedJob]:
         """
         Search for jobs using the Reed.co.uk API
         
@@ -194,7 +194,7 @@ class ReedAPI:
             )
             jobs.append(job)
 
-        return jobs, params
+        return jobs
     
     def get_job_details(self, job_id: int) -> Optional[Dict[str, Any]]:
         """

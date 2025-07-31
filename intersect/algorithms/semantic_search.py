@@ -8,6 +8,8 @@ import numpy as np
 
 
 def similarity_search(df: pd.DataFrame, embedding: list[float]) -> pd.DataFrame:
+    """ expects a df with a column called 'embedding' """
+    
     df["score_semantic"] = df["embedding"].apply(lambda x: np.dot(embedding, x))
     return df
 
