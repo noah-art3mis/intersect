@@ -1,0 +1,29 @@
+column_name,type,description
+id,integer,Unique identifier for the job
+url,str,URL of the job posting
+job_title,str,Title of the job position
+date_posted,date,Date when the job was posted
+company_name,str,Name of the company offering the job
+description,str,Full description of the job
+location,str,Location of the job
+short_location,str,Short version of the job location
+long_location,str,Long version of the job location
+state_code,str,State code of the job location
+latitude,float,Latitude of the job location
+longitude,float,Longitude of the job location
+postal_code,str,Postal code of the job location
+remote,boolean,Whether the job is remote
+hybrid,boolean,Whether the job is hybrid (partially remote)
+salary_str,str,Salary information as a string
+min_annual_salary,float,Minimum annual salary
+min_annual_salary_usd,float,Minimum annual salary in USD
+max_annual_salary,float,Maximum annual salary
+max_annual_salary_usd,float,Maximum annual salary in USD
+avg_annual_salary_usd,float,Average annual salary in USD
+salary_currency,str,Currency of the salary
+country_codes,array,List of country codes where the job is available
+discovered_at,datetime,Timestamp when the job was discovered
+final_url,str,Final URL of the job posting after any redirects
+seniority,str,Seniority level of the job position
+hiring_team,json,Information about the hiring team
+company,json,Detailed information about the company offering the job

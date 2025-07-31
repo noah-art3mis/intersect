@@ -34,4 +34,4 @@ def wordcloud_ner(frequencies) -> None:
     wordcloud = WordCloud().generate_from_frequencies(frequencies)
     ax.imshow(wordcloud, interpolation="bilinear")
     ax.axis("off")
-    st.pyplot(fig)
+    st.pyplot(fig) 

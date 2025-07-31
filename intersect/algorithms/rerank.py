@@ -35,4 +35,4 @@ def rerank_cohere(query: str, _df: pd.DataFrame) -> pd.DataFrame:
 
     df_lexical = pd.DataFrame(results)
     _df = _df.merge(df_lexical, how="left", on="description")
-    return _df
+    return _df 

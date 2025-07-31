@@ -68,4 +68,4 @@ def postprocess_permutation(response: str) -> pd.DataFrame:
     df = pd.DataFrame(data)
     df = df.sort_values("i_permutation")
 
-    return df
+    return df 
