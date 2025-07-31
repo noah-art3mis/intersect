@@ -21,6 +21,10 @@ def render_search_form():
         with st.expander("Advanced search options"):
             st.write("Feel free to leave these blank.")
             
+            # Data source selection
+            data_source = st.selectbox("Data source", ["reed", "theirstack"], 
+                                     help="Choose which job database to search")
+            
             col1, col2 = st.columns(2)
             
             with col1:
@@ -65,5 +69,6 @@ def render_search_form():
             'minimum_salary': minimum_salary,
             'contract_type': contract_type,
             'full_time': full_time,
-            'input_text': input_text
+            'input_text': input_text,
+            'data_source': data_source
         } 

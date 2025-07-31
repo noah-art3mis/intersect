@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 from data_sources.reed_client import ReedAPI
+from data_sources.theirstack_client import TheirstackAPI
 
 def build_search_params(form_data):
     """Build search parameters from form data"""
@@ -35,6 +36,37 @@ def search_jobs(search_params: dict, data_source: str) -> pd.DataFrame:
             api = ReedAPI()
             jobs = api.search_jobs(**search_params)
             return pd.DataFrame(jobs)
+        case "theirstack":
+            api = TheirstackAPI("data/new/theirstack.csv")
+            jobs = api.search_jobs(**search_params)
+            return pd.DataFrame(jobs)
+        case _:
+            raise ValueError(f"Invalid data source: {data_source}")
+
+def get_display_columns(data_source: str) -> dict:
+    """Get display column mapping based on data source"""
+    match data_source:
+        case "reed":
+            return {
+                'job_title': 'Job Title',
+                'employer_name': 'Company', 
+                'location_name': 'Location',
+                "applications": "Applicants",
+                "salary": "Salary",
+                "expiration_date": "Expires",
+                'description': 'Description',
+                'job_url': 'URL',
+            }
+        case "theirstack":
+            return {
+                'title': 'Job Title',
+                'employer_name': 'Company', 
+                'location': 'Location',
+                "salary": "Salary",
+                "posted": "Posted",
+                'description': 'Description',
+                'url': 'URL',
+            }
         case _:
             raise ValueError(f"Invalid data source: {data_source}")
 

@@ -7,7 +7,9 @@ from utils.utils import format_salary
 
 
 def preprocess_jobs(df: pd.DataFrame) -> pd.DataFrame:
-    df = calculate_salary(df)
+    # Only calculate salary if it doesn't already exist
+    if 'salary' not in df.columns:
+        df = calculate_salary(df)
     df = clean_web_artifacts(df)
     # df = calculate_days_ago(df) # reef doesnt have a posted date
     return df

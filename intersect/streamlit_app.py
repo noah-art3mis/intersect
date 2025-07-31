@@ -25,7 +25,7 @@ if form_data['submit']:
         
     with st.spinner("🔍 Searching for jobs..."):
         search_params = build_search_params(form_data)
-        df = search_jobs(search_params, "reed")
+        df = search_jobs(search_params, form_data['data_source'])
         df = preprocess_jobs(df)
         
     if df.empty:
@@ -34,6 +34,6 @@ if form_data['submit']:
         st.write("The tables are interactive. Double click the description to read it.")
 
         display_job_stats(df)
-        process_search(df, form_data['input_text'])
+        process_search(df, form_data['input_text'], form_data['data_source'])
 
 render_footer()
