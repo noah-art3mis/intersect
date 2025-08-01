@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional, List, Any, Dict
 from datetime import datetime
+import hashlib
 
 
 @dataclass
@@ -14,15 +15,11 @@ class IntersectJob:
     """
 
     # Core job identification
-    intersect_id: str
     title: str
     description: str
-
-    # Company information
     employer: str
-
-    # Location
     location: str
+    intersect_id: Optional[str] = None  # Will be auto-generated from description hash
 
     # Salary information
     salary: Optional[str] = None
@@ -120,12 +117,16 @@ class IntersectJob:
         }
 
     def __post_init__(self):
-        """Validate required fields after initialization"""
-        if not self.intersect_id:
-            raise ValueError("intersect_id is required")
+        """Validate required fields after initialization and generate ID if needed"""
         if not self.title:
             raise ValueError("title is required")
         if not self.description:
             raise ValueError("description is required")
         if not self.data_source:
             raise ValueError("data_source is required")
+
+        # Generate intersect_id from description hash if not provided
+        if not self.intersect_id:
+            # Create a hash of the description
+            description_hash = hashlib.md5(self.description.encode("utf-8")).hexdigest()
+            self.intersect_id = description_hash

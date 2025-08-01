@@ -9,7 +9,6 @@ from .reed_types import ReedJob
 def reed_job_to_intersect_job(reed_job: ReedJob) -> IntersectJob:
     """Convert ReedJob to IntersectJob"""
     return IntersectJob(
-        intersect_id=str(reed_job.job_id),
         title=reed_job.job_title,
         description=reed_job.description,
         employer=reed_job.employer_name,
@@ -36,7 +35,6 @@ def reed_job_to_intersect_job(reed_job: ReedJob) -> IntersectJob:
 def theirstack_job_to_intersect_job(job_dict: Dict[str, Any]) -> IntersectJob:
     """Convert Theirstack job dictionary to IntersectJob"""
     return IntersectJob(
-        intersect_id=str(job_dict["job_id"]),
         title=job_dict["title"],
         description=job_dict["description"],
         employer=job_dict["employer_name"],

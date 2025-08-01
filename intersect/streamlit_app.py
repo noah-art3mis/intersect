@@ -38,10 +38,13 @@ if form_data["submit"]:
         df = search_jobs(search_params, form_data["data_source"])
         df = preprocess_jobs(df)
 
+    # DEBUG
+    # st.dataframe(df)
+
     if df.empty:
         st.error("No jobs found with the given criteria.")
     else:
-        st.write("The tables are interactive. Double click the description to read it.")
+        st.write("Tables and figures are interactive. Double click the description to read it.")
 
         display_job_stats(df)
         process_search(df, form_data["input_text"], form_data["data_source"])

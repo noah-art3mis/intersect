@@ -24,9 +24,10 @@ def process_search(
     openai_client = OpenAI()
     input_embedding = get_input_embeddings(openai_client, input_text)
 
-    if "embedding" not in df.columns:
+    # check if embeddings are missing
+    if bool(df["embedding"].isna().any()):
         with st.spinner():
-            logging.info("Embeddings not found in data. Generating...")
+            logging.info("Missing embeddings found in data. Generating...")
             df["embedding"] = df["description"].apply(
                 lambda x: get_embedding(openai_client, x)
             )
