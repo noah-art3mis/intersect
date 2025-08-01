@@ -4,7 +4,7 @@ from openai import OpenAI
 import logging
 
 from config.constants import TABLE_SIZE
-from components.job_search import get_display_columns
+from data_sources.types import IntersectJob
 from algorithms.semantic_search import similarity_search
 from algorithms.lexical_search import lexical_search
 from algorithms.wordcloud import render_wordcloud
@@ -109,7 +109,7 @@ def process_reranker_search(
     return df
 
 
-def process_semantic_delta(df: pd.DataFrame, data_source: str = "reed") -> pd.DataFrame:
+def process_semantic_delta(df: pd.DataFrame, data_source: str) -> pd.DataFrame:
     df["delta_semantic"] = df["index"] - df["i_semantic"]
     df.sort_values(by="delta_semantic", ascending=False, inplace=True)
     new_cols = {"delta_semantic": "Rank D"}
@@ -117,8 +117,8 @@ def process_semantic_delta(df: pd.DataFrame, data_source: str = "reed") -> pd.Da
     return df
 
 
-def display_df(df: pd.DataFrame, display_cols: dict, data_source: str = "reed") -> None:
-    display_columns = get_display_columns(data_source)
+def display_df(df: pd.DataFrame, display_cols: dict, data_source: str) -> None:
+    display_columns = IntersectJob.get_display_columns()
     display_cols.update(display_columns)
     _df = df.rename(columns=display_cols)
     st.dataframe(_df[display_cols.values()].head(TABLE_SIZE), hide_index=True)

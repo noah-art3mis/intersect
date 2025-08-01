@@ -44,20 +44,11 @@ def lexical_search(query: str, df: pd.DataFrame, corpus_col: str) -> pd.DataFram
     query_tokens = bm25s.tokenize(preprocessed_query, stopwords="en", stemmer=stemmer)
     results, scores = retriever.retrieve(query_tokens, corpus=preprocessed_corpus, k=len(corpus))
 
-    formatted_results = []
-
-    for i in range(results.shape[1]):
-        doc, score = results[0, i], scores[0, i]
-        formatted_results.append(
-            {
-                "i_lexical": i,
-                "score_lexical": score,
-                "description": doc,
-            }
-        )
-
-    df_lexical = pd.DataFrame(formatted_results)
-    df = df.merge(df_lexical, how="left", on="description")
+    # Add scores directly to the original DataFrame
+    df = df.copy()
+    df["score_lexical"] = scores[0]
+    df["i_lexical"] = range(len(df))
+    
     return df
 
 

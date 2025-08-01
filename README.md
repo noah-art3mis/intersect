@@ -46,10 +46,7 @@ It involves
 -   [ ] fix viz labels again
 -   [ ] add limits for embedding and for user submission
 -   [ ] add sanitize user input
--   [ ] add LDA for better clustering
--   [ ] add DBSCAN (HDBSCAN?) for clustering
--   [ ] add t-SNE for visualization
--   [ ] am i just recreating bertopic?
+-   [ ] add topic modelling to name the clusters
 -   [ ] add llm permutation
     -   [ ] sync old indices with new indices
 -   [ ] turn tables into cards
