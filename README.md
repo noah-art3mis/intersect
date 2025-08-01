@@ -40,6 +40,7 @@ It involves
 
 ## TODO
 
+- [ ] fix currency showing up as none
 -   [ ] how is running the same thing getting different results eaech time
 -   [ ] fix viz labels again
 -   [ ] add limits for embedding and for user submission
