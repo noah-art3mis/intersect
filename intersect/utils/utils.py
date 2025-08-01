@@ -24,7 +24,7 @@ def format_salary(row: pd.Series) -> str:
     if row["salary"] is not None:
         return str(row["salary"])
 
-    currency = str(row["currency"]) if row["currency"] != "" else ""
+    currency = str(row["currency"]) if row["currency"] and row["currency"] != "" else ""
 
     min_salary = row["minimum_salary"]
     max_salary = row["maximum_salary"]

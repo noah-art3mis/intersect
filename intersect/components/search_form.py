@@ -28,7 +28,8 @@ def render_search_form():
             # Data source selection
             data_source = st.selectbox(
                 "Data source",
-                ["theirstack", "reed"],
+                ["reed"],
+                # ["theirstack", "reed"], # DEBUG
                 help="Choose which job database to search",
             )
 
