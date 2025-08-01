@@ -7,7 +7,6 @@ TABLE_SIZE = 5
 # Database constants
 DB_NAME = "intersect.duckdb"
 TABLE_NAME = "latest_search"
-DATA_SOURCE = "reed" 
 
 # DEFAULT DISPLAY COLUMNS
 DISPLAY_COLUMNS = {

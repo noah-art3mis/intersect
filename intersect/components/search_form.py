@@ -22,14 +22,14 @@ def render_search_form():
             st.write("Feel free to leave these blank.")
             
             # Data source selection
-            data_source = st.selectbox("Data source", ["reed", "theirstack"], 
+            data_source = st.selectbox("Data source", ["theirstack", "reed"], 
                                      help="Choose which job database to search")
             
             col1, col2 = st.columns(2)
             
             with col1:
                 results_to_take = st.number_input("Number of results", min_value=1, 
-                                                max_value=100, step=10, value=1, 
+                                                max_value=100, step=10, value=20, 
                                                 help="How many jobs to search for")
                 minimum_salary = st.number_input("Minimum salary (£)", min_value=0, 
                                                value=0, step=10000, 

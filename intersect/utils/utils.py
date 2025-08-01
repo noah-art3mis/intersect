@@ -1,8 +1,6 @@
 import pandas as pd
 import logging
 import numpy as np
-from openai import OpenAI
-
 
 def add_you(df: pd.DataFrame, input_text: str, vector: list[float]) -> pd.DataFrame:
 

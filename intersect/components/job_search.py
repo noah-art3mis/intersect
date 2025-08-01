@@ -37,7 +37,7 @@ def search_jobs(search_params: dict, data_source: str) -> pd.DataFrame:
             jobs = api.search_jobs(**search_params)
             return pd.DataFrame(jobs)
         case "theirstack":
-            api = TheirstackAPI("data/new/theirstack.csv")
+            api = TheirstackAPI("data/new/theirstack.feather")
             jobs = api.search_jobs(**search_params)
             return pd.DataFrame(jobs)
         case _:

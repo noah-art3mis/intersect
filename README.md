@@ -42,18 +42,19 @@ It involves
 
 -   new features
 
--   add LDA for better clustering
--   add DBSCAN (HDBSCAN?) for clustering
--   add t-SNE for visualization
--   am i just recreating bertopic?
-
+-   [ ] add standard layer for data
+-   [ ] fix viz labels again
+-   [ ] add limits for embedding and for user submission
+-   [ ] add sanitize user input
+-   [ ] add LDA for better clustering
+-   [ ] add DBSCAN (HDBSCAN?) for clustering
+-   [ ] add t-SNE for visualization
+-   [ ] am i just recreating bertopic?
 -   [ ] add llm permutation
     -   [ ] sync old indices with new indices
 -   [ ] turn tables into cards
 -   [ ] add sponsor column by comparing to the ukvi excel spreadsheet
 -   [ ] infer keyword and location from the text
--   [ ] add scraping in real time (~a few minutes)
-    -   [ ] add csv download and upload so you dont have to scrape every time
 -   [ ] find the last page automatically
 -   [ ] add async to openai embedding
 -   [ ] add local
@@ -61,18 +62,8 @@ It involves
     -   reranker
     -   llm permutation
 -   [ ] prepend other cols before embedding
--   [ ] upgrade database to sqlite
--   [ ] permutation: test yaml
 -   [ ] add tracking the bluesky firehose for ai jobs
 -   [ ] 'tell me who your friends are' mode where you give other peoples cvs and average the vectors
-
--   fix
-    -   [ ] fix column width for urls being too long
-    -   [ ] fix spacing issues
-    -   [ ] why is drop duplicates not working
-    -   [ ] why is ner so slow
-    -   [ ] scraping: incremental saving so long tasks are not lost
-    -   [ ] careful about limits in reranker and llm
 
 ---
 
@@ -92,10 +83,10 @@ It involves
                 -   free
             -   https://rapidapi.com/fantastic-jobs-fantastic-jobs-default/api/upwork-jobs-api2/pricing
                 -   free 500 per month
-        - https://rapidapi.com/techmap-io-techmap-io-default/api/daily-international-job-postings/pricing
-            - 1000 free p month
+        -   https://rapidapi.com/techmap-io-techmap-io-default/api/daily-international-job-postings/pricing
+            -   1000 free p month
         -   https://publicapi.dev/jobdata-api
-            - However, please note that there's an hourly rate limit with a handful of requests without a valid API key
+            -   However, please note that there's an hourly rate limit with a handful of requests without a valid API key
         -   https://www.reed.co.uk/developers/Jobseeker
             -   no terms
         -   https://publicapi.dev/adzuna-api
