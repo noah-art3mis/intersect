@@ -1,7 +1,6 @@
 import pandas as pd
 import logging
 import numpy as np
-from openai import OpenAI
 
 
 def add_you(df: pd.DataFrame, input_text: str, vector: list[float]) -> pd.DataFrame:
@@ -20,11 +19,16 @@ def add_index(df: pd.DataFrame, column: str, new_index: str) -> pd.DataFrame:
     return df
 
 
-def format_salary(row: pd.Series, currency: str = "£") -> str:
-    """Format salary information for display"""
-    min_salary = row['minimum_salary']
-    max_salary = row['maximum_salary']
-    
+def format_salary(row: pd.Series) -> str:
+
+    if row["salary"] is not None:
+        return str(row["salary"])
+
+    currency = str(row["currency"]) if row["currency"] != "" else ""
+
+    min_salary = row["minimum_salary"]
+    max_salary = row["maximum_salary"]
+
     if min_salary is "" or max_salary is "":
         logging.warning(f"Salary information is missing for job {row['job_id']}")
         return ""

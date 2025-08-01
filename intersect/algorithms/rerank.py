@@ -24,15 +24,11 @@ def rerank_cohere(query: str, _df: pd.DataFrame) -> pd.DataFrame:
         # top_n=top_n,
     )
 
-    results = []
+    # Create a mapping of description to score
+    score_mapping = {}
     for result in response.results:
-        results.append(
-            {
-                "score_reranker": result.relevance_score,
-                "description": docs[result.index],
-            }
-        )
+        score_mapping[result.index] = result.relevance_score
 
-    df_lexical = pd.DataFrame(results)
-    _df = _df.merge(df_lexical, how="left", on="description")
-    return _df 
+    # Add the score_reranker column to the original dataframe
+    _df["score_reranker"] = _df.index.map(score_mapping)
+    return _df
